@@ -1,0 +1,65 @@
+.header {
+  background-image: url(https://www.cinema5d.com/wp-content/uploads/2014/06/drone.jpg);
+  background-position: center center;
+  background-size: cover;
+  height: 300px;
+  font-family: 'Roboto';
+  color:white;
+  text-align: center;
+  margin-top: 50px;
+}
+
+#footer {
+	background-color: #2e2e2e; 
+	color:white;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+body {
+	font-family: 'Roboto';
+	text-align: center;
+}
+
+.navbar
+	a {
+		color: white;
+	}
+
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+    background-color: #222;
+}
+
+.nav > li > a:focus, .nav > li > a:hover {
+	background-color: #222;
+}
+
+
+
+
+.intro {
+	background-color: ;
+}
+.team {
+	text-align:center;
+	background-color: #FAFAFA;
+}
+
+.team img {
+	max-width:100%;
+	margin:0 auto;
+	display: block;
+}
+
+@media screen and (max-width: 768px) {
+
+	.team img{
+		max-width:150px;
+		margin:0 auto;
+		display: block;
+	}
+}
+
+table {
+	text-align: left;
+}
