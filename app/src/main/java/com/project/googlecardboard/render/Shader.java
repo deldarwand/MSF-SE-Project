@@ -4,7 +4,11 @@ import android.opengl.GLES20;
 import android.opengl.Matrix;
 import android.util.Log;
 
+import com.project.googlecardboard.WorldLayoutData;
+
 import java.nio.Buffer;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 /**
@@ -12,7 +16,7 @@ import java.nio.FloatBuffer;
  *
  * Created by Garrett on 22/10/2015.
  */
-public class Shader {
+public abstract class Shader {
 
     public static final int VERTEX_SHADER = GLES20.GL_VERTEX_SHADER;
     public static final int FRAGMENT_SHADER = GLES20.GL_FRAGMENT_SHADER;
@@ -53,19 +57,65 @@ public class Shader {
         GLES20.glUseProgram(0);
     }
 
-    private int getUniformLocation(String name){
+    /**
+     * Loads all uniform variables
+     */
+    public abstract void loadUniformLocations();
+
+    /**
+     * Loads all attribute variables
+     */
+    public abstract void loadAttributeLocations();
+
+    /**
+     * Loads a uniform variable
+     * @param name
+     * @return
+     */
+    protected int getUniformLocation(String name){
         return GLES20.glGetUniformLocation(shaderID, name);
     }
 
-    private int getAttributeLocation(String name){
+    /**
+     * Loads an attribute variable
+     * @param name
+     * @return
+     */
+    protected int getAttributeLocation(String name){
         return GLES20.glGetAttribLocation(shaderID, name);
     }
 
-    public void loadMatrix(int location, float[] matrix){
-        FloatBuffer buffer = FloatBuffer.allocate(16);
-        buffer.put(matrix);
-        buffer.flip();
-        GLES20.glUniformMatrix4fv(location, 0, false, buffer);
+    /**
+     * Loads a unfirom matrix
+     * @param location
+     * @param matrix
+     */
+    protected void loadUniformMatrix(int location, float[] matrix){
+        GLES20.glUniformMatrix4fv(location, 1, false, matrix, 0);
+    }
+
+    /**
+     * Loads an attribute matrix
+     * @param location
+     * @param matrix
+     * @param perCoord
+     */
+    protected void loadAttributeMatrix(int location, float[] matrix, int perCoord){
+        GLES20.glVertexAttribPointer(location, perCoord, GLES20.GL_FLOAT, false, 0, arrayToBuffer(matrix));
+    }
+
+    /**
+     * Converts a float array to a float buffer
+     * @param matrix
+     * @return
+     */
+    private FloatBuffer arrayToBuffer(float[] matrix){
+        ByteBuffer buffer = ByteBuffer.allocateDirect(matrix.length * 4);
+        buffer.order(ByteOrder.nativeOrder());
+        FloatBuffer floatBuffer = buffer.asFloatBuffer();
+        floatBuffer.put(matrix);
+        floatBuffer.position(0);
+        return floatBuffer;
     }
 
     /**
