@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.wulfstan.googlecardboard;
+package com.project.googlecardboard;
 
 import android.content.Context;
 import android.graphics.Color;

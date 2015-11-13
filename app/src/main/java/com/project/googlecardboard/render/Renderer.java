@@ -1,15 +1,12 @@
-package com.wulfstan.googlecardboard.render;
+package com.project.googlecardboard.render;
 
 import android.opengl.GLES11;
 import android.opengl.GLES20;
-import android.opengl.GLES30;
-import android.opengl.Matrix;
 
-import com.wulfstan.googlecardboard.DroneActivity;
-import com.wulfstan.googlecardboard.gui.GUI;
-import com.wulfstan.googlecardboard.gui.GUIModel;
+import com.project.googlecardboard.DroneActivity;
+import com.project.googlecardboard.gui.GUI;
+import com.project.googlecardboard.gui.GUIModel;
 
-import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,12 +45,13 @@ public class Renderer {
         enableDepthTesting();
     }
 
-    private void drawGUI(GUI gui){
-
-        //GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, model.getVertexCount());
+    private void bindModel(){
+        //GLES20.glUniformMatrix4fv(0, 1, false, value);
     }
 
-    private void bindModel(){
+    private void drawGUI(GUI gui){
+
+        //GLES20.glVertexAttribPointer(0, 3, GLES20.GL_FLOAT, false, 0, gui.getPosition());
 
     }
 

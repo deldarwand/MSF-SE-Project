@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.wulfstan.googlecardboard;
+package com.project.googlecardboard;
 
 /**
  * Contains vertex, normal and color data.

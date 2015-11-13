@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.wulfstan.googlecardboard;
+package com.project.googlecardboard;
 
 import android.content.Context;
 import android.opengl.GLES20;
@@ -28,6 +28,7 @@ import com.google.vrtoolkit.cardboard.CardboardView;
 import com.google.vrtoolkit.cardboard.Eye;
 import com.google.vrtoolkit.cardboard.HeadTransform;
 import com.google.vrtoolkit.cardboard.Viewport;
+import com.wulfstan.googlecardboard.R;
 
 import java.io.BufferedReader;
 import java.io.IOException;

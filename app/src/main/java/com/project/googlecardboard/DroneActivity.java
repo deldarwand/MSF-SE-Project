@@ -1,7 +1,8 @@
-package com.wulfstan.googlecardboard;
+package com.project.googlecardboard;
 
 import android.content.Context;
 import android.opengl.GLES20;
+import android.opengl.Matrix;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -11,8 +12,9 @@ import com.google.vrtoolkit.cardboard.CardboardView;
 import com.google.vrtoolkit.cardboard.Eye;
 import com.google.vrtoolkit.cardboard.HeadTransform;
 import com.google.vrtoolkit.cardboard.Viewport;
-import com.wulfstan.googlecardboard.render.Renderer;
-import com.wulfstan.googlecardboard.render.Shader;
+import com.project.googlecardboard.render.Camera;
+import com.wulfstan.googlecardboard.R;
+import com.project.googlecardboard.render.Renderer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,6 +30,9 @@ public class DroneActivity extends CardboardActivity implements CardboardView.St
 
     private Vibrator vibrator;
     private Renderer renderer;
+
+    // Matrices
+    private Camera camera;
 
     private CardboardOverlayView view;
 
@@ -48,6 +53,14 @@ public class DroneActivity extends CardboardActivity implements CardboardView.St
         //this.renderer = new Renderer(shader);
         checkGLError("Renderer");
 
+        this.camera = new Camera();
+
+
+        setContentView(R.layout.common_ui);
+        CardboardView cardboardView = (CardboardView) findViewById(R.id.cardboard_view);
+        cardboardView.setRenderer(this);
+        setCardboardView(cardboardView);
+
         view = (CardboardOverlayView) findViewById(R.id.overlay);
     }
 
@@ -56,7 +69,7 @@ public class DroneActivity extends CardboardActivity implements CardboardView.St
      */
     @Override
     public void onCardboardTrigger(){
-        view.show3DToast("Hello");
+        view.show3DToast("Hello world");
     }
 
     // CARDBOARD VIEW . STEREO RENDERER
@@ -67,7 +80,7 @@ public class DroneActivity extends CardboardActivity implements CardboardView.St
      */
     @Override
     public void onNewFrame(HeadTransform headTransform){
-
+        headTransform.getHeadView(camera.getHeadView(), 0);
     }
 
     /**
@@ -78,6 +91,14 @@ public class DroneActivity extends CardboardActivity implements CardboardView.St
     public void onDrawEye(Eye eye){
         checkGLError("onDrawEye");
         //renderer.render();
+        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+
+        Matrix.multiplyMM(camera.getView(), 0, eye.getEyeView(), 0, camera.getPosition(), 0);
+
+        float[] perspective = eye.getPerspective(Camera.Z_NEAR, Camera.Z_FAR);
+        //Matrix.multiplyMM(modelView, 0, view, 0, modelCube, 0);
+        //Matrix.multiplyMM(modelViewProjection, 0, perspective, 0, modelView, 0);
+        //drawCube();
     }
 
     /**
@@ -95,7 +116,7 @@ public class DroneActivity extends CardboardActivity implements CardboardView.St
      */
     @Override
     public void onSurfaceCreated(EGLConfig config){
-
+        GLES20.glClearColor(0.1f, 0.1f, 0.1f, 0.5f);
     }
 
     /**

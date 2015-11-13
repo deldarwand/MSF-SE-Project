@@ -1,4 +1,4 @@
-package com.wulfstan.googlecardboard.render;
+package com.project.googlecardboard.render;
 
 import android.opengl.GLES20;
 import android.opengl.Matrix;
@@ -35,8 +35,8 @@ public class Shader {
 
         GLES20.glLinkProgram(shaderID);
 
-        locationPosition = getUniformLocation("position");
-        locationEye = getUniformLocation("eye");
+        locationPosition = getAttributeLocation("position");
+        locationEye = getAttributeLocation("eye");
     }
 
     /**
@@ -55,6 +55,10 @@ public class Shader {
 
     private int getUniformLocation(String name){
         return GLES20.glGetUniformLocation(shaderID, name);
+    }
+
+    private int getAttributeLocation(String name){
+        return GLES20.glGetAttribLocation(shaderID, name);
     }
 
     public void loadMatrix(int location, float[] matrix){
