@@ -1,10 +1,9 @@
-in vec2 textureCoordinates;
-out vec4 colour;
+precision mediump float;
 
-uniform sampler2D texture;
+varying vec4 fragColour;
 
 void main(){
 
-    colour = texture(texture, textureCoordinates);
+    gl_FragColor = fragColour;
 
 }

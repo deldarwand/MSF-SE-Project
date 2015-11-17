@@ -1,12 +1,18 @@
-
-in vec2 position;
-out vec2 textureCoordinates;
-
 uniform mat4 transformationMatrix;
+uniform mat4 projectionMatrix;
+uniform mat4 viewMatrix;
 
-void main() {
+attribute vec4 position;
+attribute vec3 colour;
+attribute vec4 normal;
 
-   screenPosition = transformationMatrix * vec4(position, 0.0, 1.0);
-   textureCoordinates = vec2((position.x + 1.0) / 2.0, 1 - (position.x + 1.0) / 2.0);
+varying vec4 fragColour;
 
+void main(){
+
+    vec4 worldPosition = transformationMatrix * position;
+    vec4 relativePosition = viewMatrix * worldPosition;
+    gl_Position = projectionMatrix * relativePosition;
+
+    fragColour = vec4(colour, 0);
 }

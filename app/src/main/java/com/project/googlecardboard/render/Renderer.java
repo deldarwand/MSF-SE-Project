@@ -9,6 +9,8 @@ import com.google.vrtoolkit.cardboard.HeadTransform;
 import com.google.vrtoolkit.cardboard.Viewport;
 import com.project.googlecardboard.gui.GUI;
 import com.project.googlecardboard.gui.GUIModel;
+import com.project.googlecardboard.matrix.ProjectionMatrix;
+import com.project.googlecardboard.matrix.ViewMatrix;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,19 +22,21 @@ import javax.microedition.khronos.egl.EGLConfig;
  */
 public class Renderer implements CardboardView.StereoRenderer{
 
-    private final Shader shader;
+    private static final float Z_NEAR = 0.1f;
+    private static final float Z_FAR = 100.0f;
+
+    private final StaticShader shader;
     private final GUIModel model;
     private final List<GUI> guis;
 
     // Matrices
-    private Camera camera;
+    //private Camera camera;
 
-    public Renderer(Shader shader){
+    public Renderer(StaticShader shader){
         this.shader = shader;
         this.model = new GUIModel();
         this.guis = new ArrayList<GUI>();
-
-        this.camera = new Camera();
+        guis.add(new GUI(10, 0, 0));
     }
 
     /**
@@ -41,7 +45,8 @@ public class Renderer implements CardboardView.StereoRenderer{
      */
     @Override
     public void onNewFrame(HeadTransform headTransform){
-        headTransform.getHeadView(camera.getHeadView(), 0);
+        //headTransform.getHeadView(camera.getHeadView(), 0);
+        shader.start();
     }
 
     /**
@@ -50,12 +55,23 @@ public class Renderer implements CardboardView.StereoRenderer{
      */
     @Override
     public void onDrawEye(Eye eye){
-        //renderer.render();
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+        clearBackgroundTo(124.0f, 252.0f, 0.0f, 1.0f);
+        ViewMatrix viewMatrix = new ViewMatrix(eye);
+        ProjectionMatrix projectionMatrix = new ProjectionMatrix(eye);
+        shader.loadViewMatrix(viewMatrix.getMatrix());
+        shader.loadProjectionMatrix(projectionMatrix.getMatrix());
+        shader.loadPosition(model.getModel());
+        for(GUI gui : guis){
+            shader.loadTransformationMatrix(gui.getMatrix());
+            drawCube();
+        }
+        //Matrix.multiplyMM(camera.getView(), 0, eye.getEyeView(), 0, camera.getPosition(), 0);
 
-        Matrix.multiplyMM(camera.getView(), 0, eye.getEyeView(), 0, camera.getPosition(), 0);
+        //float[] perspective = eye.getPerspective(Camera.Z_NEAR, Camera.Z_FAR);
 
-        float[] perspective = eye.getPerspective(Camera.Z_NEAR, Camera.Z_FAR);
+
+
         //Matrix.multiplyMM(modelView, 0, view, 0, modelCube, 0);
         //Matrix.multiplyMM(modelViewProjection, 0, perspective, 0, modelView, 0);
         //drawCube();
@@ -67,7 +83,7 @@ public class Renderer implements CardboardView.StereoRenderer{
      */
     @Override
     public void onFinishFrame(Viewport viewport){
-
+        shader.stop();
     }
 
     /**
@@ -76,7 +92,10 @@ public class Renderer implements CardboardView.StereoRenderer{
      */
     @Override
     public void onSurfaceCreated(EGLConfig config){
-        GLES20.glClearColor(0.1f, 0.1f, 0.1f, 0.5f);
+        clearBackgroundTo(124.0f, 252.0f, 0.0f, 1.0f);
+        shader.init();
+        shader.loadUniformLocations();
+        shader.loadAttributeLocations();
     }
 
     /**
@@ -94,6 +113,14 @@ public class Renderer implements CardboardView.StereoRenderer{
      */
     @Override
     public void onRendererShutdown(){
+        shader.clean();
+    }
 
+    public void drawCube(){
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 36);
+    }
+
+    public void clearBackgroundTo(float red, float green, float blue, float alpha){
+        GLES20.glClearColor(red / 255.0f, green / 255.0f, blue / 255.0f, alpha);
     }
 }

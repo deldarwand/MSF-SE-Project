@@ -1,4 +1,4 @@
-package com.wulfstan.googlecardboard;
+package com.project.googlecardboard;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

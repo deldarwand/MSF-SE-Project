@@ -8,16 +8,14 @@ import android.util.Log;
 
 import com.google.vrtoolkit.cardboard.CardboardActivity;
 import com.google.vrtoolkit.cardboard.CardboardView;
-import com.project.googlecardboard.render.Camera;
-import com.wulfstan.googlecardboard.R;
 import com.project.googlecardboard.render.Renderer;
+import com.project.googlecardboard.render.Shader;
+import com.project.googlecardboard.render.StaticShader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
-import javax.microedition.khronos.egl.EGLConfig;
 
 /**
  * Created by Garrett on 22/10/2015.
@@ -38,13 +36,9 @@ public class DroneActivity extends CardboardActivity{
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        checkGLError("Init");
         this.vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        checkGLError("Vibrator");
-        //Shader shader = new Shader(readRawTextFile(R.raw.vertex), readRawTextFile(R.raw.fragment));
-        checkGLError("Shader");
-        this.renderer = new Renderer(null);
-        checkGLError("Renderer");
+        StaticShader shader = new StaticShader(readRawTextFile(R.raw.vertex), readRawTextFile(R.raw.fragment));
+        this.renderer = new Renderer(shader);
 
         setContentView(R.layout.common_ui);
         CardboardView cardboardView = (CardboardView) findViewById(R.id.cardboard_view);

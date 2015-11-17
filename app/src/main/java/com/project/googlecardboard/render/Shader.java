@@ -21,26 +21,31 @@ public abstract class Shader {
     public static final int VERTEX_SHADER = GLES20.GL_VERTEX_SHADER;
     public static final int FRAGMENT_SHADER = GLES20.GL_FRAGMENT_SHADER;
 
-    private final int vertexShaderID;
-    private final int fragmentShaderID;
-    private final int shaderID;
+    private final String vertexShaderCode;
+    private final String fragmentShaderCode;
 
-    private int locationPosition;
-    private int locationEye;
+    private int vertexShaderID;
+    private int fragmentShaderID;
+    private int shaderID;
 
     public Shader(String vertexShaderCode, String fragmentShaderCode){
-        this.vertexShaderID = loadGLShader(VERTEX_SHADER, vertexShaderCode);
-        this.fragmentShaderID = loadGLShader(FRAGMENT_SHADER, fragmentShaderCode);
-        this.shaderID = GLES20.glCreateProgram();
+        this.vertexShaderCode = vertexShaderCode;
+        this.fragmentShaderCode = fragmentShaderCode;
+    }
+
+    /**
+     * Initialises the shader
+     */
+    public void init(){
+        vertexShaderID = loadGLShader(VERTEX_SHADER, vertexShaderCode);
+        fragmentShaderID = loadGLShader(FRAGMENT_SHADER, fragmentShaderCode);
+        shaderID = GLES20.glCreateProgram();
         GLES20.glAttachShader(shaderID, vertexShaderID);
         GLES20.glAttachShader(shaderID, fragmentShaderID);
 
         GLES20.glBindAttribLocation(shaderID, 0, "position");
 
         GLES20.glLinkProgram(shaderID);
-
-        locationPosition = getAttributeLocation("position");
-        locationEye = getAttributeLocation("eye");
     }
 
     /**
@@ -136,7 +141,7 @@ public abstract class Shader {
             shaderID = 0;
         }
         if(shaderID == 0){
-            throw new RuntimeException("Error creating shader.");
+            //throw new RuntimeException("Error creating shader.");
         }
         return shaderID;
     }
