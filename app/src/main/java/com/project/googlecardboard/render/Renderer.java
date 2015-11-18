@@ -36,7 +36,24 @@ public class Renderer implements CardboardView.StereoRenderer{
         this.shader = shader;
         this.model = new GUIModel();
         this.guis = new ArrayList<GUI>();
+
+        guis.add(new GUI(10, -20, -60));
+        guis.add(new GUI(10, -20, -30));
+        guis.add(new GUI(10, -20, 0));
+        guis.add(new GUI(10, -20, 30));
+        guis.add(new GUI(10, -20, 60));
+
+        guis.add(new GUI(10, 0, -60));
+        guis.add(new GUI(10, 0, -30));
         guis.add(new GUI(10, 0, 0));
+        guis.add(new GUI(10, 0, 30));
+        guis.add(new GUI(10, 0, 60));
+
+        guis.add(new GUI(10, 20, -60));
+        guis.add(new GUI(10, 20, -30));
+        guis.add(new GUI(10, 20, 0));
+        guis.add(new GUI(10, 20, 30));
+        guis.add(new GUI(10, 20, 60));
     }
 
     /**
@@ -46,7 +63,11 @@ public class Renderer implements CardboardView.StereoRenderer{
     @Override
     public void onNewFrame(HeadTransform headTransform){
         //headTransform.getHeadView(camera.getHeadView(), 0);
+        //GLES20.glEnable(GLES20.GL_DEPTH_TEST);
+        //GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+        //clearBackgroundTo(124.0f, 252.0f, 0.0f, 1.0f);
         shader.start();
+
     }
 
     /**
@@ -56,7 +77,7 @@ public class Renderer implements CardboardView.StereoRenderer{
     @Override
     public void onDrawEye(Eye eye){
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-        clearBackgroundTo(124.0f, 252.0f, 0.0f, 1.0f);
+        //clearBackgroundTo(124.0f, 252.0f, 0.0f, 1.0f);
         ViewMatrix viewMatrix = new ViewMatrix(eye);
         ProjectionMatrix projectionMatrix = new ProjectionMatrix(eye);
         shader.loadViewMatrix(viewMatrix.getMatrix());
@@ -83,6 +104,7 @@ public class Renderer implements CardboardView.StereoRenderer{
      */
     @Override
     public void onFinishFrame(Viewport viewport){
+        //GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         shader.stop();
     }
 
@@ -92,7 +114,6 @@ public class Renderer implements CardboardView.StereoRenderer{
      */
     @Override
     public void onSurfaceCreated(EGLConfig config){
-        clearBackgroundTo(124.0f, 252.0f, 0.0f, 1.0f);
         shader.init();
         shader.loadUniformLocations();
         shader.loadAttributeLocations();
