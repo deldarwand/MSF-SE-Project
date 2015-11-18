@@ -63,11 +63,7 @@ public class Renderer implements CardboardView.StereoRenderer{
     @Override
     public void onNewFrame(HeadTransform headTransform){
         //headTransform.getHeadView(camera.getHeadView(), 0);
-        //GLES20.glEnable(GLES20.GL_DEPTH_TEST);
-        //GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-        //clearBackgroundTo(124.0f, 252.0f, 0.0f, 1.0f);
         shader.start();
-
     }
 
     /**
@@ -76,8 +72,7 @@ public class Renderer implements CardboardView.StereoRenderer{
      */
     @Override
     public void onDrawEye(Eye eye){
-        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-        //clearBackgroundTo(124.0f, 252.0f, 0.0f, 1.0f);
+        clearBackgroundTo(124.0f, 252.0f, 0.0f, 1.0f);
         ViewMatrix viewMatrix = new ViewMatrix(eye);
         ProjectionMatrix projectionMatrix = new ProjectionMatrix(eye);
         shader.loadViewMatrix(viewMatrix.getMatrix());
@@ -87,15 +82,6 @@ public class Renderer implements CardboardView.StereoRenderer{
             shader.loadTransformationMatrix(gui.getMatrix());
             drawCube();
         }
-        //Matrix.multiplyMM(camera.getView(), 0, eye.getEyeView(), 0, camera.getPosition(), 0);
-
-        //float[] perspective = eye.getPerspective(Camera.Z_NEAR, Camera.Z_FAR);
-
-
-
-        //Matrix.multiplyMM(modelView, 0, view, 0, modelCube, 0);
-        //Matrix.multiplyMM(modelViewProjection, 0, perspective, 0, modelView, 0);
-        //drawCube();
     }
 
     /**
@@ -104,7 +90,6 @@ public class Renderer implements CardboardView.StereoRenderer{
      */
     @Override
     public void onFinishFrame(Viewport viewport){
-        //GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         shader.stop();
     }
 
@@ -143,5 +128,6 @@ public class Renderer implements CardboardView.StereoRenderer{
 
     public void clearBackgroundTo(float red, float green, float blue, float alpha){
         GLES20.glClearColor(red / 255.0f, green / 255.0f, blue / 255.0f, alpha);
+        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
     }
 }
