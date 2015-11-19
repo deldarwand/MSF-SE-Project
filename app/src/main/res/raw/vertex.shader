@@ -3,8 +3,8 @@ uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
 
 attribute vec4 position;
-attribute vec3 colour;
-attribute vec4 normal;
+attribute vec4 colour;
+attribute vec3 normal;
 
 varying vec4 fragColour;
 
@@ -14,5 +14,5 @@ void main(){
     vec4 relativePosition = viewMatrix * worldPosition;
     gl_Position = projectionMatrix * relativePosition;
 
-    fragColour = vec4(colour, 0);
+    fragColour = colour;
 }

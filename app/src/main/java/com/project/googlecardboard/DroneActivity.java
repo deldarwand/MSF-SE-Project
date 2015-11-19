@@ -53,7 +53,8 @@ public class DroneActivity extends CardboardActivity{
      */
     @Override
     public void onCardboardTrigger(){
-        view.show3DToast("Hello world");
+        //view.show3DToast("Hello world");
+        renderer.onCardboardTrigger();
     }
 
     // MISCELLANEOUS
