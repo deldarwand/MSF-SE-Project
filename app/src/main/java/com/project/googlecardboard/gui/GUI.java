@@ -1,6 +1,7 @@
 package com.project.googlecardboard.gui;
 
 
+import android.graphics.Bitmap;
 import android.graphics.SurfaceTexture;
 
 import com.project.googlecardboard.matrix.TransformationMatrix;
@@ -24,11 +25,11 @@ public class GUI {
         //double x = radius * Math.cos(Math.toRadians(pitch)) * Math.cos(Math.toRadians(yaw));
         //double y = radius * Math.sin(Math.toRadians(pitch));
         //double z = radius * Math.cos(Math.toRadians(pitch)) * Math.sin(Math.toRadians(yaw));
-        this.matrix = new TransformationMatrix(radius, 0.0f, pitch, 90 - yaw);
+        this.texture = new GUITexture();
     }
 
     public float[] getMatrix(){
-        matrix = new TransformationMatrix(radius, 0.0f, pitch, 90 - yaw);
+        matrix = new TransformationMatrix(radius, 0.0f, pitch, 90 - yaw + 100);
         return matrix.getMatrix();
     }
 
@@ -58,6 +59,14 @@ public class GUI {
 
     public void setYaw(float yaw){
         this.yaw = yaw;
+    }
+
+    public void setTexture(GUITexture texture){
+        this.texture = texture;
+    }
+
+    public void updateTexture(Bitmap bitmap){
+        texture.loadBitmap(bitmap);
     }
 
 }

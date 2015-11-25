@@ -1,6 +1,8 @@
 package com.project.googlecardboard;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.opengl.GLES20;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -38,7 +40,7 @@ public class DroneActivity extends CardboardActivity{
         super.onCreate(savedInstanceState);
         this.vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         StaticShader shader = new StaticShader(readRawTextFile(R.raw.vertex), readRawTextFile(R.raw.fragment));
-        this.renderer = new Renderer(shader);
+        this.renderer = new Renderer(getBaseContext(), shader);
 
         setContentView(R.layout.common_ui);
         CardboardView cardboardView = (CardboardView) findViewById(R.id.cardboard_view);

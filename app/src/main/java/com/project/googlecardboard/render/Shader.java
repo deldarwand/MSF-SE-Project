@@ -73,6 +73,11 @@ public abstract class Shader {
     public abstract void loadAttributeLocations();
 
     /**
+     * Enables attribute variables in draw call
+     */
+    public abstract void enableAttributes();
+
+    /**
      * Loads a uniform variable
      * @param name
      * @return

@@ -1,5 +1,8 @@
 package com.project.googlecardboard.render;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.opengl.GLES20;
 import android.opengl.Matrix;
 
@@ -7,9 +10,11 @@ import com.google.vrtoolkit.cardboard.CardboardView;
 import com.google.vrtoolkit.cardboard.Eye;
 import com.google.vrtoolkit.cardboard.HeadTransform;
 import com.google.vrtoolkit.cardboard.Viewport;
+import com.project.googlecardboard.R;
 import com.project.googlecardboard.WorldLayoutData;
 import com.project.googlecardboard.gui.GUI;
 import com.project.googlecardboard.gui.GUIModel;
+import com.project.googlecardboard.gui.GUITexture;
 import com.project.googlecardboard.matrix.ProjectionMatrix;
 import com.project.googlecardboard.matrix.ViewMatrix;
 
@@ -23,20 +28,27 @@ import javax.microedition.khronos.egl.EGLConfig;
  */
 public class Renderer implements CardboardView.StereoRenderer{
 
-    private static final float YAW_LIMIT = 0.12f;
-    private static final float PITCH_LIMIT = 0.12f;
+    private Context context;
+
+    private static final float YAW_LIMIT = 0.15f;
+    private static final float PITCH_LIMIT = 0.15f;
 
     private final StaticShader shader;
     private final GUIModel model;
     private final List<GUI> guis;
 
     private float[] headView;
+    private int index = 0;
 
-    public Renderer(StaticShader shader){
+    public Renderer(Context context, StaticShader shader){
+        this.context = context;
         this.shader = shader;
         this.model = new GUIModel();
         this.guis = new ArrayList<GUI>();
         this.headView = new float[16];
+
+        BitmapFactory.Options bo = new BitmapFactory.Options();
+        bo.inScaled = false;
 
         guis.add(new GUI(10, -20, -60));
         guis.add(new GUI(10, -20, -30));
@@ -55,6 +67,8 @@ public class Renderer implements CardboardView.StereoRenderer{
         guis.add(new GUI(10, 20, 0));
         guis.add(new GUI(10, 20, 30));
         guis.add(new GUI(10, 20, 60));
+
+
     }
 
     /**
@@ -63,8 +77,11 @@ public class Renderer implements CardboardView.StereoRenderer{
      */
     @Override
     public void onNewFrame(HeadTransform headTransform){
+        GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
+        GLES20.glEnable(GLES20.GL_BLEND);
         headTransform.getHeadView(headView, 0);
         shader.start();
+
     }
 
     /**
@@ -84,8 +101,11 @@ public class Renderer implements CardboardView.StereoRenderer{
                 gui.setRadius(10.0f);
             }
             shader.loadTransformationMatrix(gui.getMatrix());
+            shader.loadTexture(gui.getTexture().getID());
             shader.loadColour((isLookingAt(gui)) ? WorldLayoutData.CUBE_FOUND_COLORS : WorldLayoutData.CUBE_COLORS);
-            drawCube();
+            shader.loadTextureCoordinates(gui.getTexture().textureCoordinates);
+            shader.enableAttributes();
+            drawGUI();
         }
     }
 
@@ -96,6 +116,12 @@ public class Renderer implements CardboardView.StereoRenderer{
     @Override
     public void onFinishFrame(Viewport viewport){
         shader.stop();
+        int resourceID = (index % 2 == 0) ? R.drawable.garrett : R.drawable.googlecardboard;
+        for(GUI gui : guis){
+            gui.updateTexture(BitmapFactory.decodeResource(context.getResources(), resourceID));
+        }
+        guis.get(0).getTexture().loadBitmap(BitmapFactory.decodeResource(context.getResources(), resourceID));
+        index = (index + 1) % 2;
     }
 
     /**
@@ -107,6 +133,12 @@ public class Renderer implements CardboardView.StereoRenderer{
         shader.init();
         shader.loadUniformLocations();
         shader.loadAttributeLocations();
+        for(GUI gui : guis){
+            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.garrett);
+            GUITexture texture = new GUITexture(bitmap);
+            gui.setTexture(texture);
+            bitmap.recycle();
+        }
     }
 
     /**
@@ -130,8 +162,8 @@ public class Renderer implements CardboardView.StereoRenderer{
     /**
      * Draws the cube
      */
-    public void drawCube(){
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 36);
+    public void drawGUI(){
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, model.getModel().length / 3);
     }
 
     /**

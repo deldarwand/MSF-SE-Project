@@ -3,10 +3,12 @@ uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
 
 attribute vec4 position;
+attribute vec2 textureCoordinates;
 attribute vec4 colour;
 attribute vec3 normal;
 
 varying vec4 fragColour;
+varying vec2 coordinates;
 
 void main(){
 
@@ -15,4 +17,5 @@ void main(){
     gl_Position = projectionMatrix * relativePosition;
 
     fragColour = colour;
+    coordinates = textureCoordinates;
 }
