@@ -12,6 +12,9 @@ import com.google.vrtoolkit.cardboard.HeadTransform;
 import com.google.vrtoolkit.cardboard.Viewport;
 import com.project.googlecardboard.R;
 import com.project.googlecardboard.WorldLayoutData;
+import com.project.googlecardboard.graph.BarGraph;
+import com.project.googlecardboard.graph.GraphTimer;
+import com.project.googlecardboard.graph.LineGraph;
 import com.project.googlecardboard.gui.GUI;
 import com.project.googlecardboard.gui.GUIModel;
 import com.project.googlecardboard.gui.GUITexture;
@@ -20,6 +23,8 @@ import com.project.googlecardboard.matrix.ViewMatrix;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.TimerTask;
 
 import javax.microedition.khronos.egl.EGLConfig;
 
@@ -42,6 +47,9 @@ public class Renderer implements CardboardView.StereoRenderer{
     private float[] headView;
     private int index = 0;
 
+    private static Random random = new Random();
+    private GraphTimer timer;
+
     public Renderer(Context context, StaticShader shader){
         this.context = context;
         this.shader = shader;
@@ -52,15 +60,27 @@ public class Renderer implements CardboardView.StereoRenderer{
         BitmapFactory.Options bo = new BitmapFactory.Options();
         bo.inScaled = false;
 
-        guis.add(new GUI(20, 0.8f, -1.0f));
-        guis.add(new GUI(20, 0.8f, 0.0f));
-        guis.add(new GUI(20, 0.8f, 1.0f));
+        //guis.add(new GUI(20, 0.8f, -1.0f, new LineGraph(20)));
+        guis.add(new GUI(20, 0.8f, 0.0f, new LineGraph(20)));
+        //guis.add(new GUI(20, 0.8f, 1.0f, new LineGraph(20)));
 
-        guis.add(new GUI(20, -0.8f, -1.0f));
-        guis.add(new GUI(20, -0.8f, 0.0f));
-        guis.add(new GUI(20, -0.8f, 1.0f));
+        //guis.add(new GUI(20, -0.8f, -1.0f, new BarGraph(20)));
+        //guis.add(new GUI(20, -0.8f, 0.0f, new LineGraph(20)));
+        //guis.add(new GUI(20, -0.8f, 1.0f, new LineGraph(20)));
 
+        /*this.timer = new GraphTimer(new TimerTask() {
+            @Override
+            public void run() {
+                update();
+            }
+        }, 0, 10000);*/
+    }
 
+    public void update(){
+        GUI gui = guis.get(0);
+            float rand = random.nextFloat();
+            gui.getGraph().add(rand);
+            gui.getGraph().draw();
     }
 
     /**
@@ -74,6 +94,7 @@ public class Renderer implements CardboardView.StereoRenderer{
         GLES20.glLineWidth(40.0f);
         headTransform.getHeadView(headView, 0);
         shader.start();
+        update();
 
     }
 
@@ -83,22 +104,23 @@ public class Renderer implements CardboardView.StereoRenderer{
      */
     @Override
     public void onDrawEye(Eye eye){
-        clearBackgroundTo(124.0f, 252.0f, 0.0f, 1.0f);
+        clearBackgroundTo(0.0f, 191.0f, 255.0f, 1.0f);
         ViewMatrix viewMatrix = new ViewMatrix(eye);
         ProjectionMatrix projectionMatrix = new ProjectionMatrix(eye);
         shader.loadViewMatrix(viewMatrix.getMatrix());
         shader.loadProjectionMatrix(projectionMatrix.getMatrix());
-        shader.loadPosition(model.getModel());
+        //shader.loadPosition(model.getModel());
         for(GUI gui : guis){
             if(!isLookingAt(gui) && gui.getRadius() != 20.0f){
                 gui.setRadius(20.0f);
             }
+            shader.loadPosition(gui.getGraph().arrayOfPoints);
             shader.loadTransformationMatrix(gui.getMatrix());
             shader.loadTexture(gui.getTexture().getID());
             shader.loadColour((isLookingAt(gui)) ? WorldLayoutData.CUBE_FOUND_COLORS : WorldLayoutData.CUBE_COLORS);
             shader.loadTextureCoordinates(gui.getTexture().textureCoordinates);
             shader.enableAttributes();
-            drawGUI();
+            drawGUI(gui);
         }
     }
 
@@ -116,17 +138,6 @@ public class Renderer implements CardboardView.StereoRenderer{
             b2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.googlecardboard);
         }
         shader.stop();
-        for(GUI gui : guis){
-            if(index == 0) {
-                gui.updateTexture(b1);
-            }
-            else
-            {
-                gui.updateTexture(b2);
-            }
-        }
-        //guis.get(0).getTexture().loadBitmap(BitmapFactory.decodeResource(context.getResources(), resourceID));
-        index = (index + 1) % 2;
     }
 
     /**
@@ -144,6 +155,7 @@ public class Renderer implements CardboardView.StereoRenderer{
             gui.setTexture(texture);
             bitmap.recycle();
         }
+        //timer.start();
     }
 
     /**
@@ -162,14 +174,16 @@ public class Renderer implements CardboardView.StereoRenderer{
     @Override
     public void onRendererShutdown(){
         shader.clean();
+        //timer.stop();
     }
 
     /**
      * Draws the cube
      */
-    public void drawGUI(){
+    public void drawGUI(GUI gui){
         //GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, model.getModel().length / 3);
-        GLES20.glDrawArrays(GLES20.GL_LINE_STRIP, 0, model.getModel().length / 3);
+        GLES20.glDrawArrays(GLES20.GL_LINE_STRIP, 0, 6);
+        //GLES20.glDrawArrays(GLES20.GL_LINES, 0, model.getModel().length / 2);
     }
 
     /**

@@ -4,6 +4,7 @@ package com.project.googlecardboard.gui;
 import android.graphics.Bitmap;
 import android.graphics.SurfaceTexture;
 
+import com.project.googlecardboard.graph.Graph;
 import com.project.googlecardboard.matrix.TransformationMatrix;
 
 /**
@@ -17,8 +18,9 @@ public class GUI {
 
     private TransformationMatrix matrix;
     private GUITexture texture;
+    private Graph graph;
 
-    public GUI(float radius, float pitch, float yaw){
+    public GUI(float radius, float pitch, float yaw, Graph graph){
         pitch *= 20;
         yaw *= 30;
         setRadius(radius);
@@ -28,11 +30,24 @@ public class GUI {
         //double y = radius * Math.sin(Math.toRadians(pitch));
         //double z = radius * Math.cos(Math.toRadians(pitch)) * Math.sin(Math.toRadians(yaw));
         this.texture = new GUITexture();
+        this.graph = graph;
+    }
+
+    public GUI(float radius, float pitch, float yaw){
+        this(radius, pitch, yaw, Graph.EMPTY);
+    }
+
+    public float[] getModel(){
+        return graph.getModel();
     }
 
     public float[] getMatrix(){
         matrix = new TransformationMatrix(radius, 0.0f, pitch, 90 - yaw + 100);
         return matrix.getMatrix();
+    }
+
+    public Graph getGraph(){
+        return graph;
     }
 
     public GUITexture getTexture(){

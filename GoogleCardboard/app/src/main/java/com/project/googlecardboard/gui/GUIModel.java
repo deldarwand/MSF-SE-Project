@@ -5,7 +5,9 @@ package com.project.googlecardboard.gui;
  */
 public class GUIModel {
 
-    private static final float[] model = {
+    private int i = 0;
+
+    public static final float[] model = {
 
         // Back face
         /*1.0f, 1.0f, -1.0f,
@@ -17,17 +19,28 @@ public class GUIModel {
         1.0f, 1.0f, -1.0f,
         1.0f, -1.0f, -1.0f,
         -1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        0.5f, 0.5f, -1.0f,
         1.0f, -1.0f, -1.0f
-};
+    };
+
+    private static final float[] model2 = {
+        1.0f, 1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        -1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        0.8f, 0.5f, -1.0f,
+        1.0f, -1.0f, -1.0f
+    };
 
     private static final float[] normals = {
-            // Back face
-            0.0f, 0.0f, -1.0f,
-            0.0f, 0.0f, -1.0f,
-            0.0f, 0.0f, -1.0f,
-            0.0f, 0.0f, -1.0f,
-            0.0f, 0.0f, -1.0f,
-            0.0f, 0.0f, -1.0f
+        // Back face
+        0.0f, 0.0f, -1.0f,
+        0.0f, 0.0f, -1.0f,
+        0.0f, 0.0f, -1.0f,
+        0.0f, 0.0f, -1.0f,
+        0.0f, 0.0f, -1.0f,
+        0.0f, 0.0f, -1.0f
     };
 
     public GUIModel(){
@@ -35,7 +48,14 @@ public class GUIModel {
     }
 
     public float[] getModel(){
+        if(i % 2 == 0){
+            return model2;
+        }
         return model;
+    }
+
+    public void update(){
+        i++;
     }
 
     public float[] getNormals(){
