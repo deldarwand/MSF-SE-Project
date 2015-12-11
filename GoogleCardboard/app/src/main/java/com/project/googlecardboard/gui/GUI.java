@@ -3,10 +3,8 @@ package com.project.googlecardboard.gui;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.SurfaceTexture;
 import android.opengl.Matrix;
 
-import com.project.googlecardboard.graph.Graph;
 import com.project.googlecardboard.graph.LineGraph;
 import com.project.googlecardboard.matrix.TransformationMatrix;
 

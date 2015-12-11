@@ -4,18 +4,13 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLES20;
-import android.opengl.Matrix;
-import android.os.AsyncTask;
 
 import com.google.vrtoolkit.cardboard.CardboardView;
 import com.google.vrtoolkit.cardboard.Eye;
 import com.google.vrtoolkit.cardboard.HeadTransform;
 import com.google.vrtoolkit.cardboard.Viewport;
 import com.project.googlecardboard.R;
-import com.project.googlecardboard.WorldLayoutData;
-import com.project.googlecardboard.graph.BarGraph;
 import com.project.googlecardboard.graph.GraphTimer;
-import com.project.googlecardboard.graph.LineGraph;
 import com.project.googlecardboard.gui.GUI;
 import com.project.googlecardboard.gui.GUIModel;
 import com.project.googlecardboard.gui.GUITexture;
@@ -80,12 +75,8 @@ public class Renderer implements CardboardView.StereoRenderer{
 
     public void update(){
         GUI gui = guis.get(0);
-            //float rand = random.nextFloat();
-            //gui.getGraph().add(rand);
-            //gui.getGraph().draw();
         Thread t = new Thread(gui.getGraph());
         t.start();
-            //gui.getGraph().run();
     }
 
     /**
@@ -98,9 +89,6 @@ public class Renderer implements CardboardView.StereoRenderer{
         GLES20.glEnable(GLES20.GL_BLEND);
         GLES20.glLineWidth(40.0f);
         headTransform.getHeadView(headView, 0);
-        //shader.start();
-        //update();
-
     }
 
     /**
@@ -112,21 +100,12 @@ public class Renderer implements CardboardView.StereoRenderer{
         clearBackgroundTo(0.0f, 191.0f, 255.0f, 1.0f);
         ViewMatrix viewMatrix = new ViewMatrix(eye);
         ProjectionMatrix projectionMatrix = new ProjectionMatrix(eye);
-        //shader.loadViewMatrix(viewMatrix.getMatrix());
-        //shader.loadProjectionMatrix(projectionMatrix.getMatrix());
-        //shader.loadPosition(model.getModel());
+
         for(GUI gui : guis){
-            if(!isLookingAt(gui) && gui.getRadius() != 20.0f){
+            if(!gui.isLookingAtMe(headView) && gui.getRadius() != 20.0f){
                 gui.setRadius(20.0f);
             }
             gui.getGraph().draw(headView, viewMatrix, projectionMatrix);
-            /*shader.loadPosition(gui.getGraph().arrayOfPoints);
-            shader.loadTransformationMatrix(gui.getMatrix());
-            shader.loadTexture(gui.getTexture().getID());
-            shader.loadColour((isLookingAt(gui)) ? WorldLayoutData.CUBE_FOUND_COLORS : WorldLayoutData.CUBE_COLORS);
-            shader.loadTextureCoordinates(gui.getTexture().textureCoordinates);
-            shader.enableAttributes();*/
-            //drawGUI(gui);
         }
     }
 
@@ -136,14 +115,7 @@ public class Renderer implements CardboardView.StereoRenderer{
      */
     @Override
     public void onFinishFrame(Viewport viewport){
-//        int resourceID = (index % 2 == 0) ? R.drawable.garrett : R.drawable.googlecardboard;
 
-  //      if (b1 == null)
-    //    {
-      //      b1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.garrett);
-        //    b2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.googlecardboard);
-        //}
-       // shader.stop();
     }
 
     /**
@@ -156,9 +128,7 @@ public class Renderer implements CardboardView.StereoRenderer{
         {
             guis.add(new GUI(20, 0.8f, 0.0f, context));
         }
-        /*shader.init();
-        shader.loadUniformLocations();
-        shader.loadAttributeLocations();*/
+
         for(GUI gui : guis){
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.garrett);
             GUITexture texture = new GUITexture(bitmap);
@@ -187,16 +157,7 @@ public class Renderer implements CardboardView.StereoRenderer{
         for (GUI gui : guis) {
             gui.clean();
         }
-        //timer.stop();
-    }
-
-    /**
-     * Draws the cube
-     */
-    public void drawGUI(GUI gui){
-        //GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, model.getModel().length / 3);
-        GLES20.glDrawArrays(GLES20.GL_LINE_STRIP, 0, 6);
-        //GLES20.glDrawArrays(GLES20.GL_LINES, 0, model.getModel().length / 2);
+        timer.stop();
     }
 
     /**
@@ -217,28 +178,9 @@ public class Renderer implements CardboardView.StereoRenderer{
      */
     public void onCardboardTrigger(){
         for(GUI gui : guis){
-            if(isLookingAt(gui) && gui.getRadius() != 10.0f){
+            if(gui.isLookingAtMe(headView) && gui.getRadius() != 10.0f){
                 gui.setRadius(10.0f);
             }
         }
-    }
-
-    /**
-     * Checks whether we are looking at a specific GUI
-     * @param gui GUI to be considered
-     * @return Whether we are looking at this GUI
-     */
-    public boolean isLookingAt(GUI gui){
-        float[] initVec = { 0, 0, 0, 1.0f };
-        float[] objPositionVec = new float[4];
-        float[] modelView = new float[16];
-        // Convert object space to camera space. Use the headView from onNewFrame.
-        Matrix.multiplyMM(modelView, 0, headView, 0, gui.getMatrix(), 0);
-        Matrix.multiplyMV(objPositionVec, 0, modelView, 0, initVec, 0);
-
-        float pitch = (float) Math.atan2(objPositionVec[1], -objPositionVec[2]);
-        float yaw = (float) Math.atan2(objPositionVec[0], -objPositionVec[2]);
-
-        return Math.abs(pitch) < PITCH_LIMIT && Math.abs(yaw) < YAW_LIMIT;
     }
 }
