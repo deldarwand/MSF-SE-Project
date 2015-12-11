@@ -218,7 +218,7 @@ public class Renderer implements CardboardView.StereoRenderer{
      */
     public void onCardboardTrigger(){
         for(GUI gui : guis){
-            if(gui.isLookingAtMe(headView) && gui.getRadius() != 10.0f){
+            if(gui.isLookingAtMe(headView) && gui.getRadius() != 5.0f){
                 gui.setRadius(5.0f);
             }
         }
