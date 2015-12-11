@@ -9,6 +9,7 @@
 	<script type="text/javascript" src="assets/script.js"></script>
 	<link href='http://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
 	<title>Progress</title>
+
 </head>
 <body>
 
@@ -73,43 +74,135 @@
 </nav>
 <div class="container">
 
-  <h1>Meetings</h1>
-  <div class="row">  
+  <div class="row">
+    <h1>Meetings</h1> 
     <div class="col-m-8 col-lg-8">
-      <table class="table table-bordered table-condensed">
-        <thead>
-          <tr class="info">
-            <th>Date</th>
-            <th>Highlights</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Oct. 15th</td>
-            <td>First meeting with client</td>
-          </tr>
-          <tr>
-            <td>Oct. 23rd</td>
-            <td>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.</td>
-          </tr>
-          <tr>
-            <td>Oct. 29th</td>
-            <td>Meeting with client</td>
-          </tr>
-        </tbody>
-      </table> 
-    </div> 
+      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Meeting 1: Oct. 15th 2015
+              </a>
+            </h4>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+              <p><b>Attendees:</b> Dr. Dean Mohamedally, Usama Inam (Google), Dr. Kostkova (Client), Aron Monszpart (TA), Team</p>
+              <p><b>Highlights:</b> Initial meeting for the project and brief. The project will involve a drone equipped with a camera and several sensors which would send data to the Google Cardboard. The Cardboard view would include the data rendered as graphs, and video/image footage from the drone. </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
+              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                Meeting 2: Oct. 23rd 2015
+              </a>
+            </h4>
+          </div>
+          <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+            <div class="panel-body">
+              <p><b>Attendees:</b> Team, Aron Monszpart (TA)</p>
+              <p><b>Highlights:</b> We discussed how to display the data and video streams in Google Cardboard view, and created an initial workflow for the drone system as a diagram. Allocation of tasks amongst the team for the upcoming weeks. </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingThree">
+            <h4 class="panel-title">
+              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                Meeting 3: Oct. 29th 2015
+              </a>
+            </h4>
+          </div>
+          <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+            <div class="panel-body">
+              <p><b>Attendees:</b> Usama (Google), Team, Aron Monszpart (TA)</p>
+              <p><b>Highlights:</b> Discussion on hardware: sensors, which ones and how to attach them to the drone. Agreement that the focus for this term should be on rendering the data from sensors, and not live video footage which will be a task for the second phase.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                Meeting 4: Nov. 13th 2015
+              </a>
+            </h4>
+          </div>
+          <div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
+            <div class="panel-body">
+              <p><b>Attendees:</b> Dr. Kostkova, Rosamund Southgate (MSF), Idriss Ait-Bouziad (MSF), Team</p>
+              <p><b>Highlights:</b> Meeting with the representatives of MSF who gave their perspective on the project, leading to new requirements. They are interested in population estimation, capturing live video footage and rendering images to create a large aerial map of the area. Suggestions of using heat cameras and infrared sensors, which would have more impact than gas/temperature sensors.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                Meeting 5: Nov. 19th 2015
+              </a>
+            </h4>
+          </div>
+          <div id="collapseFive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive">
+            <div class="panel-body">
+              <p><b>Attendees:</b> Usama (Google), Team, Aron Monszpart (TA)</p>
+              <p><b>Highlights:</b> Updating Google with new requirements gathered from MSF and Dr. Kostkova. Agreement that we would continue using the sensors and focus on video/image footage and analysis next term.Demonstration of an early prototype of the Google Cardboard UI.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
+                Meeting 6: Nov. 26th 2015
+              </a>
+            </h4>
+          </div>
+          <div id="collapseSix" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingSix">
+            <div class="panel-body">
+              <p><b>Attendees:</b> Team, Aron Monszpart (TA)</p>
+              <p><b>Highlights:</b> Decisive discussion on how to render graphs in the Google Cardboard, and on transferring data to the phone. Also on analyzing video footage, we should capture an aerial view of a crowd and track individuals.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="true" aria-controls="collapseSeven">
+                Meeting 7: Dec. 3rd 2015
+              </a>
+            </h4>
+          </div>
+          <div id="collapseSeven" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingSeven">
+            <div class="panel-body">
+              <p><b>Attendees:</b> Team, Aron Monszpart (TA)</p>
+              <p><b>Highlights:</b> Update on the project. We went over what we will be able to deliver for the deadline and if it meant the requirements and scope we had agreed on for this phase of the project. Assigned tasks for website and video documentation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 	<div class="row">
 		<h1>Bi-Weekly Reports</h1>
-		<p>Description of bi-weekly reports</p>
+		<p>Each report includes an overview of bi-weekly work packages, meeting minutes, problems to be resolved and tasks for upcoming weeks.</p>
 		<p>Team 1:
 			<a class="btn btn-success" href="assets/files/bi-weekly/report1_1.pdf">Report 1<br><small>16 Oct 2015</small></a>
 			<a class="btn btn-success" href="assets/files/bi-weekly/report2_1.pdf">Report 2<br><small>30 Oct 2015</small></a>
-      <a class="btn btn-success" href="assets/files/bi-weekly/report3_1.pdf">Report 2<br><small>16 Nov 2015</small></a>
-      <a class="btn btn-success" href="assets/files/bi-weekly/report4_1.pdf">Report 2<br><small>27 Nov 2015</small></a>
-      <a class="btn btn-success" href="assets/files/bi-weekly/report5_1.pdf">Report 2<br><small>11 Dec 2015</small></a>
+      <a class="btn btn-success" href="assets/files/bi-weekly/report3_1.pdf">Report 3<br><small>16 Nov 2015</small></a>
+      <a class="btn btn-success" href="assets/files/bi-weekly/report4_1.pdf">Report 4<br><small>27 Nov 2015</small></a>
+      <a class="btn btn-success" href="assets/files/bi-weekly/report5_1.pdf">Report 5<br><small>11 Dec 2015</small></a>
 		</p>
 		<p>Team 2:
 			<a class="btn btn-info" href="assets/files/bi-weekly/report1_2.pdf">Report 1<br><small>16 Oct 2015</small></a>
@@ -122,10 +215,27 @@
 
 	<div class="row">
 		<h1>Project Timeline</h1>
+    <h3>Plan for Term 1:</h3>
+    <img src="images/timeline_term1.png" style="max-width:600px; width:100%">
+    <br></br>
+    <h3>Plan for Term 2:</h3>
+    <img src="images/timeline_term2.png" style="max-width:700px; width:100%">
 	</div>
 </div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<footer id="footer" class="midnight-blue">
+  <div class="row">
+    <div class="col-sm-6">
+      <h4>Systems Engineering Project 1-2</h4>
+    </div>
+    <div class="col-sm-6 pull-right">
+      <h4>Find us on <a href="https://github.com/deldarwand/MSF-SE-Project">Github</a></h4>
+    </div>
+  </div>
+
+</footer>
 </body>
 </html>

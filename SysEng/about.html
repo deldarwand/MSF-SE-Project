@@ -76,6 +76,13 @@
   <div class="col-sm-8 col-sm-push-2">
     <h1>Overview</h1>
     <p>Background and context. What is the system to be designed is meant to do and in what context. Include the initial problem statement, informationabout the client and the specific challenges to be met. State what is needed for the project to be a success.</p>
+    <h3>Who are MSF?</h3>
+    <img src="images/MSF_logo.png" style="width:250px">
+    <br></br>
+    <p>Medecins Sans Frontieres, or Doctors Without Borders, is an “international, independent, medical humanitarian organisation” operating in war-torn regions and developing countries facing endemic diseases. </p>
+    <p> When operating in sites such as refugee camps, slums or dense forests, it can be difficult to get an broad view of the field. This project can help by providing aerial views and analysed data of the area MSF is operating in.</p>
+    <h3>Why Google Cardboard?</h3>
+    <p>The Google Cardboard is a practical, hand-held device that creates an augmented reality environment for the user. Because of it’s compact size and light weight, the Cardboard is a better alternative to a laptop or a tablet as it allows the medics to set up faster with less equipment.</p>
   </div>
 </div>
 
@@ -83,6 +90,166 @@
   <div class="col-sm-8 col-sm-push-2">
     <h1>Requirements</h1>
     <p>The detailed project requirements and scope that have been identified and agreed with the client. A clear and well-defined set of requirements should be presented, including use cases as appropriate. Include user interface requirements (as relevant to your project)</p>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr class="info">
+          <th>ID</th>
+          <th>Requirements TERM 1</th>
+          <th>Priority</th>
+          <th>Completion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Use Google Cardboard</td>
+          <td>Must Have</td>
+          <td>Y</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Display the sensor readings on phone</td>
+          <td>Must Have</td>
+          <td>Y</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Create a 2D main menu</td>
+          <td>Must Have</td>
+          <td>Y</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Display photographs on Cardboard</td>
+          <td>Should Have</td>
+          <td>Y</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Display graphs on Cardboard</td>
+          <td>Should Have</td>
+          <td>Y</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Transfer data from backend to phone</td>
+          <td>Should Have</td>
+          <td>Y</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>Attach sensors to drone*</td>
+          <td>Should Have</td>
+          <td>N</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>Record footage from drone</td>
+          <td>Should Have</td>
+          <td>Y</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>Create 3D main menu</td>
+          <td>Could Have</td>
+          <td>Y</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>Detect movement on video footage</td>
+          <td>Could Have</td>
+          <td>Y</td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td>Display good quality video</td>
+          <td>Won't Have</td>
+          <td>N</td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td>Record video with thermal camera</td>
+          <td>Won't Have</td>
+          <td>N</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>*As we have not received the sensors in time to attach them to the drone, we have transferred the sensor requirements to term 2.</p>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr class="info">
+          <th>ID</th>
+          <th>Requirements TERM 2</th>
+          <th>Priority</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Attach sensors to drone</td>
+          <td>Must Have</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Access sensor reading from Arduino</td>
+          <td>Must Have</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Send the sensor readings to laptop</td>
+          <td>Must Have</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Send the sensor readings to phone</td>
+          <td>Must Have</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Store data to backend</td>
+          <td>Should Have</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Display video footage</td>
+          <td>Should Have</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>Video analysis</td>
+          <td>Could Have</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>Implement gimbal control for camera</td>
+          <td>Could Have</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>Access multiple sensor readings from Arduino</td>
+          <td>Could Have</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>Track GPS coordinates</td>
+          <td>Could Have</td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td>Livestream sensor readings</td>
+          <td>Won't Have</td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td>Analyse terrain</td>
+          <td>Won't Have</td>
+        </tr>
+      </tbody>
+    </table>
+
   </div>
 </div>
   
@@ -90,5 +257,16 @@
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<footer id="footer" class="midnight-blue">
+  <div class="row">
+    <div class="col-sm-6">
+      <h4>Systems Engineering Project 1-2</h4>
+    </div>
+    <div class="col-sm-6 pull-right">
+      <h4>Find us on <a href="https://github.com/deldarwand/MSF-SE-Project">Github</a></h4>
+    </div>
+  </div>
+
+</footer>
 </body>
 </html>

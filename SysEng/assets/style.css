@@ -2,6 +2,7 @@
   background-image: url(https://www.cinema5d.com/wp-content/uploads/2014/06/drone.jpg);
   background-position: center center;
   background-size: cover;
+  text-shadow: 3px 3px 8px #000;
   height: 300px;
   font-family: 'Roboto';
   color:white;
@@ -14,11 +15,12 @@
 	color:white;
 	padding-top: 30px;
 	padding-bottom: 30px;
+	margin-top: 30px;
+	text-align: center;
 }
 
 body {
 	font-family: 'Roboto';
-	text-align: center;
 }
 
 .navbar
@@ -34,9 +36,6 @@ body {
 	background-color: #222;
 }
 
-
-
-
 .intro {
 	background-color: ;
 }
@@ -46,7 +45,8 @@ body {
 }
 
 .team img {
-	max-width:100%;
+	width: 100%;
+	max-width:218px;
 	margin:0 auto;
 	display: block;
 }
