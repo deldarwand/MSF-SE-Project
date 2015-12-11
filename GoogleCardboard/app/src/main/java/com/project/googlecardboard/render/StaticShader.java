@@ -11,10 +11,10 @@ public class StaticShader extends Shader {
     private int locationProjectionMatrix;
     private int locationViewMatrix;
     //private int locationLight;
-    //private int locationTexture;
+    private int locationTexture;
 
     private int locationPosition;
-    //private int locationTextureCoordinates;
+    private int locationTextureCoordinates;
     private int locationColour;
     //private int locationNormal;
 
@@ -29,13 +29,13 @@ public class StaticShader extends Shader {
         locationViewMatrix = getUniformLocation("viewMatrix");
        // locationLight = getUniformLocation("light");
 
-        //locationTexture = getUniformLocation("texture");
+        locationTexture = getUniformLocation("texture");
     }
 
     @Override
     public void loadAttributeLocations(){
         locationPosition = getAttributeLocation("position");
-        //locationTextureCoordinates = getAttributeLocation("textureCoordinates");
+        locationTextureCoordinates = getAttributeLocation("textureCoordinates");
         locationColour = getAttributeLocation("colour");
         //locationNormal = getAttributeLocation("normal");
     }
@@ -43,7 +43,7 @@ public class StaticShader extends Shader {
     @Override
     public void enableAttributes(){
         GLES20.glEnableVertexAttribArray(locationPosition);
-       // GLES20.glEnableVertexAttribArray(locationTextureCoordinates);
+        GLES20.glEnableVertexAttribArray(locationTextureCoordinates);
         GLES20.glEnableVertexAttribArray(locationColour);
         //GLES20.glEnableVertexAttribArray(locationNormal);
     }
@@ -80,6 +80,6 @@ public class StaticShader extends Shader {
     }
 
     public void loadTextureCoordinates(float[] matrix){
-//        loadAttributeMatrix(locationTextureCoordinates, matrix, 2);
+        loadAttributeMatrix(locationTextureCoordinates, matrix, 2);
     }
 }

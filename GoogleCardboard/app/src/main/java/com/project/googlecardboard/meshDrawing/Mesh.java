@@ -32,7 +32,7 @@ public class Mesh extends Object {
     public Mesh(Context context)
     {
         this.context = context;
-        shader = new StaticShader(readRawTextFile(R.raw.vertex), readRawTextFile(R.raw.fragment));
+        shader = new StaticShader(readRawTextFile(R.raw.vertex), readRawTextFile(R.raw.graph_fragment));
     }
 
     public void addPoint(float newPoint)
@@ -90,7 +90,7 @@ public class Mesh extends Object {
         setupShader(gui);
     }
 
-    private String readRawTextFile(int resourceID) {
+    protected String readRawTextFile(int resourceID) {
         InputStream inputStream = context.getResources().openRawResource(resourceID);
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));

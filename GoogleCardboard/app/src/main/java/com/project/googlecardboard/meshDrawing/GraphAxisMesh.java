@@ -3,10 +3,12 @@ package com.project.googlecardboard.meshDrawing;
 import android.content.Context;
 import android.opengl.GLES20;
 
+import com.project.googlecardboard.R;
 import com.project.googlecardboard.WorldLayoutData;
 import com.project.googlecardboard.gui.GUI;
 import com.project.googlecardboard.matrix.ProjectionMatrix;
 import com.project.googlecardboard.matrix.ViewMatrix;
+import com.project.googlecardboard.render.StaticShader;
 
 /**
  * Created by danieleldar on 11/12/2015.
