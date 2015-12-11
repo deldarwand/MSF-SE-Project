@@ -74,25 +74,15 @@ public class QuadMesh extends Mesh {
             loadTexture();
         }
         shader.start();
-        checkGLError("BeforeQQ");
         shader.loadPosition(arrayOfVertices);
-        checkGLError("BeforeQ");
         shader.loadTransformationMatrix(gui.getMatrix());
-        checkGLError("BeforeF");
         shader.loadViewMatrix(viewMatrix.getMatrix());
-        checkGLError("BeforeE");
         shader.loadProjectionMatrix(projectionMatrix.getMatrix());
-        checkGLError("BeforeD");
         shader.loadColour(isLookingAtGui ? WorldLayoutData.CUBE_FOUND_COLORS : WorldLayoutData.CUBE_COLORS);
-        checkGLError("BeforeC");
         shader.loadTextureCoordinates(textureCoordinates);
-        checkGLError("BeforeB");
         shader.loadTexture(textureID);
-        checkGLError("BeforeA");
         shader.enableAttributes();
-        checkGLError("Before");
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, this.numberOfPoints);
-        checkGLError("After");
     }
 
 
