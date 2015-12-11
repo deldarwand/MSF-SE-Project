@@ -126,8 +126,8 @@ public class Renderer implements CardboardView.StereoRenderer{
         ProjectionMatrix projectionMatrix = new ProjectionMatrix(eye);
 
         for(GUI gui : guis){
-            if(!gui.isLookingAtMe(headView) && gui.getRadius() != 20.0f && !(gui instanceof TexturedGUI)){
-                gui.setRadius(20.0f);
+            if(!gui.isLookingAtMe(headView) && gui.getRadius() != 10.0f){
+                gui.setRadius(10.0f);
             }
             if(gui instanceof TexturedGUI)
             {
@@ -156,15 +156,15 @@ public class Renderer implements CardboardView.StereoRenderer{
     public void onSurfaceCreated(EGLConfig config) {
         if (guis.size() == 0)
         {
-            guis.add(new TexturedGUI(5,0f, 0.0f, context));
+            guis.add(new TexturedGUI(10,0.8f, 0.0f, context));
 
-            guis.add(new GUI(20, 0.8f, 0.0f, context));
-            guis.add(new GUI(20, 0.8f, -1.0f, context));
-            guis.add(new GUI(20, 0.8f, 1.0f, context));
+            //guis.add(new GUI(20, 0.8f, 0.0f, context));
+            guis.add(new GUI(10, 0.8f, -1.0f, context));
+            guis.add(new GUI(10, 0.8f, 1.0f, context));
 
-            guis.add(new GUI(20, -0.8f, -1.0f, context));
-            guis.add(new GUI(20, -0.8f, 0.0f, context));
-            guis.add(new GUI(20, -0.8f, 1.0f, context));
+            guis.add(new GUI(10, -0.8f, -1.0f, context));
+            guis.add(new GUI(10, -0.8f, 0.0f, context));
+            guis.add(new GUI(10, -0.8f, 1.0f, context));
 
 
         }
@@ -218,8 +218,8 @@ public class Renderer implements CardboardView.StereoRenderer{
      */
     public void onCardboardTrigger(){
         for(GUI gui : guis){
-            if(gui.isLookingAtMe(headView) && gui.getRadius() != 10.0f && !(gui instanceof TexturedGUI)){
-                gui.setRadius(10.0f);
+            if(gui.isLookingAtMe(headView) && gui.getRadius() != 10.0f){
+                gui.setRadius(5.0f);
             }
         }
     }

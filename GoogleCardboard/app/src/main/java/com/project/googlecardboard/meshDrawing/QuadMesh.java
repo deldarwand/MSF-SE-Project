@@ -40,12 +40,12 @@ public class QuadMesh extends Mesh {
     {
         super(context);
         arrayOfVertices = new float[] {
-                -0.5f, -0.5f, -1.0f, // Bottom left corner
-                -0.5f, 0.5f, -1.0f, // Top left corner
-                0.5f, 0.5f, -1.0f, // Top Right corner
-                0.5f, -0.5f, -1.0f, // Bottom right corner
-                -0.5f, -0.5f, -1.0f, // Bottom left corner
-                0.5f, 0.5f, -1.0f // Top Right corner
+                0.0f, 0.0f, 0.0f, // Bottom left corner
+                0.0f, 1.0f, 0.0f, // Top left corner
+                1.0f, 1.0f, 0.0f, // Top Right corner
+                1.0f, 0.0f, 0.0f, // Bottom right corner
+                0.0f, 0.0f, 0.0f, // Bottom left corner
+                1.0f, 1.0f, 0.0f // Top Right corner
         };
 
         bitmapToDisplay = BitmapFactory.decodeResource(context.getResources(), R.drawable.frame_00001);
