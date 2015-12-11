@@ -13,11 +13,9 @@
 <body>
 
 <header class="header container-fluid">
-  <!-- <div style="padding-top:25px"> -->
     <h1>Google meets Medecins Sans Frontieres</h1> 
-    <h4>An augmented reality experience for enhanced field data collection.</h4>
-  <!-- </div> -->
-
+    <h4>An augmented reality experience for field data collection.</h4>
+        <center><img src="images/MediDroid_Logo1.png" style="max-width:250px; width:100%;"></center>
 </header>
 
 <nav class="navbar navbar-inverse navbar-fixed-top navbar-left" role="navigation">
@@ -77,7 +75,7 @@
 
 <div class="row">
   <div class="col-sm-8 col-sm-push-2">
-    <h1 style="color:orange">Research and Tools</h1>
+    <h1 style="color:#33cccc">Research and Tools</h1>
 
     <h2>Java</h2>
     <img src="images/Java_logo.png" style="width:200px">
@@ -98,7 +96,9 @@
     <p>The UI is formed of several ‘boxes’ or ‘GUIs’ (Graphics User Interfaces) which hover in front of the user in 3D polar space. On each of these GUIs there will be a graph, video, or any other methods for displaying data in a visual manner. The spherical placement of the GUIs means that, whenever one is looked at directly, it will not be distorted, and instead will appear almost 2D to the user. This allows the user to fully focus on the data represented. If need be, the user may pull the trigger, which will magnify the GUI.</p>
 
     <h2>Hardware</h2>
-    <p>??</p>
+    <p>For the project we were allocated a Google Cardboard, an Android phone and a DJI Phantom 3 drone. We initially intended to build our own drone, as the DJI Phantom is not open source, to be able to make use of the drone’s existing data processor and communication devices for the sensors. We looked at buying a Pixhawk flight controller, as that is one of the most commonly used ones by drone enthusiasts, and has a wide range of documentation. However, after prioritising the build of the mobile application, and making use of the sensors on ground, we decided to make rather use of an Arduino board, which could then later on be connected to an open source drone, or could work as an independent system, which we could strap on an existing drone.</p>
+    <p>For data gathering in the drone’s surroundings whilst in flight, we ordered a light intensity sensor (Digital Light Intensity Sensor Module for AVR Arduino 3V - 5V), a gas sensor (MQ-7 Carbon Monoxide CO Gas Sensor Module) and a temperature and humidity sensor (Arduino Compatible Digital Temperature Humidity Sensor Module). To be able to stream the data from the drone to the ground we have ordered a Jeelink (v3c) and Jeenode USB which will work as a telemetry to send sensor data, which will be sent to a laptop that will be the server, and then send information wirelessly to the Android phone.</p>
+    <p>For capturing video we will be making use of a GoProHero3 camera and a video transmitter and receiver. We have also done research on compatible infrared camera to use on the drone, a lower resolution camera that better suits live streaming and a gimbal to move the camera, which we will be ordering for the second half of the project.</p>
 
     <h2>Connectivity</h2>
     <p>As we needed to connect three devices together, connectivity was a key part of the project. After revising the connections between the drone, laptop and cardboard device, we decided the best way we can connect the devices will be through a device called a telemetry which uses high range radio waves to transmit the data from the drone to a laptop and then using bluetooth to transmit the data from the laptop to the cardboard device. These decisions came through as the Wi-Fi range was too short to connect the drone and laptop and Android does not support ad-hoc Wi-Fi networks. Therefore we came up with the setup that was described.</p>
