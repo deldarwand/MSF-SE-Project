@@ -10,13 +10,13 @@ public class StaticShader extends Shader {
     private int locationTransformationMatrix;
     private int locationProjectionMatrix;
     private int locationViewMatrix;
-    private int locationLight;
-    private int locationTexture;
+    //private int locationLight;
+    //private int locationTexture;
 
     private int locationPosition;
-    private int locationTextureCoordinates;
+    //private int locationTextureCoordinates;
     private int locationColour;
-    private int locationNormal;
+    //private int locationNormal;
 
     public StaticShader(String vertexShaderCode, String fragmentShaderCode){
         super(vertexShaderCode, fragmentShaderCode);
@@ -27,25 +27,25 @@ public class StaticShader extends Shader {
         locationTransformationMatrix = getUniformLocation("transformationMatrix");
         locationProjectionMatrix = getUniformLocation("projectionMatrix");
         locationViewMatrix = getUniformLocation("viewMatrix");
-        locationLight = getUniformLocation("light");
+       // locationLight = getUniformLocation("light");
 
-        locationTexture = getUniformLocation("texture");
+        //locationTexture = getUniformLocation("texture");
     }
 
     @Override
     public void loadAttributeLocations(){
         locationPosition = getAttributeLocation("position");
-        locationTextureCoordinates = getAttributeLocation("textureCoordinates");
+        //locationTextureCoordinates = getAttributeLocation("textureCoordinates");
         locationColour = getAttributeLocation("colour");
-        locationNormal = getAttributeLocation("normal");
+        //locationNormal = getAttributeLocation("normal");
     }
 
     @Override
     public void enableAttributes(){
         GLES20.glEnableVertexAttribArray(locationPosition);
-        GLES20.glEnableVertexAttribArray(locationTextureCoordinates);
+       // GLES20.glEnableVertexAttribArray(locationTextureCoordinates);
         GLES20.glEnableVertexAttribArray(locationColour);
-        GLES20.glEnableVertexAttribArray(locationNormal);
+        //GLES20.glEnableVertexAttribArray(locationNormal);
     }
 
     public void loadTransformationMatrix(float[] matrix){
@@ -69,17 +69,17 @@ public class StaticShader extends Shader {
     }
 
     public void loadNormal(float[] matrix){
-        loadAttributeMatrix(locationNormal, matrix, 3);
+      //  loadAttributeMatrix(locationNormal, matrix, 3);
     }
 
     public void loadTexture(int id){
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
         //GLES20.glBindTexture(GL_TEXTURE_EXTERNAL_OES, id);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, id);
-        GLES20.glUniform1i(locationTexture, 0);
+        //GLES20.glUniform1i(locationTexture, 0);
     }
 
     public void loadTextureCoordinates(float[] matrix){
-        loadAttributeMatrix(locationTextureCoordinates, matrix, 2);
+//        loadAttributeMatrix(locationTextureCoordinates, matrix, 2);
     }
 }

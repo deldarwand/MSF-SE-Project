@@ -15,20 +15,21 @@ import java.util.Queue;
 public abstract class Graph implements Iterable<Float>{
 
     // Null Object design pattern
-    public static final Graph EMPTY = new LineGraph(0);
+    //public static final Graph EMPTY = new LineGraph(0);
 
     protected final int size;
+
     protected Queue<Float> data;
     private List<Float> model;
-    private int index;
-    public float[] arrayOfPoints;
+    private int index = 0;
+    private float[] arrayOfPoints;
 
     public Graph(int size){
-        this.size = 18; // Per coord
-        arrayOfPoints = new float[this.size];
-        this.data = new LinkedList<Float>();
-        this.model = new ArrayList<Float>();
-        this.index = 1;
+        this.size = size; // Per coord
+        //arrayOfPoints = new float[this.size];
+        //this.data = new LinkedList<Float>();
+        //this.model = new ArrayList<Float>();
+        //this.index = 1;
     }
 
     /**

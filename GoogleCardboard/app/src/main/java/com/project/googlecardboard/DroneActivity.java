@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.google.vrtoolkit.cardboard.CardboardActivity;
 import com.google.vrtoolkit.cardboard.CardboardView;
+import com.project.googlecardboard.gui.GUI;
 import com.project.googlecardboard.render.Renderer;
 import com.project.googlecardboard.render.Shader;
 import com.project.googlecardboard.render.StaticShader;
@@ -40,6 +41,7 @@ public class DroneActivity extends CardboardActivity{
         super.onCreate(savedInstanceState);
         this.vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         StaticShader shader = new StaticShader(readRawTextFile(R.raw.vertex), readRawTextFile(R.raw.fragment));
+      //  GUI gui = new GUI(20, 0.8f, 0.0f, getApplicationContext());
         this.renderer = new Renderer(getBaseContext(), shader);
 
         setContentView(R.layout.common_ui);

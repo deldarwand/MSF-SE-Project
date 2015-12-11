@@ -1,10 +1,13 @@
 package com.project.googlecardboard.gui;
 
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.SurfaceTexture;
+import android.opengl.Matrix;
 
 import com.project.googlecardboard.graph.Graph;
+import com.project.googlecardboard.graph.LineGraph;
 import com.project.googlecardboard.matrix.TransformationMatrix;
 
 /**
@@ -16,11 +19,14 @@ public class GUI {
     private float pitch;
     private float yaw;
 
+
+    private static final float PITCH_LIMIT = 0.15f, YAW_LIMIT = 0.15f;
+
     private TransformationMatrix matrix;
     private GUITexture texture;
-    private Graph graph;
+    private LineGraph graph;
 
-    public GUI(float radius, float pitch, float yaw, Graph graph){
+    public GUI(float radius, float pitch, float yaw, Context context){
         pitch *= 20;
         yaw *= 30;
         setRadius(radius);
@@ -30,23 +36,43 @@ public class GUI {
         //double y = radius * Math.sin(Math.toRadians(pitch));
         //double z = radius * Math.cos(Math.toRadians(pitch)) * Math.sin(Math.toRadians(yaw));
         this.texture = new GUITexture();
-        this.graph = graph;
+        this.graph = new LineGraph(30, context, this);
     }
 
-    public GUI(float radius, float pitch, float yaw){
-        this(radius, pitch, yaw, Graph.EMPTY);
-    }
+    //public GUI(float radius, float pitch, float yaw){
+     //   this(radius, pitch, yaw);
+    //}
 
-    public float[] getModel(){
-        return graph.getModel();
-    }
+    //public float[] getModel(){
+  //      return graph.getModel();
+   // }
 
     public float[] getMatrix(){
         matrix = new TransformationMatrix(radius, 0.0f, pitch, 90 - yaw + 100);
         return matrix.getMatrix();
     }
 
-    public Graph getGraph(){
+    public void clean()
+    {
+        this.graph.clean();
+    }
+
+    public boolean isLookingAtMe(float[] headView)
+    {
+        float[] initVec = { 0, 0, 0, 1.0f };
+        float[] objPositionVec = new float[4];
+        float[] modelView = new float[16];
+        // Convert object space to camera space. Use the headView from onNewFrame.
+        Matrix.multiplyMM(modelView, 0, headView, 0, this.getMatrix(), 0);
+        Matrix.multiplyMV(objPositionVec, 0, modelView, 0, initVec, 0);
+
+        float pitch = (float) Math.atan2(objPositionVec[1], -objPositionVec[2]);
+        float yaw = (float) Math.atan2(objPositionVec[0], -objPositionVec[2]);
+
+        return Math.abs(pitch) < PITCH_LIMIT && Math.abs(yaw) < YAW_LIMIT;
+    }
+
+    public LineGraph getGraph(){
         return graph;
     }
 

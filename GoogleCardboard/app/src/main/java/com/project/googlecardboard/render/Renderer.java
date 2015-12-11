@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLES20;
 import android.opengl.Matrix;
+import android.os.AsyncTask;
 
 import com.google.vrtoolkit.cardboard.CardboardView;
 import com.google.vrtoolkit.cardboard.Eye;
@@ -40,7 +41,7 @@ public class Renderer implements CardboardView.StereoRenderer{
     private static final float YAW_LIMIT = 0.15f;
     private static final float PITCH_LIMIT = 0.15f;
 
-    private final StaticShader shader;
+
     private final GUIModel model;
     private final List<GUI> guis;
 
@@ -52,7 +53,7 @@ public class Renderer implements CardboardView.StereoRenderer{
 
     public Renderer(Context context, StaticShader shader){
         this.context = context;
-        this.shader = shader;
+        //this.shader = shader;
         this.model = new GUIModel();
         this.guis = new ArrayList<GUI>();
         this.headView = new float[16];
@@ -61,26 +62,30 @@ public class Renderer implements CardboardView.StereoRenderer{
         bo.inScaled = false;
 
         //guis.add(new GUI(20, 0.8f, -1.0f, new LineGraph(20)));
-        guis.add(new GUI(20, 0.8f, 0.0f, new LineGraph(20)));
+        //guis.add(new GUI(20, 0.8f, 0.0f, context));
         //guis.add(new GUI(20, 0.8f, 1.0f, new LineGraph(20)));
 
         //guis.add(new GUI(20, -0.8f, -1.0f, new BarGraph(20)));
         //guis.add(new GUI(20, -0.8f, 0.0f, new LineGraph(20)));
         //guis.add(new GUI(20, -0.8f, 1.0f, new LineGraph(20)));
 
-        /*this.timer = new GraphTimer(new TimerTask() {
+        this.timer = new GraphTimer(new TimerTask() {
             @Override
             public void run() {
                 update();
             }
-        }, 0, 10000);*/
+        }, 50, 50);
+
     }
 
     public void update(){
         GUI gui = guis.get(0);
-            float rand = random.nextFloat();
-            gui.getGraph().add(rand);
-            gui.getGraph().draw();
+            //float rand = random.nextFloat();
+            //gui.getGraph().add(rand);
+            //gui.getGraph().draw();
+        Thread t = new Thread(gui.getGraph());
+        t.start();
+            //gui.getGraph().run();
     }
 
     /**
@@ -93,8 +98,8 @@ public class Renderer implements CardboardView.StereoRenderer{
         GLES20.glEnable(GLES20.GL_BLEND);
         GLES20.glLineWidth(40.0f);
         headTransform.getHeadView(headView, 0);
-        shader.start();
-        update();
+        //shader.start();
+        //update();
 
     }
 
@@ -107,20 +112,21 @@ public class Renderer implements CardboardView.StereoRenderer{
         clearBackgroundTo(0.0f, 191.0f, 255.0f, 1.0f);
         ViewMatrix viewMatrix = new ViewMatrix(eye);
         ProjectionMatrix projectionMatrix = new ProjectionMatrix(eye);
-        shader.loadViewMatrix(viewMatrix.getMatrix());
-        shader.loadProjectionMatrix(projectionMatrix.getMatrix());
+        //shader.loadViewMatrix(viewMatrix.getMatrix());
+        //shader.loadProjectionMatrix(projectionMatrix.getMatrix());
         //shader.loadPosition(model.getModel());
         for(GUI gui : guis){
             if(!isLookingAt(gui) && gui.getRadius() != 20.0f){
                 gui.setRadius(20.0f);
             }
-            shader.loadPosition(gui.getGraph().arrayOfPoints);
+            gui.getGraph().draw(headView, viewMatrix, projectionMatrix);
+            /*shader.loadPosition(gui.getGraph().arrayOfPoints);
             shader.loadTransformationMatrix(gui.getMatrix());
             shader.loadTexture(gui.getTexture().getID());
             shader.loadColour((isLookingAt(gui)) ? WorldLayoutData.CUBE_FOUND_COLORS : WorldLayoutData.CUBE_COLORS);
             shader.loadTextureCoordinates(gui.getTexture().textureCoordinates);
-            shader.enableAttributes();
-            drawGUI(gui);
+            shader.enableAttributes();*/
+            //drawGUI(gui);
         }
     }
 
@@ -130,14 +136,14 @@ public class Renderer implements CardboardView.StereoRenderer{
      */
     @Override
     public void onFinishFrame(Viewport viewport){
-        int resourceID = (index % 2 == 0) ? R.drawable.garrett : R.drawable.googlecardboard;
+//        int resourceID = (index % 2 == 0) ? R.drawable.garrett : R.drawable.googlecardboard;
 
-        if (b1 == null)
-        {
-            b1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.garrett);
-            b2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.googlecardboard);
-        }
-        shader.stop();
+  //      if (b1 == null)
+    //    {
+      //      b1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.garrett);
+        //    b2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.googlecardboard);
+        //}
+       // shader.stop();
     }
 
     /**
@@ -146,9 +152,13 @@ public class Renderer implements CardboardView.StereoRenderer{
      */
     @Override
     public void onSurfaceCreated(EGLConfig config) {
-        shader.init();
+        if (guis.size() == 0)
+        {
+            guis.add(new GUI(20, 0.8f, 0.0f, context));
+        }
+        /*shader.init();
         shader.loadUniformLocations();
-        shader.loadAttributeLocations();
+        shader.loadAttributeLocations();*/
         for(GUI gui : guis){
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.garrett);
             GUITexture texture = new GUITexture(bitmap);
@@ -156,6 +166,7 @@ public class Renderer implements CardboardView.StereoRenderer{
             bitmap.recycle();
         }
         //timer.start();
+        timer.start();
     }
 
     /**
@@ -173,7 +184,9 @@ public class Renderer implements CardboardView.StereoRenderer{
      */
     @Override
     public void onRendererShutdown(){
-        shader.clean();
+        for (GUI gui : guis) {
+            gui.clean();
+        }
         //timer.stop();
     }
 
