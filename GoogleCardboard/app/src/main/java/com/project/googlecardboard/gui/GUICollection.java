@@ -1,49 +1,59 @@
 package com.project.googlecardboard.gui;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by Garrett on 03/12/2015.
  */
 public class GUICollection implements Iterable<GUI>{
 
-    private HashMap<Float, List<GUI>> collection;
+    private List<GUI> guis;
 
     public GUICollection(){
-        this.collection = new HashMap<Float, List<GUI>>();
+        this.guis = Collections.synchronizedList(new ArrayList<GUI>());
     }
 
+    /**
+     * Add a gui to the collection
+     * The gui is inserted into a sorted list
+     * The efficiency of this insertion can be
+     * dealt with later, if need be
+     * @param gui
+     */
     public void add(GUI gui){
-        float radius = gui.getRadius();
-        List<GUI> guis = collection.get(radius);
-        if(guis == null){
-            guis = new ArrayList<GUI>();
+        int index = 0;
+        for(GUI g : this){
+            if(g.getRadius() > gui.getRadius()){
+                break;
+            }
+            index++;
         }
-        guis.add(gui);
-        collection.put(radius, guis);
+        guis.add(index, gui);
     }
 
+    /**
+     * Remove a gui from the collection
+     * @param gui
+     */
     public void remove(GUI gui){
-        List<GUI> guis = collection.get(gui.getRadius());
-        if(guis != null){
-            guis.remove(gui);
-        }
-    }
-
-    public void update(GUI gui, float radius){
-        remove(gui);
-        gui.setRadius(radius);
-        add(gui);
+        guis.remove(gui);
     }
 
     public Iterator<GUI> iterator(){
-        List<GUI> guiList = new ArrayList<GUI>();
-        for(List<GUI> guis : collection.values()){
-            guiList.addAll(guis);
-        }
-        return guiList.iterator();
+        return guis.iterator();
+    }
+
+    public int size(){
+        return guis.size();
+    }
+
+    public void sort(){
+        Collections.sort(guis);
     }
 }

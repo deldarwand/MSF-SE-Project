@@ -1,20 +1,27 @@
-package com.project.googlecardboard.graph;
+package com.project.googlecardboard.util;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Created by Garrett on 10/12/2015.
+ * Created by Garrett on 08/01/2016.
  */
-public class GraphTimer {
+public class GenericTimer {
 
     private Timer timer;
-    private TimerTask task;
-    private final long delay;
-    private final long period;
+    protected TimerTask task;
+    protected long delay;
+    protected long period;
     private boolean isRunning;
 
-    public GraphTimer(TimerTask task, long delay, long period){
+    public GenericTimer(){
+        this.timer = null;
+        this.isRunning = false;
+        this.delay = 0;
+        this.period = 0;
+    }
+
+    public GenericTimer(TimerTask task, long delay, long period){
         this.task = task;
         this.isRunning = false;
         this.delay = delay;

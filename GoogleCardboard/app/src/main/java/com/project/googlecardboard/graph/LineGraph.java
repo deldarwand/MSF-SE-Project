@@ -1,62 +1,30 @@
 package com.project.googlecardboard.graph;
 
-import com.google.vrtoolkit.cardboard.HeadTransform;
-import com.google.vrtoolkit.cardboard.sensors.HeadTracker;
-import com.project.googlecardboard.R;
-import com.project.googlecardboard.WorldLayoutData;
-import com.project.googlecardboard.gui.GUI;
-import com.project.googlecardboard.matrix.ProjectionMatrix;
-import com.project.googlecardboard.matrix.ViewMatrix;
-import com.project.googlecardboard.meshDrawing.*;
-import com.project.googlecardboard.render.StaticShader;
-
-
-import android.content.Context;
-import java.util.Random;
+import com.project.googlecardboard.mesh.*;
+import com.project.googlecardboard.render.shader.ShaderType;
 
 /**
  * Created by Garrett on 24/11/2015.
  */
 
-public class LineGraph extends Object implements Runnable {
+public class LineGraph implements Graph {
 
-    private Mesh graphMesh;
-    private GraphAxisMesh axis;
-    private GUI guiParent;
+    private GraphMesh graphMesh;
+    private GraphAxisMesh axisMesh;
 
-    public LineGraph(int size, Context context, GUI gui)
-    {
-        this.axis = new GraphAxisMesh(context, gui);
-        this.graphMesh = new Mesh(context, size, gui);
-        this.guiParent = gui;
-        //super(size);
+    public LineGraph(int capacity){
+        this.graphMesh = new GraphMesh(ShaderType.GRAPH, capacity);
+        this.axisMesh = new GraphAxisMesh(ShaderType.GRAPH);
     }
 
-    public void addData()
-    {
-
+    public void add(float value){
+        graphMesh.addPoint(value);
     }
 
-    public void draw(float[] headView, ViewMatrix viewMatrix, ProjectionMatrix projectionMatrix)
-    {
-        this.axis.draw(guiParent, guiParent.isLookingAtMe(headView), viewMatrix, projectionMatrix);
-        this.graphMesh.draw(guiParent, guiParent.isLookingAtMe(headView), viewMatrix, projectionMatrix);
-    }
+    /* DRAWING */
 
-    public void clean()
-    {
-        axis.teardown();
-        graphMesh.teardown();
-    }
-
-    Thread runningThread = null;
-
-    @Override
-    public void run()
-    {
-        android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
-        runningThread = Thread.currentThread();
-        Random rand = new Random();
-        graphMesh.addPoint(rand.nextFloat());
+    public void draw(){
+        axisMesh.draw();
+        graphMesh.draw();
     }
 }

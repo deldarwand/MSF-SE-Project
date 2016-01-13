@@ -1,24 +1,15 @@
 package com.project.googlecardboard;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.opengl.GLES20;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.util.Log;
 
 import com.google.vrtoolkit.cardboard.CardboardActivity;
 import com.google.vrtoolkit.cardboard.CardboardView;
-import com.project.googlecardboard.gui.GUI;
+import com.project.googlecardboard.gui.GUICollection;
 import com.project.googlecardboard.render.Renderer;
-import com.project.googlecardboard.render.Shader;
-import com.project.googlecardboard.render.StaticShader;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import com.project.googlecardboard.util.BackgroundThread;
+import com.project.googlecardboard.util.IO;
 
 /**
  * Created by Garrett on 22/10/2015.
@@ -26,7 +17,9 @@ import java.io.InputStreamReader;
 public class DroneActivity extends CardboardActivity{
 
     private Vibrator vibrator;
-    private Renderer renderer;
+    //private Renderer renderer;
+
+    private BackgroundThread backgroundThread;
 
     private CardboardOverlayView view;
 
@@ -40,13 +33,16 @@ public class DroneActivity extends CardboardActivity{
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         this.vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        StaticShader shader = new StaticShader(readRawTextFile(R.raw.vertex), readRawTextFile(R.raw.fragment));
-      //  GUI gui = new GUI(20, 0.8f, 0.0f, getApplicationContext());
-        this.renderer = new Renderer(getBaseContext(), shader);
+        IO.init(getBaseContext(), vibrator);
+        GUICollection menu = new GUICollection();
+        //this.renderer = new Renderer(menu);
+        this.backgroundThread = new BackgroundThread();
+
+        backgroundThread.start();
 
         setContentView(R.layout.common_ui);
         CardboardView cardboardView = (CardboardView) findViewById(R.id.cardboard_view);
-        cardboardView.setRenderer(renderer);
+        cardboardView.setRenderer(Renderer.INSTANCE);
         setCardboardView(cardboardView);
 
         view = (CardboardOverlayView) findViewById(R.id.overlay);
@@ -58,7 +54,8 @@ public class DroneActivity extends CardboardActivity{
     @Override
     public void onCardboardTrigger(){
         //view.show3DToast("Hello world");
-        renderer.onCardboardTrigger();
+        Renderer.INSTANCE.onCardboardTrigger();
+        //vibrate(50);
     }
 
     // MISCELLANEOUS
@@ -69,35 +66,5 @@ public class DroneActivity extends CardboardActivity{
      */
     public void vibrate(long time){
         vibrator.vibrate(time);
-    }
-
-    /**
-     * Reads a raw file as a String
-     * @param resourceID The resource's ID
-     * @return The source code, represented as a String
-     */
-    private String readRawTextFile(int resourceID) {
-        InputStream inputStream = getResources().openRawResource(resourceID);
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line).append("\n");
-            }
-            reader.close();
-            return sb.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static void checkGLError(String label) {
-        int error;
-        while ((error = GLES20.glGetError()) != GLES20.GL_NO_ERROR) {
-            Log.e("DroneActivity", label + ": glError " + error);
-            throw new RuntimeException(label + ": glError " + error);
-        }
     }
 }

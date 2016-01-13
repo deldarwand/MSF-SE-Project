@@ -29,11 +29,11 @@ public class TransformationMatrix {
             Rotates, and then translates
             This positions boxes in a spherical way
          */
+        Matrix.scaleM(matrix, 0, 9.0f, 9.0f, 9.0f);
         Matrix.rotateM(matrix, 0, yaw, 0.0f, 1.0f, 0.0f);
         Matrix.rotateM(matrix, 0, pitch, 1.0f, 0.0f, 0.0f);
         Matrix.rotateM(matrix, 0, roll, 0.0f, 0.0f, 1.0f);
         Matrix.translateM(matrix, 0, 0, 0, radius);
-        Matrix.scaleM(matrix, 0, 3.0f, 3.0f, 3.0f);
     }
 
     public float[] getMatrix(){

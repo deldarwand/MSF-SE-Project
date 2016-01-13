@@ -1,6 +1,8 @@
-package com.project.googlecardboard.render;
+package com.project.googlecardboard.render.shader;
 
 import android.opengl.GLES20;
+
+import com.project.googlecardboard.render.shader.Shader;
 
 /**
  * Created by Garrett on 13/11/2015.

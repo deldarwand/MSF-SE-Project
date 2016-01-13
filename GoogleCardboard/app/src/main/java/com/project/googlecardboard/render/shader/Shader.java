@@ -1,4 +1,4 @@
-package com.project.googlecardboard.render;
+package com.project.googlecardboard.render.shader;
 
 import android.opengl.GLES20;
 import android.opengl.Matrix;
@@ -46,6 +46,10 @@ public abstract class Shader {
         GLES20.glBindAttribLocation(shaderID, 0, "position");
 
         GLES20.glLinkProgram(shaderID);
+    }
+
+    public int getID(){
+        return shaderID;
     }
 
     /**
@@ -114,6 +118,21 @@ public abstract class Shader {
         GLES20.glVertexAttribPointer(location, perCoord, GLES20.GL_FLOAT, false, 0, arrayToBuffer(matrix));
     }
 
+    public abstract void loadTransformationMatrix(float[] matrix);
+
+    public abstract void loadProjectionMatrix(float[] matrix);
+
+    public abstract void loadViewMatrix(float[] matrix);
+
+    public abstract void loadPosition(float[] matrix);
+
+    public abstract void loadColour(float[] matrix);
+    public abstract void loadNormal(float[] matrix);
+
+    public abstract void loadTexture(int id);
+
+    public abstract void loadTextureCoordinates(float[] matrix);
+
     /**
      * Converts a float array to a float buffer
      * @param matrix
@@ -146,7 +165,7 @@ public abstract class Shader {
             shaderID = 0;
         }
         if(shaderID == 0){
-            //throw new RuntimeException("Error creating shader.");
+            throw new RuntimeException("Error creating shader.");
         }
         return shaderID;
     }
