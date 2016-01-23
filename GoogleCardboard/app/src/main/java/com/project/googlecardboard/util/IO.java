@@ -45,8 +45,8 @@ public class IO {
         return null;
     }
 
-    public static int readID(String identifier, String pakcage){
-        return context.getResources().getIdentifier(identifier, pakcage, context.getPackageName());
+    public static int readID(String identifier, String resourcePackage){
+        return context.getResources().getIdentifier(identifier, resourcePackage, context.getPackageName());
     }
 
     public static Bitmap readBitmap(int resourceID){
