@@ -31,7 +31,7 @@ public enum Renderer implements CardboardView.StereoRenderer{
 
     INSTANCE;
 
-    private final GUICollection menu;
+    private GUICollection menu;
     private float[] headView;
     private boolean hasShutdown;
 
@@ -104,6 +104,9 @@ public enum Renderer implements CardboardView.StereoRenderer{
      */
     @Override
     public void onSurfaceCreated(EGLConfig config) {
+        this.menu = new GUICollection();
+        this.headView = new float[16];
+        this.hasShutdown = false;
         if(menu.size() == 0){
             menu.add(new TexturedGUI(10, 0.0f, 0.0f));
 
@@ -113,7 +116,6 @@ public enum Renderer implements CardboardView.StereoRenderer{
             menu.add(new GraphGUI(10, -24.0f, 30.0f, new LineGraph(30)));
             //menu.add(new GraphGUI(10, -24.0f, 30.0f, new PieChart()));
         }
-        hasShutdown = false;
     }
 
     /**

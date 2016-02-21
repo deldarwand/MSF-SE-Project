@@ -107,6 +107,8 @@ public class DroneActivity extends CardboardActivity{
     public void onDestroy(){
         super.onDestroy();
         BluetoothService.INSTANCE.teardown();
+        Renderer.INSTANCE.onRendererShutdown();
         finishAffinity();
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 }
