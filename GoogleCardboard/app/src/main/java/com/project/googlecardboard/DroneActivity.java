@@ -1,15 +1,23 @@
 package com.project.googlecardboard;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
 
 import com.google.vrtoolkit.cardboard.CardboardActivity;
 import com.google.vrtoolkit.cardboard.CardboardView;
+import com.project.googlecardboard.bluetooth.BluetoothService;
 import com.project.googlecardboard.gui.GUICollection;
 import com.project.googlecardboard.render.Renderer;
 import com.project.googlecardboard.util.BackgroundThread;
 import com.project.googlecardboard.util.IO;
+
+import java.io.IOException;
+import java.util.UUID;
 
 /**
  * Created by Garrett on 22/10/2015.
@@ -17,10 +25,7 @@ import com.project.googlecardboard.util.IO;
 public class DroneActivity extends CardboardActivity{
 
     private Vibrator vibrator;
-    //private Renderer renderer;
-
     private BackgroundThread backgroundThread;
-
     private CardboardOverlayView view;
 
     // CARDBOARD ACTIVITY
@@ -33,19 +38,13 @@ public class DroneActivity extends CardboardActivity{
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         this.vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        IO.init(getBaseContext(), vibrator);
-        GUICollection menu = new GUICollection();
-        //this.renderer = new Renderer(menu);
         this.backgroundThread = new BackgroundThread();
+        IO.init(getBaseContext(), vibrator);
+        BluetoothService.INSTANCE.init(this);
 
-        backgroundThread.start();
-
-        setContentView(R.layout.common_ui);
-        CardboardView cardboardView = (CardboardView) findViewById(R.id.cardboard_view);
-        cardboardView.setRenderer(Renderer.INSTANCE);
-        setCardboardView(cardboardView);
-
-        view = (CardboardOverlayView) findViewById(R.id.overlay);
+        enableBackgroundThread(backgroundThread);
+        enableRenderer(Renderer.INSTANCE);
+        enableBluetoothService(BluetoothService.INSTANCE);
     }
 
     /**
@@ -66,5 +65,47 @@ public class DroneActivity extends CardboardActivity{
      */
     public void vibrate(long time){
         vibrator.vibrate(time);
+    }
+
+    private void enableBackgroundThread(BackgroundThread backgroundThread){
+        backgroundThread.start();
+    }
+
+    private void enableRenderer(Renderer renderer){
+        setContentView(R.layout.common_ui);
+        CardboardView cardboardView = (CardboardView) findViewById(R.id.cardboard_view);
+        cardboardView.setRenderer(renderer);
+        setCardboardView(cardboardView);
+
+        view = (CardboardOverlayView) findViewById(R.id.overlay);
+    }
+
+    private void enableBluetoothService(BluetoothService bluetoothService){
+        System.out.println("Turning bluetooth on.");
+        bluetoothService.enable();
+        bluetoothService.enableDiscovering();
+        System.out.println("Looking for devices...");
+        for(BluetoothDevice device : bluetoothService.getPairedDevices()){
+            System.out.println("Device: " + device.getName() + " | Address: " + device.getAddress());
+            if(device.getName().equalsIgnoreCase("Lenovo-PC")){
+                System.out.println("Found device");
+                try{
+                    BluetoothSocket socket = bluetoothService.connect(device, UUID.fromString("04c6093b-0000-1000-8000-00805f9b34fb"));
+                    String test = "Hello World";
+                    bluetoothService.write(socket, test.getBytes());
+                    System.out.println("Sending \"Hello World\".");
+                    System.out.println("Read value: " + new String(bluetoothService.read(socket)).trim());
+                    // Do something with the socket
+                } catch (IOException exception){
+                    // Exception dealing
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        BluetoothService.INSTANCE.teardown();
     }
 }

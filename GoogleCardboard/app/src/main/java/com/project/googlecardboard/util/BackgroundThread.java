@@ -1,5 +1,8 @@
 package com.project.googlecardboard.util;
 
+import android.bluetooth.BluetoothDevice;
+
+import com.project.googlecardboard.bluetooth.BluetoothService;
 import com.project.googlecardboard.gui.GUI;
 import com.project.googlecardboard.gui.GUICollection;
 import com.project.googlecardboard.gui.GraphGUI;
@@ -24,6 +27,9 @@ public class BackgroundThread extends Thread {
             for(GUI gui : Renderer.INSTANCE.getMenu()){
                 gui.update();
             }
+            /*for(BluetoothDevice device : BluetoothService.INSTANCE.getPairedDevices()){
+                System.out.println("Device: " + device.getName() + " | Address: " + device.getAddress());
+            }*/
             try{
                 Thread.sleep(50);
             } catch(InterruptedException exception){

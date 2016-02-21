@@ -105,7 +105,8 @@ public enum Renderer implements CardboardView.StereoRenderer{
             menu.add(new GraphGUI(10, 24.0f, -30.0f, new LineGraph(30)));
             menu.add(new GraphGUI(10, 24.0f, 30.0f, new LineGraph(30)));
             menu.add(new GraphGUI(10, -24.0f, -30.0f, new LineGraph(30)));
-            menu.add(new GraphGUI(10, -24.0f, 30.0f, new PieChart()));
+            menu.add(new GraphGUI(10, -24.0f, 30.0f, new LineGraph(30)));
+            //menu.add(new GraphGUI(10, -24.0f, 30.0f, new PieChart()));
         }
         hasShutdown = false;
     }
