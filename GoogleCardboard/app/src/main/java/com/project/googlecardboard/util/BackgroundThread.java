@@ -27,9 +27,6 @@ public class BackgroundThread extends Thread {
             for(GUI gui : Renderer.INSTANCE.getMenu()){
                 gui.update();
             }
-            /*for(BluetoothDevice device : BluetoothService.INSTANCE.getPairedDevices()){
-                System.out.println("Device: " + device.getName() + " | Address: " + device.getAddress());
-            }*/
             try{
                 Thread.sleep(50);
             } catch(InterruptedException exception){

@@ -18,6 +18,8 @@ import com.project.googlecardboard.render.animation.Animation;
 import com.project.googlecardboard.render.animation.PopAnimation;
 import com.project.googlecardboard.render.shader.Shader;
 import com.project.googlecardboard.render.shader.ShaderType;
+import com.project.googlecardboard.util.Constants;
+import com.project.googlecardboard.util.IO;
 
 import javax.microedition.khronos.egl.EGLConfig;
 
@@ -67,6 +69,9 @@ public enum Renderer implements CardboardView.StereoRenderer{
             }
         }
         menu.sort();
+        if(hasRolled(headTransform)){
+            onCardboardRoll();
+        }
     }
 
     /**
@@ -173,5 +178,24 @@ public enum Renderer implements CardboardView.StereoRenderer{
                 gui.setAnimatedRadius(5.0f, Animation.EMPTY);
             }
         }
+    }
+
+    /**
+     * Called when the cardboard rolls to the left or the right
+     */
+    public void onCardboardRoll(){
+        IO.vibrate(50);
+    }
+
+    /**
+     * Checks whether the user has rolled the phone
+     * @param headTransform The head transformation of the phone
+     * @return Whether it has rolled
+     */
+    private boolean hasRolled(HeadTransform headTransform){
+        float[] angle = new float[3];
+        headTransform.getEulerAngles(angle, 0);
+        float roll = angle[2];
+        return (Math.abs(roll) > Math.PI/2 - Constants.ROLL_LIMIT) && (Math.abs(roll) < Math.PI/2 + Constants.ROLL_LIMIT);
     }
 }

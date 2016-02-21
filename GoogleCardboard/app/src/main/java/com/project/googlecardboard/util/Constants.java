@@ -5,6 +5,7 @@ package com.project.googlecardboard.util;
  */
 public class Constants {
 
+    public static final float ROLL_LIMIT = 0.17f;
     public static final float PITCH_LIMIT = 0.17f;
     public static final float YAW_LIMIT = 0.17f;
 

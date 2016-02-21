@@ -44,7 +44,7 @@ public class DroneActivity extends CardboardActivity{
 
         enableBackgroundThread(backgroundThread);
         enableRenderer(Renderer.INSTANCE);
-        enableBluetoothService(BluetoothService.INSTANCE);
+        //enableBluetoothService(BluetoothService.INSTANCE);
     }
 
     /**
@@ -107,5 +107,6 @@ public class DroneActivity extends CardboardActivity{
     public void onDestroy(){
         super.onDestroy();
         BluetoothService.INSTANCE.teardown();
+        finishAffinity();
     }
 }

@@ -28,6 +28,7 @@ public enum BluetoothService {
     private BluetoothAdapter bluetoothAdaptor;
     private boolean isDiscovering;
     private boolean isDiscoverable;
+    private boolean receiverRegistered;
 
     private final Set<BluetoothDevice> devices;
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -48,6 +49,7 @@ public enum BluetoothService {
         this.devices = new HashSet<BluetoothDevice>();
         this.isDiscovering = false;
         this.isDiscoverable = false;
+        this.receiverRegistered = false;
     }
 
     /**
@@ -75,6 +77,7 @@ public enum BluetoothService {
     public boolean enable(){
         if(!isEnabled()){
             activity.startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), REQUEST_ENABLE_BT);
+            //enableBroadcastReceiver();
         }
         return isEnabled();
     }
@@ -96,7 +99,6 @@ public enum BluetoothService {
         if(isEnabled()){
             bluetoothAdaptor.disable();
         }
-        enableBroadcastReceiver();
         return !isEnabled();
     }
 
@@ -104,8 +106,8 @@ public enum BluetoothService {
      * Start discovering devices
      */
     public void enableDiscovering(){
-        this.isDiscovering = true;
         bluetoothAdaptor.startDiscovery();
+        this.isDiscovering = true;
     }
 
     /**
@@ -120,8 +122,8 @@ public enum BluetoothService {
      * Stop discovering devices
      */
     public void disableDiscovering(){
-        this.isDiscovering = false;
         bluetoothAdaptor.cancelDiscovery();
+        this.isDiscovering = false;
     }
 
     /**
@@ -129,10 +131,10 @@ public enum BluetoothService {
      * @param seconds
      */
     public void enableDiscoverability(int seconds){
-        this.isDiscoverable = true;
         Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
         discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, seconds);
         activity.startActivity(discoverableIntent);
+        this.isDiscoverable = true;
     }
 
     /**
@@ -164,14 +166,20 @@ public enum BluetoothService {
      * Enable receiving discovered devices
      */
     public void enableBroadcastReceiver(){
-        activity.registerReceiver(receiver, new IntentFilter(BluetoothDevice.ACTION_FOUND));
+        if(!receiverRegistered){
+            activity.registerReceiver(receiver, new IntentFilter(BluetoothDevice.ACTION_FOUND));
+            this.receiverRegistered = true;
+        }
     }
 
     /**
      * Disable receiving discovered devices
      */
     public void disableBroadcastReceiver(){
-        activity.unregisterReceiver(receiver);
+        if(receiverRegistered){
+            activity.unregisterReceiver(receiver);
+            this.receiverRegistered = false;
+        }
     }
 
     /**
