@@ -14,6 +14,16 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import pl.exception.PLReadException;
+import pl.googlecardboard.AltitudePacket;
+import pl.googlecardboard.BitmapPacket;
+import pl.googlecardboard.GPSPacket;
+import pl.googlecardboard.HumidityPacket;
+import pl.googlecardboard.RotationPacket;
+import pl.googlecardboard.TemperaturePacket;
+import pl.packet.Packet;
+import pl.packet.PacketManager;
+
 /**
  * Created by Garrett on 23/01/2016.
  */
@@ -29,6 +39,8 @@ public enum BluetoothService {
     private boolean isDiscovering;
     private boolean isDiscoverable;
     private boolean receiverRegistered;
+
+    private final PacketManager packetManager;
 
     private final Set<BluetoothDevice> devices;
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -50,6 +62,13 @@ public enum BluetoothService {
         this.isDiscovering = false;
         this.isDiscoverable = false;
         this.receiverRegistered = false;
+        this.packetManager = new PacketManager();
+        packetManager.addPacketClass('H', HumidityPacket.class);
+        packetManager.addPacketClass('T', TemperaturePacket.class);
+        packetManager.addPacketClass('G', GPSPacket.class);
+        packetManager.addPacketClass('A', AltitudePacket.class);
+        packetManager.addPacketClass('B', BitmapPacket.class);
+        packetManager.addPacketClass('R', RotationPacket.class);
     }
 
     /**
@@ -155,7 +174,7 @@ public enum BluetoothService {
 
     /**
      * Get remote device
-     * @param url MAC Address of device hosting server
+     * @param address MAC Address of device hosting server
      * @return BluetoothDevice hosting that address
      */
     public BluetoothDevice getRemoteDevice(String address){
@@ -189,7 +208,7 @@ public enum BluetoothService {
      * @return Socket connected to
      * @throws IOException
      */
-    public synchronized BluetoothSocket connect(BluetoothDevice device, UUID uuid) throws IOException{
+    public BluetoothSocket connect(BluetoothDevice device, UUID uuid) throws IOException{
         BluetoothSocket socket = device.createRfcommSocketToServiceRecord(uuid);
         if(socket == null){
             // Socket was null, so there was an IO problem
@@ -205,12 +224,24 @@ public enum BluetoothService {
         return socket;
     }
 
+    public BluetoothSocket connectTo(String deviceName, UUID uuid) throws IOException{
+        System.out.println("G::Attempting connection...");
+        for(BluetoothDevice device : getPairedDevices()){
+            System.out.println("G::Device: " + device.getName() + " | Address: " + device.getAddress());
+            if(device.getName().equals(deviceName)){
+                System.out.println("G::Connection");
+                return connect(device, uuid);
+            }
+        }
+        return null;
+    }
+
     /**
      * Read from the BluetoothSocket
      * @param socket
      * @return Received byte array
      */
-    public synchronized byte[] read(BluetoothSocket socket){
+    public byte[] read(BluetoothSocket socket){
         byte[] buffer = new byte[1024];
         if(socket == null){
             return buffer;
@@ -226,11 +257,23 @@ public enum BluetoothService {
     }
 
     /**
+     * Read from the BluetoothSocket
+     * @param socket
+     * @return
+     * @throws Exception
+     */
+    public Packet readPacket(BluetoothSocket socket) throws Exception{
+        String str = new String(read(socket)).trim();
+        System.out.println("G::Read bytes: " + str);
+        return packetManager.new_Packet(str);
+    }
+
+    /**
      * Write to the BluetoothSocket
      * @param socket
      * @param buffer Sending byte array
      */
-    public synchronized void write(BluetoothSocket socket, byte[] buffer){
+    public void write(BluetoothSocket socket, byte[] buffer){
         if(socket == null){
             return;
         }
@@ -244,10 +287,20 @@ public enum BluetoothService {
     }
 
     /**
+     * Write to the BluetoothSocket
+     * @param socket
+     * @param packet
+     * @throws Exception
+     */
+    public void writePacket(BluetoothSocket socket, Packet packet) throws Exception{
+        write(socket, packet.read());
+    }
+
+    /**
      * Close the BluetoothSocket
      * @param socket
      */
-    public synchronized void close(BluetoothSocket socket){
+    public void close(BluetoothSocket socket){
         if(socket == null){
             return;
         }

@@ -9,6 +9,8 @@ import com.project.googlecardboard.render.shader.ShaderType;
 import com.project.googlecardboard.util.BitmapBuffer;
 import com.project.googlecardboard.util.IO;
 
+import pl.packet.Packet;
+
 /**
  * Created by danieleldar on 11/12/2015.
  */
@@ -57,7 +59,7 @@ public class TexturedGUI extends GUI {
 
     /* UPDATE */
 
-    public void update() {
+    public void update(Packet packet) {
         int frameNumber = newFrameNumber;
         frameNumber++;
         if(frameNumber > 48){

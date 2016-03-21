@@ -7,6 +7,9 @@ import com.project.googlecardboard.render.shader.ShaderType;
 
 import java.util.Random;
 
+import pl.googlecardboard.HumidityPacket;
+import pl.packet.Packet;
+
 /**
  * Created by Garrett on 08/01/2016.
  */
@@ -37,9 +40,14 @@ public class GraphGUI extends GUI{
 
     /* UPDATING */
 
-    public void update(){
-        Random rand = new Random();
-        graph.add(rand.nextFloat() - 0.5f);
+    public void update(Packet packet){
+        System.out.println("G::Received packet!: " + packet);
+        //Random rand = new Random();
+        //graph.add(rand.nextFloat() - 0.5f);
+        if(packet instanceof HumidityPacket){
+            HumidityPacket hPacket = (HumidityPacket) packet;
+            graph.add(hPacket.getHumidity() - 0.5f);
+        }
     }
 
     /* TEARDOWN */

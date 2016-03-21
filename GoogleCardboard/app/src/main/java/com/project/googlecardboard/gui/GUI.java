@@ -11,6 +11,8 @@ import com.project.googlecardboard.render.shader.ShaderType;
 import com.project.googlecardboard.util.Constants;
 import com.project.googlecardboard.util.IO;
 
+import pl.packet.Packet;
+
 /**
  * Created by Garrett on 27/10/2015.
  */
@@ -111,7 +113,7 @@ public abstract class GUI implements Drawing, Comparable<GUI>{
 
     /* UPDATING */
 
-    public abstract void update();
+    public abstract void update(Packet packet);
 
     public void playAnimation(){
         if(animation.hasNext()){

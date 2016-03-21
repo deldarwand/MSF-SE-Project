@@ -17,6 +17,7 @@ import com.project.googlecardboard.util.BackgroundThread;
 import com.project.googlecardboard.util.IO;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.UUID;
 
 /**
@@ -37,14 +38,17 @@ public class DroneActivity extends CardboardActivity{
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        this.vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         this.backgroundThread = new BackgroundThread();
+        this.vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
         IO.init(getBaseContext(), vibrator);
         BluetoothService.INSTANCE.init(this);
-
+        while(!BluetoothService.INSTANCE.isEnabled()
+                && !BluetoothService.INSTANCE.isDiscovering()){
+            enableBluetoothService(BluetoothService.INSTANCE);
+        }
         enableBackgroundThread(backgroundThread);
         enableRenderer(Renderer.INSTANCE);
-        //enableBluetoothService(BluetoothService.INSTANCE);
     }
 
     /**
@@ -81,26 +85,9 @@ public class DroneActivity extends CardboardActivity{
     }
 
     private void enableBluetoothService(BluetoothService bluetoothService){
-        System.out.println("Turning bluetooth on.");
+        System.out.println("G::Turning bluetooth on.");
         bluetoothService.enable();
         bluetoothService.enableDiscovering();
-        System.out.println("Looking for devices...");
-        for(BluetoothDevice device : bluetoothService.getPairedDevices()){
-            System.out.println("Device: " + device.getName() + " | Address: " + device.getAddress());
-            if(device.getName().equalsIgnoreCase("Lenovo-PC")){
-                System.out.println("Found device");
-                try{
-                    BluetoothSocket socket = bluetoothService.connect(device, UUID.fromString("04c6093b-0000-1000-8000-00805f9b34fb"));
-                    String test = "Hello World";
-                    bluetoothService.write(socket, test.getBytes());
-                    System.out.println("Sending \"Hello World\".");
-                    System.out.println("Read value: " + new String(bluetoothService.read(socket)).trim());
-                    // Do something with the socket
-                } catch (IOException exception){
-                    // Exception dealing
-                }
-            }
-        }
     }
 
     @Override

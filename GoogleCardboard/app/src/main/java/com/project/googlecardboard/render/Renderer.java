@@ -33,7 +33,7 @@ public enum Renderer implements CardboardView.StereoRenderer{
 
     private GUICollection menu;
     private float[] headView;
-    private boolean hasShutdown;
+    private boolean hasShutdown = false;
 
     private Renderer(){
         this.menu = new GUICollection();
