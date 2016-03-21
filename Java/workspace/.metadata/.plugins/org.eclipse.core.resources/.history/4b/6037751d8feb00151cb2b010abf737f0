@@ -1,0 +1,63 @@
+package google.bluetooth;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import pl.googlecardboard.AltitudePacket;
+import pl.googlecardboard.BitmapPacket;
+import pl.googlecardboard.GPSPacket;
+import pl.googlecardboard.HumidityPacket;
+import pl.googlecardboard.RotationPacket;
+import pl.googlecardboard.TemperaturePacket;
+import pl.packet.Packet;
+import pl.packet.PacketManager;
+
+import com.fazecast.jSerialComm.SerialPort;
+
+public enum DataTransmissionServer {
+
+	INSTANCE;
+	
+	private List<ProcessThread> threads;
+	private PacketManager packetManager;
+	
+	private DataTransmissionServer(){
+		this.packetManager = new PacketManager();
+		packetManager.addPacketClass('H', HumidityPacket.class);
+		packetManager.addPacketClass('T', TemperaturePacket.class);
+		packetManager.addPacketClass('G', GPSPacket.class);
+		packetManager.addPacketClass('A', AltitudePacket.class);
+		packetManager.addPacketClass('B', BitmapPacket.class);
+		packetManager.addPacketClass('R', RotationPacket.class);
+	}
+	
+	public void start() throws IOException{
+		System.out.println("Starting server");
+		this.threads = new ArrayList<ProcessThread>();
+		Thread connectionThread = new ConnectionThread();
+		connectionThread.start();
+		for(SerialPort p : SerialPort.getCommPorts()){
+			System.out.println("Port: " + p.getSystemPortName() + " | Baud rate: " + p.getBaudRate());
+		}
+		SerialPort port = SerialPort.getCommPort("COM5");
+		port.openPort();
+		InputStream input = port.getInputStream();
+		while(true){
+			//System.out.println("Value: " + readLine(input));
+			Packet packet = packetManager.new_Packet(Packet.readLine(input));
+			
+		}
+	}
+	
+	public void add(ProcessThread thread){
+		threads.add(thread);
+	}
+	
+	public static void main(String[] arg) throws IOException{
+		
+		//System.out.println(("Program ended"));
+		DataTransmissionServer.INSTANCE.start();
+	}
+}

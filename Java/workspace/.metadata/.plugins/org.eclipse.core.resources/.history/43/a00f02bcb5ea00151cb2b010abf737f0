@@ -1,0 +1,5 @@
+package bpl.packet;
+
+public class UnknownPacket {
+
+}

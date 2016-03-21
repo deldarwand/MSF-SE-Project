@@ -1,0 +1,32 @@
+package pl.packet;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import pl.exception.PLWriteException;
+import pl.googlecardboard.HumidityPacket;
+
+public class PacketManager {
+
+	private final Map<Integer, Class<? extends Packet>> packets;
+	
+	public PacketManager(){
+		this.packets = new HashMap<Integer, Class<? extends Packet>>();
+	}
+	
+	public final void addPacketClass(Integer id, Class<? extends Packet> clazz){
+		packets.put(id, clazz);
+	}
+	
+	public Packet new_Packet(Integer id) throws InstantiationException, IllegalAccessException{
+		Class<? extends Packet> clazz = packets.getOrDefault(id, UnknownPacket.class);
+		return clazz.newInstance();
+	}
+	
+	public Packet new_Packet(String input) throws InstantiationException, IllegalAccessException, IOException, PLWriteException{
+		Packet packet = new_Packet(new Integer(Packet.readLine(input)).intValue());
+		packet.write(Packet.readLine(input));
+		return packet;
+	}
+}

@@ -1,0 +1,13 @@
+package bpl.googlecardboard.gps;
+
+public class GPS {
+
+	public float latitude;
+	public float longitude;
+	
+	public GPS(float latitude, float longitude){
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
+	
+}

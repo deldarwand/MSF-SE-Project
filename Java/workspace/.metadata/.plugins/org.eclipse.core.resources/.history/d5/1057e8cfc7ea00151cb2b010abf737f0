@@ -1,0 +1,10 @@
+package pl.exception;
+
+public class PLReadException extends Throwable{
+
+	private static final long serialVersionUID = -1817790230683088040L;
+
+	public PLReadException(String exception){
+		super(exception);
+	}
+}

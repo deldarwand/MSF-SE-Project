@@ -1,0 +1,54 @@
+package google.bluetooth;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import javax.microedition.io.StreamConnection;
+
+import pl.packet.Packet;
+import pl.packet.PacketManager;
+
+public class Session {
+
+	private InputStream input;
+	private OutputStream output;
+	private final PacketManager manager;
+	
+	public Session(StreamConnection connection, PacketManager manager) throws IOException{
+		this.input = connection.openInputStream();
+		this.output = connection.openOutputStream();
+		this.manager = manager;
+	}
+	
+	@Override
+	public void finalize() throws IOException{
+		this.input.close();
+		this.output.close();
+	}
+	
+	public void write(Packet packet) throws Exception{
+		output.write(packet.read());
+	}
+	
+	public Packet read() throws Exception{
+		return manager.new_Packet(readString(input));
+	}
+	
+	private String readString(InputStream input) throws IOException{
+		String str = "";
+		int value;
+		while((value = input.read()) != Packet.NONE && value != Packet.DELIMETER){
+			/*
+			 * There could be a better way to do this,
+			 * but currently, not in a way such that
+			 * it can take in any length of bytes
+			 */
+			str += (char) value;
+		}
+		return str;
+	}
+	
+	
+	
+}

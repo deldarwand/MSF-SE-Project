@@ -1,0 +1,22 @@
+package pl.googlecardboard;
+
+/**
+ * A packet to store altitude.
+ * Used in the MSF + Google Project
+ * @author Garrett
+ *
+ */
+public final class AltitudePacket extends Packet{
+
+	private float altitude;
+	
+	public void write(String input){
+		this.altitude = Float.parseFloat(input)
+	}
+	
+	public byte[] read(){
+		return new String("A" + DELIMETER + altitude + DELIMETER);
+	}
+	
+	
+}

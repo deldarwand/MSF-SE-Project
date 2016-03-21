@@ -1,0 +1,27 @@
+package google.sql;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class SQL {
+
+	private static final void loadDriver(String database, String username, String password) throws ClassNotFoundException{
+		String url = "";
+		if(database != null){
+			Class.forName("com.imaginary.sql.msql.MsqlDriver"); 
+			url = "jdbc:msql://" + database + ":1114/contact_mgr"; 
+		} else{
+			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver"); 
+			url = "jdbc:odbc:contact_mgr"; 
+		}
+		Connection connection = DriverManager.getConnection(url, "user1", "password");
+	}
+	
+	public static final void loadDriverOnline(String database, String username, String password){
+		loadDriver(database, username, password);
+	}
+	
+	public static final void loadDriverOffline(String username, String password){
+		loadDriver(null, username, password);
+	}
+}

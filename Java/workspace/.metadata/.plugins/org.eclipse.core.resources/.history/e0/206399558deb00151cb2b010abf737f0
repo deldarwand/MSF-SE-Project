@@ -1,0 +1,42 @@
+package google.bluetooth;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import javax.microedition.io.StreamConnection;
+
+public class ProcessThread extends Thread{
+
+	private final StreamConnection connection;
+	private InputStream input;
+	private OutputStream output;
+	private static final int NONE = -1;			// When nothing is sent
+	private static final int DELIMETER = 124;	// Equivalent to '|'
+		
+	public ProcessThread(StreamConnection connection){
+		this.connection = connection;
+	}
+	
+	@Override
+	public void run(){
+		this.input = connection.openInputStream();
+		this.output = connection.openOutputStream();
+	}
+	
+	private String readString(InputStream input) throws IOException{
+		String str = "";
+		int value;
+		while((value = input.read()) != NONE && value != DELIMETER){
+			/*
+			 * There could be a better way to do this,
+			 * but currently, not in a way such that
+			 * it can take in any length of bytes
+			 */
+			str += (char) value;
+		}
+		return str;
+	}
+	
+	
+}

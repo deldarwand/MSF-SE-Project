@@ -1,0 +1,7 @@
+package bpl.googlecardboard;
+
+import bpl.packet.Packet;
+
+public class HumidityPacket implements Packet{
+
+}

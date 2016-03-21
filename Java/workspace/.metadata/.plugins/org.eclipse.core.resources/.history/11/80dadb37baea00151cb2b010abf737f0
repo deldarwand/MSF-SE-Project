@@ -1,0 +1,51 @@
+package bpl.googlecardboard;
+
+import java.io.IOException;
+
+import bpl.exception.BPLWriteException;
+import bpl.packet.Packet;
+import bpl.packet.PacketManager;
+import bpl.packet.UnknownPacket;
+
+public class HumidityPacket extends Packet{
+
+	public static void main(String[] arg){
+		PacketManager manager = new PacketManager();
+		manager.addPacketClass("H", HumidityPacket.class);
+		try {
+			Packet p = manager.new_Packet("H");
+			if(p instanceof UnknownPacket){
+				System.out.println("Unknown packet!");
+			} else{
+				p.write("5");
+				HumidityPacket packet = (HumidityPacket) p;
+				System.out.println("Humidity: " + packet.getHumidity());
+			}
+		} catch (InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (BPLWriteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	private int humidity;
+	
+	public void write(String input) throws IOException{
+		this.humidity = Integer.parseInt(input);	
+	}
+	
+	public byte[] read(){
+		return new String("H:" + humidity + Packet.DELIMETER).getBytes();
+	}
+	
+	public int getHumidity(){
+		return humidity;
+	}
+}

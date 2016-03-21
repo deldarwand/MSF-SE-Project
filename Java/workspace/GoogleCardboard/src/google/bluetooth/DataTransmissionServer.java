@@ -1,87 +1,70 @@
 package google.bluetooth;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import com.fazecast.jSerialComm.SerialPort;
+
+import pl.googlecardboard.AltitudePacket;
+import pl.googlecardboard.BitmapPacket;
+import pl.googlecardboard.GPSPacket;
+import pl.googlecardboard.HumidityPacket;
+import pl.googlecardboard.RotationPacket;
+import pl.googlecardboard.TemperaturePacket;
+import pl.packet.Packet;
+import pl.packet.PacketManager;
 
 public enum DataTransmissionServer {
 
 	INSTANCE;
 	
-	private static final int DELIMETER = 124; // Equal to '|'
-	
-	private List<ProcessThread> threads;
+	private PacketManager packetManager;
+	private List<Session> sessions;
 	
 	private DataTransmissionServer(){
-		
-		
+		this.packetManager = new PacketManager();
+		packetManager.addPacketClass('H', HumidityPacket.class);
+		packetManager.addPacketClass('T', TemperaturePacket.class);
+		packetManager.addPacketClass('G', GPSPacket.class);
+		packetManager.addPacketClass('A', AltitudePacket.class);
+		packetManager.addPacketClass('B', BitmapPacket.class);
+		packetManager.addPacketClass('R', RotationPacket.class);
+		this.sessions = new ArrayList<Session>();
 	}
 	
-	public void start() throws IOException{
+	public void start() throws Exception{
 		System.out.println("Starting server");
-		this.threads = new ArrayList<ProcessThread>();
-		Thread connectionThread = new ConnectionThread();
-		connectionThread.start();
-		for(SerialPort p : SerialPort.getCommPorts()){
-			System.out.println("Port: " + p.getSystemPortName() + " | Baud rate: " + p.getBaudRate());
+		Thread connectionThread = new ConnectionThread(this);
+		for(SerialPort port : SerialPort.getCommPorts()){
+			System.out.println("Port: " + port.getDescriptivePortName() + " | Baud: " + port.getBaudRate());
 		}
-		SerialPort port = SerialPort.getCommPort("COM5");
+		System.out.println("Server started!");
+		//Packet packet = packetManager.new_Packet("H|34|");
+		//System.out.println("Value: " + new String(packet.read()));
+		connectionThread.start();		
+		/*SerialPort port = SerialPort.getCommPort("COM5");
 		port.openPort();
-		InputStream input = port.getInputStream();
 		while(true){
-			//System.out.println("Value: " + readLine(input));
-			String str = readLine(input);
-			switch(str){
-				case "H":
-					str = readLine(input);
-					System.out.println("Humidity: " + str);
-					for(ProcessThread thread : threads){
-						thread.setHumidity(Integer.valueOf(str).intValue());
-					}
-					break;
-				case "T":
-					str = readLine(input);
-					System.out.println("Temperature: " + str);
-					for(ProcessThread thread : threads){
-						thread.setTemperature(Integer.valueOf(str).intValue());
-					}
-					break;
-				default:
-					break;
-			}
+			System.out.println("Value: " + Packet.readLine(port.getInputStream()));
+		}*/
+	}
+	
+	public void addSession(Session session){
+		sessions.add(session);
+	}
+	
+	public PacketManager getPacketManager(){
+		return packetManager;
+	}
+	
+	public static void main(String[] arg){
+		try {
+			DataTransmissionServer.INSTANCE.start();
+		} catch(IOException exception) {
+			System.err.println("Connection closed.");
+		} catch(Exception exception){
+			exception.printStackTrace();
 		}
-	}
-	
-	private String readLine(InputStream input) throws IOException{
-		String str = "";
-		for(int value = input.read(); value != DELIMETER; value = input.read()){
-			switch(value){
-				case 138: // This is the initial Serial.begin(9600);
-				case 10:  // Newline \n
-				case 13:  // Carriage return \r
-					continue;
-				default:
-					str += (char) value;
-					break;
-			}
-		}
-		return str.trim();		
-	}
-	
-	public void add(ProcessThread thread){
-		threads.add(thread);
-	}
-	
-	public static void main(String[] arg) throws IOException{
-		
-		//System.out.println(("Program ended"));
-		DataTransmissionServer.INSTANCE.start();
 	}
 }

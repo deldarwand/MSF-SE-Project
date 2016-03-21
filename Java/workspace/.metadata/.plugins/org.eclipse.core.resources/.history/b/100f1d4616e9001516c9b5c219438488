@@ -1,0 +1,17 @@
+package google.sql;
+
+public class SQLDatabase {
+
+	private final String url;
+
+	public SQLDatabase(){
+		
+	}
+	
+	public SQLDatabase(String database){
+		Class.forName("com.imaginary.sql.msql.MsqlDriver");
+		url = "jdbc:msql://" + database + ":1114/contact_mgr"; 
+	}
+	
+	
+}

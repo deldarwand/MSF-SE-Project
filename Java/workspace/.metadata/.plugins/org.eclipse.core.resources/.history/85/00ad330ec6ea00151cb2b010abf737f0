@@ -1,0 +1,22 @@
+package pl.googlecardboard;
+
+import java.io.IOException;
+
+import pl.packet.Packet;
+
+public final class TemperaturePacket extends Packet{
+
+	private int temperature;
+	
+	public void write(String input){
+		this.temperature = Integer.parseInt(input);
+	}
+	
+	public byte[] read(){
+		return new String("T" + Packet.DELIMETER + temperature + Packet.DELIMETER).getBytes();
+	}
+	
+	public int getTemperature(){
+		return temperature;
+	}
+}

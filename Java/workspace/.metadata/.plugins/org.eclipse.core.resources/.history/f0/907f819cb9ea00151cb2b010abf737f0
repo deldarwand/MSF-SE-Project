@@ -1,0 +1,21 @@
+package bpl.googlecardboard;
+
+import bpl.packet.Packet;
+
+public class GPSPacket extends Packet{
+
+	private float latitude;
+	private float longitude;
+	
+	public void write(String input){
+		String[] l = input.split(",");
+		if(l.length == 2){
+			latitude = ((Integer) l[0]).intValue();
+			longitude = ((Integer) l[1]).intValue();
+		}
+	}
+	
+	public byte[] read(){
+		return new String("G:" + latitude + "," + longitude + Packet.DELIMETER);
+	}
+}

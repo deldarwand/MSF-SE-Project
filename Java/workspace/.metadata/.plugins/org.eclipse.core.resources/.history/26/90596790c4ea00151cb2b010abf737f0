@@ -1,0 +1,22 @@
+package pl.packet;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class PacketManager {
+
+	private final Map<String, Class<? extends Packet>> packets;
+	
+	public PacketManager(){
+		this.packets = new HashMap<String, Class<? extends Packet>>();
+	}
+	
+	public final void addPacketClass(String id, Class<? extends Packet> clazz){
+		packets.put(id, clazz);
+	}
+	
+	public Packet new_Packet(String id) throws InstantiationException, IllegalAccessException{
+		Class<? extends Packet> clazz = packets.getOrDefault(id, UnknownPacket.class);
+		return clazz.newInstance();
+	}	
+}

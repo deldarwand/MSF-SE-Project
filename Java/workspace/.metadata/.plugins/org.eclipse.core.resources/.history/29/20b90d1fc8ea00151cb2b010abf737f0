@@ -1,0 +1,61 @@
+package pl.packet;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import pl.exception.PLWriteException;
+
+/**
+ * A basic packet manager for Packets
+ * @author Garrett May
+ *
+ */
+public class PacketManager {
+
+	private final Map<Integer, Class<? extends Packet>> packets;
+	
+	public PacketManager(){
+		this.packets = new HashMap<Integer, Class<? extends Packet>>();
+		addPacketClass(0, UnknownPacket.class);
+	}
+	
+	/**
+	 * Adds a type of packet to the manager
+	 * @param id The ID of the Packet. Cannot be 0, as this is reserved for the UnknownPacket
+	 * @param clazz The class of the Packet
+	 */
+	public final void addPacketClass(int id, Class<? extends Packet> clazz){
+		if(id != 0){
+			packets.put(id, clazz);
+		}		
+	}
+	
+	/**
+	 * Creates a new Packet, without information, given an ID
+	 * @param id The ID of the Packet
+	 * @return
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public Packet new_Packet(int id) throws InstantiationException, IllegalAccessException{
+		Class<? extends Packet> clazz = packets.getOrDefault(id, UnknownPacket.class);
+		return clazz.newInstance();
+	}
+	
+	/**
+	 * Creates a new Packet, with information. Used by the MSF + Google Project
+	 * @param input A String in the form: <char denoting packet>|<value for packet>|
+	 * @return
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws IOException
+	 * @throws PLWriteException
+	 */
+	public Packet new_Packet(String input) throws InstantiationException, IllegalAccessException, IOException, PLWriteException{
+		int id = Packet.readLine(input).charAt(0);
+		Packet packet = new_Packet(id);
+		packet.write(Packet.readLine(input));
+		return packet;
+	}
+}

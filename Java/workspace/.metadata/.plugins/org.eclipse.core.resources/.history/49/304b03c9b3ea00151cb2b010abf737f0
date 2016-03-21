@@ -1,0 +1,18 @@
+package bpl.googlecardboard;
+
+import java.io.IOException;
+
+import bpl.packet.Packet;
+
+public class HumidityPacket extends Packet{
+
+	private int humidity;
+	
+	public void write(String input) throws IOException{
+		this.humidity = Integer.valueOf(input).intValue();
+	}
+	
+	public byte[] read(){
+		return new String("H:" + humidity + Packet.DELIMETER).getBytes();
+	}
+}

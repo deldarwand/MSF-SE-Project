@@ -1,0 +1,12 @@
+package google.gps;
+
+public class GPSCoordinate {
+
+	public float latitude;
+	public float longitude;
+	
+	public GPSCoordinate(float latitude, float longitude){
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
+}

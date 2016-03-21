@@ -1,0 +1,22 @@
+package pl.googlecardboard;
+
+import java.io.IOException;
+
+import pl.packet.Packet;
+
+public final class HumidityPacket extends Packet{
+	
+	private int humidity;
+	
+	public void write(String input) throws IOException{
+		this.humidity = Integer.parseInt(input);	
+	}
+	
+	public byte[] read(){
+		return new String("H:" + humidity + Packet.DELIMETER).getBytes();
+	}
+	
+	public int getHumidity(){
+		return humidity;
+	}
+}

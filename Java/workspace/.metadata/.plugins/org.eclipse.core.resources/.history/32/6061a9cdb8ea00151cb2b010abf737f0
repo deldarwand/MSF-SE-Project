@@ -1,0 +1,5 @@
+package bpl.googlecardboard;
+
+public class TemperaturePacket {
+
+}

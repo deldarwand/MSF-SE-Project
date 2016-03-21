@@ -1,0 +1,81 @@
+package google.bluetooth;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import javax.microedition.io.StreamConnection;
+
+import com.fazecast.jSerialComm.SerialPort;
+
+import pl.packet.Packet;
+import pl.packet.PacketManager;
+import pl.packet.UnknownPacket;
+
+public final class Session implements Runnable{
+
+	private final SerialPort port;
+	private final StreamConnection connection;
+	private final PacketManager manager;
+	
+	public Session(SerialPort port, StreamConnection connection, PacketManager manager) throws IOException{
+		this.port = port;
+		this.connection = connection;
+		this.manager = manager;
+	}
+	
+	public void run(){
+		try {
+			while(true){
+				process();
+			}
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+	}
+	
+	private void process() throws Exception{
+		System.out.println("Session: Sending packet!");
+		readThenWrite(port.getInputStream(), connection.openOutputStream());
+		//readThenWrite(connection.openInputStream(), port.getOutputStream());
+	}
+	
+	private void readThenWrite(InputStream input, OutputStream output) throws Exception{
+		Packet packet = read(input);
+		System.out.println("PacketType: "+ packet);
+		if(!(packet instanceof UnknownPacket)){
+			System.out.println("Packet: " + new String(packet.read()));
+			write(output, packet);
+		}
+	}
+	
+	public void write(OutputStream output, Packet packet) throws Exception{
+		output.write(packet.read());
+	}
+	
+	public Packet read(InputStream input) throws Exception{
+		String id = readString(input);
+		String value = readString(input);
+		Packet packet = manager.new_Packet(id.charAt(0));
+		packet.write(value);
+		return packet;
+	}
+	
+	private String readString(InputStream input) throws IOException{
+		String str = "";
+		int value;
+		while((value = input.read()) != Packet.NONE && value != Packet.DELIMETER){
+			/*
+			 * There could be a better way to do this,
+			 * but currently, not in a way such that
+			 * it can take in any length of bytes
+			 */
+			str += (char) value;
+			System.out.println("Value: "+ value);
+		}
+		return str.trim();
+	}
+	
+	
+	
+}

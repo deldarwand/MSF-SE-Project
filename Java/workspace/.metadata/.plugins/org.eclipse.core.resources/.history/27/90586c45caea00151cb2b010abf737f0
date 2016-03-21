@@ -1,0 +1,5 @@
+package pl.googlecardboard;
+
+public class BitmapPacket {
+
+}

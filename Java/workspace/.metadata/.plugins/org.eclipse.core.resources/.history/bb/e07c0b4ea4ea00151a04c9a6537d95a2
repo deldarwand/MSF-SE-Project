@@ -1,0 +1,5 @@
+package bpl.exception;
+
+public class BPLReadException {
+
+}
