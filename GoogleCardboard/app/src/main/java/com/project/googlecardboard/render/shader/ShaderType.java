@@ -11,7 +11,9 @@ import com.project.googlecardboard.R;
 public enum ShaderType {
 
     GRAPH(new StaticShader(IO.readFile(R.raw.vertex), IO.readFile(R.raw.graph_fragment))),
-    VIDEO(new StaticShader(IO.readFile(R.raw.vertex), IO.readFile(R.raw.fragment)));
+    VIDEO(new StaticShader(IO.readFile(R.raw.vertex), IO.readFile(R.raw.fragment))),
+    LIGHT(new StaticShader(IO.readFile(R.raw.light_vertex), IO.readFile(R.raw.grid_fragment)));
+
 
     private final StaticShader shader;
     private boolean isBeingUsed;

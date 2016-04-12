@@ -12,6 +12,7 @@ import com.google.vrtoolkit.cardboard.CardboardActivity;
 import com.google.vrtoolkit.cardboard.CardboardView;
 import com.project.googlecardboard.bluetooth.BluetoothService;
 import com.project.googlecardboard.gui.GUICollection;
+import com.project.googlecardboard.projection.CameraUtil;
 import com.project.googlecardboard.render.Renderer;
 import com.project.googlecardboard.util.BackgroundThread;
 import com.project.googlecardboard.util.IO;
@@ -41,6 +42,8 @@ public class DroneActivity extends CardboardActivity{
         this.backgroundThread = new BackgroundThread();
         IO.init(getBaseContext(), vibrator);
         BluetoothService.INSTANCE.init(this);
+
+        CameraUtil cameraUtil = new CameraUtil(this);
 
         enableBackgroundThread(backgroundThread);
         enableRenderer(Renderer.INSTANCE);
