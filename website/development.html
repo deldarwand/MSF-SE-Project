@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<!--
+	Arcana by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Development</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+	</head>
+	<body>
+		<div id="page-wrapper">
+			<!-- Header -->
+				<div id="header">
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li><a href="index.html">Home</a>
+									<ul>
+										<li><a href="index.html">Intro</a></li>
+										<li><a href="index.html">Features</a></li>
+										<li><a href="index.html">Team</a></li>
+									</ul>
+								</li>
+								<li><a href="about.html">About Us</a>
+									<ul>
+										<li><a href="about.html">Overview</a></li>
+										<li><a href="about.html">Requirements</a></li>
+									</ul>
+								</li>
+								<li class="current"><a href="development.html">Development</a>
+									<ul>
+										<li><a href="development.html">Research</a></li>
+										<li><a href="development.html">Hardware</a></li>
+										<li><a href="development.html">Software</a></li>
+										<li><a href="development.html">User Interaction</a></li>
+									</ul>
+								</li>
+								<li><a href="testing.html">Testing</a>
+									<ul>
+										<li><a href="testing.html">Prototypes</a></li>
+										<li><a href="testing.html">Strategies</a></li>
+									</ul>
+								</li>
+								<li><a href="progress.html">Progress</a>
+									<ul>
+										<li><a href="progress.html">Meetings</a></li>
+										<li><a href="progress.html">Reports</a></li>
+										<li><a href="progress.html">Planning</a></li>
+									</ul>
+								</li>
+							</ul>
+						</nav>
+				</div>
+
+			<!-- Banner -->
+				<section id="banner">
+					<img src="images/MediDroid_Logo.png" alt="" id="bannerLogo"/>
+					<header>
+						<h2>Google meets Medecins Sans Frontieres: <em> An augmented reality experience for data collection on the field.</em></h2>
+					</header>
+				</section>
+
+			<!-- Research -->
+				<section class="wrapper style1">
+					<div class="container">
+						<header class="major">
+							<h2>Research and Tools</h2>
+						</header>
+						<h2>Java</h2>
+					    <img src="images/Java_logo.png" style="width:200px">
+					    <p>The potential programming languages that we could have used for the project were C or Java. Both have strong libraries relating to OpenGL, but the choice was made to use Java. This was due to the fact that, as our primary OS would be Android, we would need to program the application in Android, a language based upon Java. Thus, it would be easier to code using the same language, rather than having to write in another, and then translate this code.</p>
+
+					    <h2>OpenGL ES</h2>
+					    <img src="images/OpenGL_ES_logo.png" style="width:150px">
+					    <br></br>
+					    <p>We chose OpenGL in general as it is well-known to be an efficient graphics library that works at a low level with the hardware. Using OpenGL also gives us great freedom and control over how we create our application, allowing us to be agile if additions or changes needed to make. Since OpenGL is mainly used on mainstream computers, we opted to go for OpenGL ES 2.0, the second main version of OpenGL for Embedded Systems.</p>
+					</div>
+				</section>
+
+				<section class="wrapper style2">
+					<div class="container">
+						<header class="major">
+							<h2>Hardware</h2>
+						</header>
+						<p>For the project we were allocated a Google Cardboard, an Android phone and a DJI Phantom 3 drone. We initially intended to build our own drone, as the DJI Phantom is not open source, to be able to make use of the drone’s existing data processor and communication devices for the sensors. We looked at buying a Pixhawk flight controller, as that is one of the most commonly used ones by drone enthusiasts, and has a wide range of documentation. However, after prioritising the build of the mobile application, and making use of the sensors on ground, we decided to make rather use of an Arduino board, which could then later on be connected to an open source drone, or could work as an independent system, which we could strap on an existing drone.</p>
+    					<p>For data gathering in the drone’s surroundings whilst in flight, we ordered a light intensity sensor (Digital Light Intensity Sensor Module for AVR Arduino 3V - 5V), a gas sensor (MQ-7 Carbon Monoxide CO Gas Sensor Module) and a temperature and humidity sensor (Arduino Compatible Digital Temperature Humidity Sensor Module). To be able to stream the data from the drone to the ground we have ordered a Jeelink (v3c) and Jeenode USB which will work as a telemetry to send sensor data, which will be sent to a laptop that will be the server, and then send information wirelessly to the Android phone.</p>
+    					<p>For capturing video we will be making use of a GoProHero3 camera and a video transmitter and receiver. We have also done research on compatible infrared camera to use on the drone, a lower resolution camera that better suits live streaming and a gimbal to move the camera, which we will be ordering for the second half of the project.</p>
+    					<h2>Connectivity</h2>
+    					<p>As we needed to connect three devices together, connectivity was a key part of the project. After revising the connections between the drone, laptop and cardboard device, we decided the best way we can connect the devices will be through a device called a telemetry which uses high range radio waves to transmit the data from the drone to a laptop and then using bluetooth to transmit the data from the laptop to the cardboard device. These decisions came through as the Wi-Fi range was too short to connect the drone and laptop and Android does not support ad-hoc Wi-Fi networks. Therefore we came up with the setup that was described.</p>
+					</div>
+				</section>
+
+				<section class="wrapper style1">
+					<div class="container">
+						<header class="major">
+							<h2>Software</h2>
+						</header>
+						<p>.........</p>
+					</div>
+				</section>
+
+				<section class="wrapper style2">
+					<div class="container">
+						<header class="major">
+							<h2>User Interface</h2>
+						</header>
+					    <p>Having received both Google’s specification and the requirements of MSF, we concluded that we would need to have a User Interface (UI) which is easy to use with the Google Cardboard and makes use of its potential 3D virtual reality creation, whilst, at the same time, is able to display video content. Our UI is as follows:</p>
+					    <img src="images/UI_diagram.png" style="max-width:350px;width:100%;" class="centerImage">
+					    <br></br>
+					    <p>The UI is formed of several ‘boxes’ or ‘GUIs’ (Graphics User Interfaces) which hover in front of the user in 3D polar space. On each of these GUIs there will be a graph, video, or any other methods for displaying data in a visual manner. The spherical placement of the GUIs means that, whenever one is looked at directly, it will not be distorted, and instead will appear almost 2D to the user. This allows the user to fully focus on the data represented. If need be, the user may pull the trigger, which will magnify the GUI.</p>
+
+					    <h2>Graphs</h2>
+					    <p>The software we used for representing graphs is OpenGL ES. Using the data collected from the sensors, the coordinates are plotted on a 2D graph that can be extended to a 3D model. After research into HTML and JavaScript rendering in an OpenGL ES environment, we concluded that creating the graphs with OpenGL ES itself was the most effective method. Further components will be included such as a constant graph update, so as new data is incoming the new points will be represented on the graph.</p>
+					</div>
+				</section>
+
+				<section class="wrapper style1">
+					<div class="container">
+						<header class="major">
+							<h2>UML Diagram</h2>
+						</header>
+   						<a href="images/Google_Cardboard_Application_UML.jpg"><img src="images/Google_Cardboard_Application_UML.jpg" style="max-width:1000px; width:100%"></a>
+					</div>
+				</section>
+
+			<!-- CTA -->
+				<section id="cta" class="wrapper style3">
+					<div class="container">
+						<header>
+							<h2>Find us on <a href="https://github.com/deldarwand/MSF-SE-Project">GitHub</a></h2>
+						</header>
+					</div>
+				</section>
+
+			<!-- Footer -->
+				<div id="footer">
+					<!-- Copyright -->
+						<div class="copyright">
+							<ul class="menu">
+								<li>&copy; UCL 2016, Systems Engineering Teams 1-2. All rights reserved</li>
+							</ul>
+						</div>
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
