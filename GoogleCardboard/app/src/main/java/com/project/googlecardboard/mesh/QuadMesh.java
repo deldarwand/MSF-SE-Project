@@ -26,7 +26,7 @@ public class QuadMesh extends Mesh {
 
     public void draw(){
         Shader shader = getShader();
-        shader.loadPosition(multiply(vertex, 4.0f));
+        shader.loadPosition(multiply(vertex, 14.0f));
         shader.enableAttributes();
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, this.capacity);
     }

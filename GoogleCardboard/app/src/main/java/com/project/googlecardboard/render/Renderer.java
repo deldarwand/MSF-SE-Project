@@ -67,9 +67,9 @@ public enum Renderer implements CardboardView.StereoRenderer{
         headTransform.getHeadView(headView, 0);
         for(GUI gui : menu){
             if(gui.isBeingViewed()){
-                gui.playAnimation();
+                //gui.playAnimation();
             } else{
-                gui.setAnimatedRadius(10.0f, new PopAnimation(6.0f, 10.0f, 1.0f));
+               // gui.setAnimatedRadius(10.0f, new PopAnimation(6.0f, 10.0f, 1.0f));
             }
             if (gui.getClass() == TexturedGUI.class)
             {
@@ -122,7 +122,7 @@ public enum Renderer implements CardboardView.StereoRenderer{
         this.headView = new float[16];
         this.hasShutdown = false;
         if(menu.size() == 0){
-            menu.add(new TexturedGUI(0.5f, 0.0f, 0.0f));
+            menu.add(new TexturedGUI(11.0f, 0.0f, 0.0f));
 
             menu.add(new GraphGUI(10, 24.0f, -30.0f, new LineGraph(30)));
             menu.add(new GraphGUI(10, 24.0f, 30.0f, new LineGraph(30)));

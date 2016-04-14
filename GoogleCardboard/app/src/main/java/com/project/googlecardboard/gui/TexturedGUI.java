@@ -65,7 +65,7 @@ public class TexturedGUI extends GUI {
     public float[] getMatrixThis(){
         float[] tM = new float[3];
         headTran.getEulerAngles(tM, 0);
-        TransformationMatrix matrix = new TransformationMatrix(getRadius(), 0.0f, tM[0]*-57.2958f, 90 - tM[1]*-57.2958f + 100);
+        TransformationMatrix matrix = new TransformationMatrix(getRadius(), 0.0f, tM[0]*-57.2958f, tM[1]*57.2958f + 180);
         return matrix.getMatrix();
 //        TransformationMatrix matrix = new TransformationMatrix(this.getRadius(), 0.0f, this.getPitch(), 90 - this.getYaw() + 100);
 //        return matrix.getMatrix();
@@ -82,7 +82,7 @@ public class TexturedGUI extends GUI {
         shader.loadTexture(texture.getID());
         quad.draw();
 
-        shader.loadTransformationMatrix(getMatrix());
+        shader.loadTransformationMatrix(getMatrixThis());
         shader.loadTexture(0);
         //tri.draw();
     }

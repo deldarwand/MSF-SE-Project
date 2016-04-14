@@ -1,6 +1,7 @@
 package com.project.googlecardboard.gui;
 
 import android.graphics.Bitmap;
+import android.opengl.Matrix;
 
 import com.project.googlecardboard.WorldLayoutData;
 import com.project.googlecardboard.matrix.TransformationMatrix;
@@ -21,6 +22,7 @@ public class ArrowGUI extends GUI {
     private float landmarkLongitude, landmarkLatitude;
     private float currentLongitude, currentLatitude;
     static final float earthRadius = 6371000.0f;
+    private float rotation = 0.0f;
 
 
     public ArrowGUI(float radius, float pitch, float yaw, float longitude, float latitude, float cLongitude, float cLatitude){
@@ -77,6 +79,8 @@ public class ArrowGUI extends GUI {
 
         setRadius(newRadius);
         TransformationMatrix matrix = new TransformationMatrix(getRadius(), 0.0f, getPitch(), 90 - angle + 100);
+        Matrix.rotateM(matrix.getMatrix(), 0, rotation, 0.0f, 1.0f, 0.0f);
+        rotation+=10.0f/60.0f;
         return matrix.getMatrix();
     }
 
