@@ -1,29 +1,22 @@
 /* RECEIVING PROGRAM */
-#define RF69_COMPAT 1
-
+#include <Packet.h>
+#include <Packet_Compat.h>
 #include <JeeLib.h>
-#include <avr/sleep.h>
-
-#define LED 9
 
 void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(9600);
-  pinMode(LED, OUTPUT);
-  digitalWrite(LED, HIGH); 
-  rf12_initialize(21, RF12_433MHZ, 212);
+  Serial.begin(57600);
+  initRF_compat(21, RF12_433MHZ, 212);
   delay(1000);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  //Serial.println("Hello World|");
-  if(rf12_recvDone() && rf12_crc == 0){
-    char* buffer = (char*) rf12_data;
-    //Serial.print("Received: ");
-    for(int i = 0; i < rf12_len; i++){
-      Serial.print(buffer[i]); 
-    }
-    Serial.println("|");
-  }
+  // Recive humidity and temperature packets - send them off
+  Packet packet = receivePacket_compat();
+  printlnPacket(packet);
+  
+  // TODO: Read packet from serial
+  // Read RotationPacket from serial and send
+  // Packet rPacket = readPacketFromSerial();
+  //Packet rPacket("R|45|46|");
+  //sendPacket(rPacket);  
 }
