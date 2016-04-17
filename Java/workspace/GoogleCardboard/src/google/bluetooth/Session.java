@@ -19,6 +19,7 @@ public final class Session implements Runnable{
 	private final OutputStream outputA;
 	private final OutputStream outputB;
 	private final PacketManager packetManager;
+	private boolean isOpen;
 	
 	public Session(SerialPort port, StreamConnection connection, PacketManager packetManager) throws IOException{
 		this.inputA = port.getInputStream();
@@ -26,6 +27,7 @@ public final class Session implements Runnable{
 		this.outputA = port.getOutputStream();
 		this.outputB = connection.openOutputStream();
 		this.packetManager = packetManager;
+		this.isOpen = true;
 	}
 	
 	@Override
@@ -34,6 +36,11 @@ public final class Session implements Runnable{
 		inputB.close();
 		outputA.close();
 		outputB.close();
+		this.isOpen = false;
+	}
+	
+	public boolean isOpen(){
+		return isOpen;
 	}
 	
 	public void run(){
@@ -63,9 +70,18 @@ public final class Session implements Runnable{
 	
 	public void write(OutputStream output, Packet packet) throws Exception{
 		output.write(packet.read());
+		output.flush();
+		//System.err.println("Connection closed");
+		//isOpen = false;		
 	}
 	
 	public Packet read(InputStream input) throws Exception{
-		return packetManager.new_Packet(input);
+		if(input.available() > 0){
+			return packetManager.new_Packet(input);
+		} else{
+			return packetManager.new_Packet(0);
+		}		
+		//System.err.println("Connection closed");
+		//isOpen = false;
 	}	
 }

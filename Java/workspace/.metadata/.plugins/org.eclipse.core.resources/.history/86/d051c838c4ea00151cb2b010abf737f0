@@ -1,5 +1,0 @@
-package bpl.packet;
-
-public final class UnknownPacket extends Packet{
-
-}

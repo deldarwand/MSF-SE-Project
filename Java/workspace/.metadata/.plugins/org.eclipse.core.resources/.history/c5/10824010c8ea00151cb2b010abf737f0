@@ -1,5 +1,0 @@
-package pl.packet;
-
-public final class UnknownPacket extends Packet{
-
-}

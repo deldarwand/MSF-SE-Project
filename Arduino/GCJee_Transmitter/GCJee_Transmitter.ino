@@ -51,5 +51,6 @@ void loop() {
   sendValue("T", 1);
   sprintf(buffer, "%d", (int) temperature);
   sendValue(buffer, sizeof buffer);
+  Serial.println(light);
   //Serial.println("Sent: hello!");
 }

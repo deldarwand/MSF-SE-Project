@@ -1,9 +1,0 @@
-package google.sql;
-
-public class SQL {
-
-	public static final void loadDrivers() throws ClassNotFoundException{
-		Class.forName("com.imaginary.sql.msql.MsqlDriver");
-		
-	}
-}

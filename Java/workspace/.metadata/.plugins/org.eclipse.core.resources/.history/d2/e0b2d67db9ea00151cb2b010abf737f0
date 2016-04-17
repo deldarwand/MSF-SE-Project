@@ -1,6 +1,0 @@
-package bpl.googlecardboard;
-
-public class GPSPacket extends Packet{
-
-	private GPS gps
-}

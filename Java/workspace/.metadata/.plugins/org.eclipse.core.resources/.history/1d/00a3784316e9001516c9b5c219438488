@@ -1,5 +1,0 @@
-package google.sql;
-
-public class SQLDatabase {
-
-}

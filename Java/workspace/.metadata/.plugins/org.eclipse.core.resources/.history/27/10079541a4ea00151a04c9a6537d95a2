@@ -1,5 +1,0 @@
-package bpl.exception;
-
-public class BPLWriteException {
-
-}
