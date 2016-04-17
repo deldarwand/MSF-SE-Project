@@ -11,10 +11,12 @@ void initRF_compat(int id, int band, int group){
 }
 
 void sendPacket_compat(Packet packet){
-    while(!rf12_canSend()){
-        rf12_recvDone();
-    }
-    rf12_sendStart(0, packet.getBuffer(), packet.getLength());
+    if(rf12_canSend()) rf12_sendStart(0, packet.getBuffer(), packet.getLength());
+}
+
+void sendPacketNow_compat(Packet packet){
+    while(!rf12_canSend()) rf12_recvDone();
+    sendPacket(packet);
 }
 
 Packet receivePacket_compat(){

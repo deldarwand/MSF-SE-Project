@@ -40,10 +40,12 @@ void initRF(int id, int band, int group){
 }
 
 void sendPacket(Packet packet){
-    while(!rf12_canSend()){
-        rf12_recvDone();
-    }
-    rf12_sendStart(0, packet.getBuffer(), packet.getLength());
+    if(rf12_canSend()) rf12_sendStart(0, packet.getBuffer(), packet.getLength());
+}
+
+void sendPacketNow(Packet packet){
+    while(!rf12_canSend()) rf12_recvDone();
+    sendPacket(packet);
 }
 
 Packet receivePacket(){
@@ -72,9 +74,7 @@ Packet readPacketFromSerial(){
 void printPacket(Packet packet){
     if(packet.getLength() != 0){
         char* buf = packet.getBuffer();
-        for(int i = 0; i < packet.getLength(); i++){
-            Serial.print(buf[i]);
-        }
+        for(int i = 0; i < packet.getLength(); i++) Serial.print(buf[i]);
     }
 }
 

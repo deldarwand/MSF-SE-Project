@@ -17,6 +17,7 @@
 
     void initRF(int id, int band, int group);
     void sendPacket(Packet packet);
+    void sendPacketNow(Packet packet);
     Packet receivePacket();
     Packet readPacketFromSerial();
     void printPacket(Packet packet);
