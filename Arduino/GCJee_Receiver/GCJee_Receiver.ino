@@ -4,7 +4,6 @@
 #include <JeeLib.h>
 
 MilliTimer sendTimer;
-int needToSend = 0;
 
 void attemptSend(); 
 
@@ -18,15 +17,13 @@ void loop() {
   // Receive humidity and temperature packets - send them off
   Packet hPacket = receivePacket_compat();
   printlnPacket(hPacket);
-  Packet tPacket = receivePacket_compat();
-  printlnPacket(tPacket);
-  if(sendTimer.poll(1000)) attemptSend();  
+  if(sendTimer.poll(51)) attemptSend();  
 }
 
 void attemptSend(){
   // TODO: Read packet from serial
   // Read RotationPacket from serial and send
   // Packet rPacket = readPacketFromSerial();
-  Packet rPacket("R|45|46|");
+  Packet rPacket("R|45|360|");
   sendPacket_compat(rPacket);     
 }
