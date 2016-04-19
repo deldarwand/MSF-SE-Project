@@ -95,6 +95,10 @@ public enum Renderer implements CardboardView.StereoRenderer{
         for(GUI gui : menu){
             gui.getShaderType().start();
             gui.updateGUI(headView);
+            if(gui instanceof TexturedGUI)
+            {
+                gui.update(null);
+            }
             if(gui instanceof ArrowGUI)
             {
                 //GPSLongitude += 0.0000000001;
