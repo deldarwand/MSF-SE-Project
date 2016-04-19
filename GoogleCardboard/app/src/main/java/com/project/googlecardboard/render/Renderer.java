@@ -8,12 +8,14 @@ import com.google.vrtoolkit.cardboard.HeadTransform;
 import com.google.vrtoolkit.cardboard.Viewport;
 import com.project.googlecardboard.graph.LineGraph;
 import com.project.googlecardboard.graph.PieChart;
+import com.project.googlecardboard.gui.ArrowGUI;
 import com.project.googlecardboard.gui.GUI;
 import com.project.googlecardboard.gui.GUICollection;
 import com.project.googlecardboard.gui.GraphGUI;
 import com.project.googlecardboard.gui.TexturedGUI;
 import com.project.googlecardboard.matrix.ProjectionMatrix;
 import com.project.googlecardboard.matrix.ViewMatrix;
+import com.project.googlecardboard.projection.CameraUtil;
 import com.project.googlecardboard.render.animation.Animation;
 import com.project.googlecardboard.render.animation.PopAnimation;
 import com.project.googlecardboard.render.shader.Shader;
@@ -35,11 +37,13 @@ public enum Renderer implements CardboardView.StereoRenderer{
     private float[] headView;
     private boolean hasShutdown = false;
     private float[] eulerAngles = new float[3];
+    private float GPSLatitude, GPSLongitude;
 
     private Renderer(){
         this.menu = new GUICollection();
         this.headView = new float[16];
         this.hasShutdown = false;
+        GPSLatitude = GPSLongitude = 0.0f;
     }
 
     /* GETTERS */
@@ -64,9 +68,13 @@ public enum Renderer implements CardboardView.StereoRenderer{
         headTransform.getHeadView(headView, 0);
         for(GUI gui : menu){
             if(gui.isBeingViewed()){
-                gui.playAnimation();
+                //gui.playAnimation();
             } else{
-                gui.setAnimatedRadius(10.0f, new PopAnimation(6.0f, 10.0f, 1.0f));
+               // gui.setAnimatedRadius(10.0f, new PopAnimation(6.0f, 10.0f, 1.0f));
+            }
+            if (gui.getClass() == TexturedGUI.class)
+            {
+                ((TexturedGUI)gui).headTran = headTransform;
             }
         }
         menu.sort();
@@ -87,6 +95,12 @@ public enum Renderer implements CardboardView.StereoRenderer{
         for(GUI gui : menu){
             gui.getShaderType().start();
             gui.updateGUI(headView);
+            if(gui instanceof ArrowGUI)
+            {
+                //GPSLongitude += 0.0000000001;
+                //GPSLatitude += 0.0000000001;
+                ((ArrowGUI) gui).updateArrow(GPSLongitude, GPSLatitude);
+            }
             gui.draw();
         }
     }
@@ -110,12 +124,16 @@ public enum Renderer implements CardboardView.StereoRenderer{
         this.headView = new float[16];
         this.hasShutdown = false;
         if(menu.size() == 0){
-            menu.add(new TexturedGUI(10, 0.0f, 0.0f));
+            menu.add(new TexturedGUI(11.0f, 0.0f, 0.0f));
 
             menu.add(new GraphGUI(10, 24.0f, -30.0f, new LineGraph(30)));
             menu.add(new GraphGUI(10, 24.0f, 30.0f, new LineGraph(30)));
             menu.add(new GraphGUI(10, -24.0f, -30.0f, new LineGraph(30)));
             menu.add(new GraphGUI(10, -24.0f, 30.0f, new LineGraph(30)));
+
+            menu.add(new ArrowGUI(1, 0.0f, 0.0f, 0.00000000125f, 0.000000125f, 0.0f, 0.0f));
+
+            menu.add(new ArrowGUI(1, 0.0f, 0.0f, 0.00000000f, -0.000000125f, 0.0f, 0.0f));
             //menu.add(new GraphGUI(10, -24.0f, 30.0f, new PieChart()));
         }
     }

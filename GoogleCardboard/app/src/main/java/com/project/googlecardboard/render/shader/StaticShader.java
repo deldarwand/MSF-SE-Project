@@ -18,7 +18,7 @@ public class StaticShader extends Shader {
     private int locationPosition;
     private int locationTextureCoordinates;
     private int locationColour;
-    //private int locationNormal;
+    private int locationNormal;
 
     public StaticShader(String vertexShaderCode, String fragmentShaderCode){
         super(vertexShaderCode, fragmentShaderCode);
@@ -39,7 +39,7 @@ public class StaticShader extends Shader {
         locationPosition = getAttributeLocation("position");
         locationTextureCoordinates = getAttributeLocation("textureCoordinates");
         locationColour = getAttributeLocation("colour");
-        //locationNormal = getAttributeLocation("normal");
+        locationNormal = getAttributeLocation("normal");
     }
 
     @Override
@@ -47,7 +47,7 @@ public class StaticShader extends Shader {
         GLES20.glEnableVertexAttribArray(locationPosition);
         GLES20.glEnableVertexAttribArray(locationTextureCoordinates);
         GLES20.glEnableVertexAttribArray(locationColour);
-        //GLES20.glEnableVertexAttribArray(locationNormal);
+        GLES20.glEnableVertexAttribArray(locationNormal);
     }
 
     public void loadTransformationMatrix(float[] matrix){
@@ -71,7 +71,7 @@ public class StaticShader extends Shader {
     }
 
     public void loadNormal(float[] matrix){
-      //  loadAttributeMatrix(locationNormal, matrix, 3);
+        loadAttributeMatrix(locationNormal, matrix, 3);
     }
 
     public void loadTexture(int id){

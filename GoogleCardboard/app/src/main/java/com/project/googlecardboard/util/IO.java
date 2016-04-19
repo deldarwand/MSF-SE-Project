@@ -18,6 +18,11 @@ public class IO {
     private static Context context;
     private static Vibrator vibrator;
 
+    public static Context getContext()
+    {
+        return IO.context;
+    }
+
     public static void init(Context context, Vibrator vibrator){
         IO.context = context;
         IO.vibrator = vibrator;
