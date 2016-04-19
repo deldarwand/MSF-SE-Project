@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -31,7 +33,6 @@ public enum BluetoothService {
 
     INSTANCE;
 
-    private static final int DELIMETER = 124;
     private static final int REQUEST_ENABLE_BT = 0;
     private Activity activity;
 
@@ -116,7 +117,7 @@ public enum BluetoothService {
     public boolean disable(){
         disableBroadcastReceiver();
         if(isEnabled()){
-            bluetoothAdaptor.disable();
+            //bluetoothAdaptor.disable();
         }
         return !isEnabled();
     }
@@ -230,10 +231,20 @@ public enum BluetoothService {
             System.out.println("G::Device: " + device.getName() + " | Address: " + device.getAddress());
             if(device.getName().equals(deviceName)){
                 System.out.println("G::Connection");
+                while(isDiscovering()) disableDiscovering();
                 return connect(device, uuid);
             }
         }
         return null;
+    }
+
+    public boolean isBytesAvailable(BluetoothSocket socket) throws IOException{
+        int available = socket.getInputStream().available();
+        return (available > 0);
+    }
+
+    public boolean isPacketAvailable(BluetoothSocket socket) throws IOException{
+        return isBytesAvailable(socket);
     }
 
     /**
@@ -247,7 +258,10 @@ public enum BluetoothService {
             return buffer;
         }
         try{
-            socket.getInputStream().read(buffer);
+            int available = socket.getInputStream().available();
+            if(available <= 0) return buffer;
+            socket.getInputStream().read(buffer, 0, available);
+            return buffer;
         } catch(IOException exception){
             System.err.println("Unable to read from socket: " + socket);
             close(socket);
@@ -279,7 +293,7 @@ public enum BluetoothService {
         }
         try{
             socket.getOutputStream().write(buffer);
-            socket.getOutputStream().write(DELIMETER);
+            socket.getOutputStream().flush();
         } catch(IOException exception){
             System.err.println("Unable to write to socket: " + socket + " | " + buffer);
             close(socket);

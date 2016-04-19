@@ -81,6 +81,7 @@ public class DroneActivity extends CardboardActivity{
         cardboardView.setRenderer(renderer);
         setCardboardView(cardboardView);
 
+
         view = (CardboardOverlayView) findViewById(R.id.overlay);
     }
 

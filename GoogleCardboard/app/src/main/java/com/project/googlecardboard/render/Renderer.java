@@ -34,6 +34,7 @@ public enum Renderer implements CardboardView.StereoRenderer{
     private GUICollection menu;
     private float[] headView;
     private boolean hasShutdown = false;
+    private float[] eulerAngles = new float[3];
 
     private Renderer(){
         this.menu = new GUICollection();
@@ -69,6 +70,7 @@ public enum Renderer implements CardboardView.StereoRenderer{
             }
         }
         menu.sort();
+        headTransform.getEulerAngles(eulerAngles, 0);
         if(hasRolled(headTransform)){
             onCardboardRoll();
         }
@@ -199,5 +201,9 @@ public enum Renderer implements CardboardView.StereoRenderer{
         headTransform.getEulerAngles(angle, 0);
         float roll = angle[2];
         return (Math.abs(roll) > Math.PI/2 - Constants.ROLL_LIMIT) && (Math.abs(roll) < Math.PI/2 + Constants.ROLL_LIMIT);
+    }
+
+    public float[] getEulerAngles(){
+        return eulerAngles;
     }
 }

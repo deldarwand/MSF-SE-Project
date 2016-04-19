@@ -46,7 +46,7 @@ public class GraphGUI extends GUI{
         //graph.add(rand.nextFloat() - 0.5f);
         if(packet instanceof HumidityPacket){
             HumidityPacket hPacket = (HumidityPacket) packet;
-            graph.add(hPacket.getHumidity() - 0.5f);
+            graph.add(hPacket.getHumidity() / 30 - 0.5f);
         }
     }
 
