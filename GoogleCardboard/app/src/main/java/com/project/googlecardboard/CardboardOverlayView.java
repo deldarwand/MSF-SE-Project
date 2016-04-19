@@ -19,6 +19,8 @@ package com.project.googlecardboard;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -29,41 +31,65 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.osmdroid.DefaultResourceProxyImpl;
+import org.osmdroid.ResourceProxy;
+import org.osmdroid.api.IMapController;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.ItemizedIconOverlay;
+import org.osmdroid.views.overlay.ItemizedOverlay;
+import org.osmdroid.views.overlay.OverlayItem;
+import org.osmdroid.views.overlay.ScaleBarOverlay;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Contains two sub-views to provide a simple stereo HUD.
  */
 public class CardboardOverlayView extends LinearLayout {
-  private final CardboardOverlayEyeView leftView;
-  private final CardboardOverlayEyeView rightView;
-  private AlphaAnimation textFadeAnimation;
+    private final CardboardOverlayEyeView leftView;
+    private final CardboardOverlayEyeView rightView;
+    private AlphaAnimation textFadeAnimation;
+
 
   public CardboardOverlayView(Context context, AttributeSet attrs) {
-    super(context, attrs);
-    setOrientation(HORIZONTAL);
+      super(context, attrs);
+      setOrientation(HORIZONTAL);
 
-    LayoutParams params = new LayoutParams(
-      LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1.0f);
-    params.setMargins(0, 0, 0, 0);
+      LayoutParams params = new LayoutParams(
+              LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1.0f);
+      params.setMargins(0, 0, 0, 0);
 
-    leftView = new CardboardOverlayEyeView(context, attrs);
-    leftView.setLayoutParams(params);
-    addView(leftView);
+      leftView = new CardboardOverlayEyeView(context, attrs);
+      leftView.setLayoutParams(params);
+      addView(leftView);
 
-    rightView = new CardboardOverlayEyeView(context, attrs);
-    rightView.setLayoutParams(params);
-    addView(rightView);
+      rightView = new CardboardOverlayEyeView(context, attrs);
+      rightView.setLayoutParams(params);
+      addView(rightView);
 
-    // Set some reasonable defaults.
-    setDepthOffset(0.016f);
-    setColor(Color.rgb(150, 255, 180));
-    setVisibility(View.VISIBLE);
+      // Set some reasonable defaults.
+      setDepthOffset(0.016f);
+      setColor(Color.rgb(150, 255, 180));
+      setVisibility(View.VISIBLE);
 
-    textFadeAnimation = new AlphaAnimation(1.0f, 0.0f);
-    textFadeAnimation.setDuration(5000);
+      textFadeAnimation = new AlphaAnimation(1.0f, 0.0f);
+      textFadeAnimation.setDuration(5000);
+
   }
 
-  public void show3DToast(String message) {
+
+    public void show3DToast(String message) {
     setText(message);
     setTextAlpha(1f);
     textFadeAnimation.setAnimationListener(new EndAnimationListener() {
