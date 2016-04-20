@@ -12,7 +12,6 @@ import pl.googlecardboard.GPSPacket;
 import pl.googlecardboard.HumidityPacket;
 import pl.googlecardboard.RotationPacket;
 import pl.googlecardboard.TemperaturePacket;
-import pl.packet.Packet;
 import pl.packet.PacketManager;
 
 public enum DataTransmissionServer {

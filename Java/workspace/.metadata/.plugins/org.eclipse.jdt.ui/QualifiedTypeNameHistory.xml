@@ -26,4 +26,5 @@
 <fullyQualifiedTypeName name="java.io.InputStream"/>
 <fullyQualifiedTypeName name="java.io.ByteArrayInputStream"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="javax.imageio.ImageIO"/>
 </qualifiedTypeNameHistroy>
