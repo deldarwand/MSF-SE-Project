@@ -13,7 +13,7 @@ public final class AltitudePacket extends Packet{
 	private float altitude;
 	
 	public void write(String input){
-		this.altitude = Float.parseFloat(input);
+		this.altitude = new Float(input);
 	}
 	
 	public byte[] read(){

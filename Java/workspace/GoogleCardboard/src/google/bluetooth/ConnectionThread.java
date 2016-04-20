@@ -26,6 +26,7 @@ public class ConnectionThread extends Thread{
 		this.url = "btspp://localhost:" + uuid + ";name=" + name + ";authenticate=false;encrypt=false";
 		this.server = server;
 		this.port = SerialPort.getCommPort("COM5");
+		port.setBaudRate(57600);
 		port.openPort();
 	}
 	

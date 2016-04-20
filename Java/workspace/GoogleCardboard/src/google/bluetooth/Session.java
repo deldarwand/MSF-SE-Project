@@ -45,9 +45,11 @@ public final class Session implements Runnable{
 	
 	public void run(){
 		try {
-			while(true){
+			System.out.println("[+] Connection opened");
+			while(isOpen()){
 				process();
 			}
+			System.out.println("[-] Connection closed");
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
@@ -56,7 +58,7 @@ public final class Session implements Runnable{
 	private void process() throws Exception{
 		System.out.println("Session: Sending packet!");
 		readThenWrite(inputA, outputB);
-		//readThenWrite(connection.openInputStream(), port.getOutputStream());
+		readThenWrite(inputB, outputA);
 	}
 	
 	private void readThenWrite(InputStream input, OutputStream output) throws Exception{
@@ -69,19 +71,24 @@ public final class Session implements Runnable{
 	}
 	
 	public void write(OutputStream output, Packet packet) throws Exception{
-		output.write(packet.read());
-		output.flush();
-		//System.err.println("Connection closed");
-		//isOpen = false;		
+		try{
+			output.write(packet.read());
+			output.flush();
+		} catch(IOException exception){
+			isOpen = false;
+		}
 	}
 	
 	public Packet read(InputStream input) throws Exception{
-		if(input.available() > 0){
-			return packetManager.new_Packet(input);
-		} else{
-			return packetManager.new_Packet(0);
-		}		
-		//System.err.println("Connection closed");
-		//isOpen = false;
+		try{
+			if(input.available() > 0){
+				return packetManager.new_Packet(input);
+			} else{
+				return packetManager.new_Packet(0);
+			}
+		} catch(IOException exception){
+			isOpen = false;
+			return new UnknownPacket();
+		}
 	}	
 }

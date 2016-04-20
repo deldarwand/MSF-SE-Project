@@ -13,7 +13,7 @@ public final class HumidityPacket extends Packet{
 	private int humidity;
 	
 	public void write(String input){
-		this.humidity = Integer.parseInt(input);	
+		this.humidity = new Integer(input);	
 	}
 	
 	public byte[] read(){

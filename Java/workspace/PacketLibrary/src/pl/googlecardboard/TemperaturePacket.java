@@ -13,7 +13,7 @@ public final class TemperaturePacket extends Packet{
 	private int temperature;
 	
 	public void write(String input){
-		this.temperature = Integer.parseInt(input);
+		this.temperature = new Integer(input);
 	}
 	
 	public byte[] read(){
