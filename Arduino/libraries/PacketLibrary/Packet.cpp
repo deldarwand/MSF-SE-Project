@@ -60,14 +60,13 @@ Packet receivePacket(){
 }
 
 Packet readPacketFromSerial(){
-    int serialByte = 0;
+    int serialByte = -1;
     char buffer[1024];
     int counter = 0;
-    while(Serial.available() > 0){
-        serialByte = Serial.read();
+    while((serialByte = Serial.read()) != -1){
         buffer[counter++] = (char) serialByte;
     }
-    Packet packet(buffer);
+    Packet packet(buffer, counter);
     return packet;
 }
 
