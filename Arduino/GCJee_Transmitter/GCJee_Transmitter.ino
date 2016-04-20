@@ -1,4 +1,7 @@
-/* SENDING PROGRAM */
+// SENDING PROGRAM
+// Written by Garrett May
+// 21/04/2016
+
 #include <Packet.h>
 #include <JeeLib.h>
 
@@ -69,18 +72,10 @@ void handleGimbal(Packet packet){
   char type = 'U';
   int pitch = 0;
   int yaw = 0;
-  //printlnPacket(packet);
   sscanf(packet.getBuffer(), "%c|%d,%d|", &type, &pitch, &yaw);
   if(type == 'R'){
-    //printlnPacket(packet);
-    //Serial.print("Pitch: ");
-    //Serial.println(pitch);
-    //Serial.print("Yaw: ");
-    //Serial.println(yaw);
     xAxis.write(degreeChange(-yaw, xLower, xUpper));
     yAxis.write(yCorrection(-pitch));
-  } else{
-    //Serial.println("Unknown Packet"); 
   }
 }
 
@@ -91,23 +86,20 @@ void pollDHT(){
    temperature = DHT.temperature;
 }
 
+// GIMBAL PROGRAM
+// Written by Hekla Helgadottir
+// 21/04/2016
+
 int degreeChange(int degree, int lowerLimit, int upperLimit) {
-  int range = upperLimit-lowerLimit;           // Calculates the range of the degrees available on the gimbal
-  double proportion = range / 180.00;          // Calculates the proportion of actual range compared to projected range
+  int range = upperLimit-lowerLimit;                                 // Calculates the range of the degrees available on the gimbal
+  double proportion = range / 180.00;                                // Calculates the proportion of actual range compared to projected range
   double actualDegree = (degree + 90) * proportion + lowerLimit;     // Calculates what angle to give as an instruction so that the
-  //Serial.print("degree proportion: ");
-  //Serial.println(actualDegree);
-  Serial.print("Yaw: ");
-  Serial.println(actualDegree);
-  return actualDegree;                                        // gimbal turns the right angle       
+  return actualDegree;                                               // gimbal turns the right angle       
 }
 
 int yCorrection(int degree) {
-    //Serial.println((degree - 90) * (-1));
     int actualDegree = ((degree - 90) * (-1));
-    Serial.print("Pitch: ");
-    Serial.println(actualDegree);
-    return actualDegree; // Takes in an int between -90 and 90, returns a value between 0 and 180
+    return actualDegree;                                             // Takes in an int between -90 and 90, returns a value between 0 and 180
 }
 
 

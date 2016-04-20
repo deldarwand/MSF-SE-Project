@@ -1,4 +1,6 @@
-/* RECEIVING PROGRAM */
+// RECEIVING PROGRAM
+// Written by Garrett May 
+// 21/04/2016
 #include <Packet.h>
 #include <Packet_Compat.h>
 #include <JeeLib.h>
@@ -21,9 +23,6 @@ void loop() {
 }
 
 void attemptSend(){
-  // TODO: Read packet from serial
-  // Read RotationPacket from serial and send
   Packet rPacket = readPacketFromSerial();
-  //Packet rPacket("R|45|360|");
   sendPacket_compat(rPacket);     
 }

@@ -1,3 +1,6 @@
+// Created by Garrett May
+// 21/04/2016
+
 #define RF69_COMPAT 0
 
 #include "Packet.h"
