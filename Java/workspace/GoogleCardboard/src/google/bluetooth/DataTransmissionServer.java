@@ -40,14 +40,12 @@ public enum DataTransmissionServer {
 			System.out.println("Port: " + port.getDescriptivePortName() + " | Baud: " + port.getBaudRate());
 		}
 		System.out.println("Server started!");
-		//Packet packet = packetManager.new_Packet("H|34|");
-		//System.out.println("Value: " + new String(packet.read()));
-		connectionThread.start();		
-		/*SerialPort port = SerialPort.getCommPort("COM5");
-		port.openPort();
+		connectionThread.start();
 		while(true){
-			System.out.println("Value: " + Packet.readLine(port.getInputStream()));
-		}*/
+			for(Session session : sessions){
+				if(!session.isOpen()) session = null;
+			}
+		}
 	}
 	
 	public void addSession(Session session){

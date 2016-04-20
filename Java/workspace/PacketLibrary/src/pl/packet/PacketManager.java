@@ -69,10 +69,11 @@ public class PacketManager {
 	 * @throws Exception
 	 */
 	public Packet new_Packet(InputStream input) throws Exception{
-		int id = (int) Packet.readLine(input).charAt(0);
+		String line = Packet.readLine(input);
+		if(line.length() == 0) return new UnknownPacket();
+		int id = (int) line.charAt(0);
 		Packet packet = new_Packet(id);
-		packet.write(Packet.readLine(input));
-		input.close();
+		if(!(packet instanceof UnknownPacket)) packet.write(Packet.readLine(input));
 		return packet;
 	}
 }

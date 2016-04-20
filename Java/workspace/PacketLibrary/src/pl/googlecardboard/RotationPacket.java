@@ -10,14 +10,14 @@ import pl.packet.Packet;
  */
 public final class RotationPacket extends Packet{
 
-	private float pitch;
-	private float yaw;
+	private int pitch;
+	private int yaw;
 	
 	public void write(String input){
 		String[] r = input.split(SPLITTER);
 		if(r.length == 2){
-			this.pitch = Integer.parseInt(r[0]);
-			this.yaw = Integer.parseInt(r[1]);
+			this.pitch = new Integer(r[0]);
+			this.yaw = new Integer(r[1]);
 		}
 	}
 	
@@ -25,11 +25,11 @@ public final class RotationPacket extends Packet{
 		return ("R" + DELIMETER + pitch + SPLITTER + yaw + DELIMETER).getBytes();
 	}
 	
-	public float getPitch(){
+	public int getPitch(){
 		return pitch;
 	}
 	
-	public float getYaw(){
+	public int getYaw(){
 		return yaw;
 	}
 }

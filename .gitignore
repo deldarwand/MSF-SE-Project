@@ -1,2 +1,6 @@
 .DS_STORE
 *.class
+/Java/workspace/.metadata/
+/Java/workspace/.recommenders/
+Java/workspace/.metadata/
+Java/workspace/.recommenders/
