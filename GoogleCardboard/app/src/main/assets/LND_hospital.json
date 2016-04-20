@@ -1,0 +1,23 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API",
+  "osm3s": {
+    "timestamp_osm_base": "2016-03-15T12:52:02Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+    {
+      "type": "node",
+      "id": 20694300,
+      "lat": 51.5252657,
+      "lon": -0.1390035,
+      "tags": {
+        "amenity": "hospital",
+        "created_by": "Potlatch 0.4a",
+        "name": "University College Hospital",
+        "wheelchair": "yes",
+        "wikipedia": "en:University Hospital Lewisham"
+      }
+    }
+  ]
+}

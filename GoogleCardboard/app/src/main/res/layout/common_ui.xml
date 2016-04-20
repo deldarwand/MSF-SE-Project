@@ -20,4 +20,17 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true" />
 
+    <org.osmdroid.views.MapView android:id="@+id/map"
+    android:layout_width="500px"
+    android:layout_height="1000px"
+        android:layout_marginRight="0px"
+    android:layout_alignTop="@+id/cardboard_view" />
+
+    <org.osmdroid.views.MapView android:id="@+id/map2"
+        android:layout_width="500px"
+        android:layout_height="1000px"
+        android:layout_marginRight="0px"
+        android:layout_alignTop="@+id/cardboard_view" />
+
+
 </RelativeLayout>
