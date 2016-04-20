@@ -1,11 +1,9 @@
 package com.project.googlecardboard.gui;
 
-import com.project.googlecardboard.WorldLayoutData;
 import com.project.googlecardboard.graph.Graph;
 import com.project.googlecardboard.render.shader.Shader;
 import com.project.googlecardboard.render.shader.ShaderType;
-
-import java.util.Random;
+import com.project.googlecardboard.util.Constants;
 
 import pl.googlecardboard.HumidityPacket;
 import pl.packet.Packet;
@@ -34,7 +32,7 @@ public class GraphGUI extends GUI{
         Shader shader = getShader();
         shader.start();
         shader.loadTransformationMatrix(getMatrix());
-        shader.loadColour(isBeingViewed() ? WorldLayoutData.CUBE_FOUND_COLORS : WorldLayoutData.CUBE_COLORS);
+        shader.loadColour(isBeingViewed() ? Constants.CUBE_FOUND_COLORS : Constants.CUBE_COLORS);
         graph.draw();
     }
 

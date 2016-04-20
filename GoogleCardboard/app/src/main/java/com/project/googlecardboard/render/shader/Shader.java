@@ -1,12 +1,8 @@
 package com.project.googlecardboard.render.shader;
 
 import android.opengl.GLES20;
-import android.opengl.Matrix;
 import android.util.Log;
 
-import com.project.googlecardboard.WorldLayoutData;
-
-import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;

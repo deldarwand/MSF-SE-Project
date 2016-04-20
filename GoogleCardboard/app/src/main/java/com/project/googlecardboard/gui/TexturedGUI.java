@@ -1,23 +1,16 @@
 package com.project.googlecardboard.gui;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.content.ServiceConnection;
-import android.content.ComponentName;
-import android.os.IBinder;
 
 import com.google.vrtoolkit.cardboard.HeadTransform;
-import com.project.googlecardboard.WorldLayoutData;
 import com.project.googlecardboard.matrix.TransformationMatrix;
 import com.project.googlecardboard.mesh.QuadMesh;
-import com.project.googlecardboard.mesh.triangleMesh;
 import com.project.googlecardboard.projection.CameraUtil;
 import com.project.googlecardboard.render.shader.Shader;
 import com.project.googlecardboard.render.shader.ShaderType;
 import com.project.googlecardboard.util.BitmapBuffer;
+import com.project.googlecardboard.util.Constants;
 import com.project.googlecardboard.util.IO;
-import android.opengl.Matrix;
 
 
 import pl.packet.Packet;
@@ -76,7 +69,7 @@ public class TexturedGUI extends GUI {
     public void draw(){
         Shader shader = getShader();
         shader.loadTransformationMatrix(getMatrixThis());
-        shader.loadColour(isBeingViewed() ? WorldLayoutData.CUBE_FOUND_COLORS : WorldLayoutData.CUBE_COLORS);
+        shader.loadColour(isBeingViewed() ? Constants.CUBE_FOUND_COLORS : Constants.CUBE_COLORS);
         if(oldFrameNumber != newFrameNumber){
             updateTexture();
         }
