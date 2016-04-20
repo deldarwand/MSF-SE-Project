@@ -1,7 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.project.googlecardboard">
 
-
     <service android:enabled="true" android:name="com.project.googlecardboard.projection.CameraUtil" />
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
