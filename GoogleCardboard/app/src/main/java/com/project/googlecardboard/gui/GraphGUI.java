@@ -7,6 +7,7 @@ import com.project.googlecardboard.render.shader.Shader;
 import com.project.googlecardboard.render.shader.ShaderType;
 import com.project.googlecardboard.util.Constants;
 
+import pl.googlecardboard.AltitudePacket;
 import pl.googlecardboard.HumidityPacket;
 import pl.packet.Packet;
 
@@ -56,8 +57,12 @@ public class GraphGUI extends GUI{
         //Random rand = new Random();
         //graph.add(rand.nextFloat() - 0.5f);
         if(packet instanceof HumidityPacket){
-            HumidityPacket hPacket = (HumidityPacket) packet;
-            graph.add(hPacket.getHumidity() / 30 - 0.5f);
+            //HumidityPacket hPacket = (HumidityPacket) packet;
+            //graph.add(hPacket.getHumidity() / 30 - 0.5f);
+        }
+        if(packet instanceof AltitudePacket){
+            AltitudePacket aPacket = (AltitudePacket) packet;
+            graph.add(aPacket.getAltitude() / 10 - 0.5f);
         }
     }
 
