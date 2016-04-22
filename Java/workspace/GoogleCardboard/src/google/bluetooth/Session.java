@@ -89,6 +89,8 @@ public final class Session implements Runnable{
 		} catch(IOException exception){
 			isOpen = false;
 			return new UnknownPacket();
+		} catch(NumberFormatException exception){
+			return new UnknownPacket();
 		}
 	}	
 }
