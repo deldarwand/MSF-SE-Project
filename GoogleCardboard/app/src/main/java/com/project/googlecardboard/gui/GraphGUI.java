@@ -6,8 +6,7 @@ import com.project.googlecardboard.graph.Graph;
 import com.project.googlecardboard.matrix.TransformationMatrix;
 import com.project.googlecardboard.render.shader.Shader;
 import com.project.googlecardboard.render.shader.ShaderType;
-
-import java.util.Random;
+import com.project.googlecardboard.util.Constants;
 
 import pl.googlecardboard.HumidityPacket;
 import pl.packet.Packet;

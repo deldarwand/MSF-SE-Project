@@ -1,17 +1,12 @@
 package com.project.googlecardboard.gui;
 
-import android.graphics.Bitmap;
 import android.opengl.Matrix;
 
-import com.project.googlecardboard.WorldLayoutData;
 import com.project.googlecardboard.matrix.TransformationMatrix;
 import com.project.googlecardboard.mesh.ArrowMesh;
-import com.project.googlecardboard.mesh.triangleMesh;
-import com.project.googlecardboard.projection.CameraUtil;
 import com.project.googlecardboard.render.shader.Shader;
 import com.project.googlecardboard.render.shader.ShaderType;
-import com.project.googlecardboard.util.BitmapBuffer;
-import java.math.*;
+import com.project.googlecardboard.util.Constants;
 
 import pl.packet.Packet;
 
@@ -95,7 +90,7 @@ public class ArrowGUI extends GUI {
     public void draw(){
         Shader shader = getShader();
         shader.loadTransformationMatrix(getMatrix());
-        shader.loadColour(isBeingViewed() ? WorldLayoutData.CUBE_FOUND_COLORS : WorldLayoutData.CUBE_COLORS);
+        shader.loadColour(isBeingViewed() ? Constants.CUBE_FOUND_COLORS : Constants.CUBE_COLORS);
 
         arrowMesh.draw();
     }
