@@ -1,10 +1,6 @@
 package com.project.googlecardboard;
 
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.widget.Toast;
@@ -12,7 +8,6 @@ import android.widget.Toast;
 import com.google.vrtoolkit.cardboard.CardboardActivity;
 import com.google.vrtoolkit.cardboard.CardboardView;
 import com.project.googlecardboard.bluetooth.BluetoothService;
-import com.project.googlecardboard.gui.GUICollection;
 import com.project.googlecardboard.projection.CameraUtil;
 import com.project.googlecardboard.render.Renderer;
 import com.project.googlecardboard.util.BackgroundThread;
@@ -35,10 +30,8 @@ import org.osmdroid.views.overlay.ScaleBarOverlay;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.UUID;
 
 /**
  * Created by Garrett on 22/10/2015.
@@ -50,11 +43,12 @@ public class DroneActivity extends CardboardActivity{
     private CardboardOverlayView view;
 
     private static final String TAG_HOSP = "Hospital";
-    private static final String TAG_UNI = "University";
+    private static final String TAG_LOCATION = "Your Location";
     private MapView mapView;
     private MapView mapView2;
     private GeoPoint currentLocation;
     private ItemizedOverlay<OverlayItem> hospOverlay;
+    private ItemizedOverlay<OverlayItem> locationOverlay;
 
     // CARDBOARD ACTIVITY
 
@@ -108,9 +102,10 @@ public class DroneActivity extends CardboardActivity{
 
         // Add markers
         ArrayList<OverlayItem> hospItems = parseJson();
-        //final ArrayList<OverlayItem> uniItems = new ArrayList<>();
+        final ArrayList<OverlayItem> myLocationItems = new ArrayList<>();
 
-        //uniItems.add(uniOverlayItem);
+        OverlayItem myLocationOverlayItem = new OverlayItem(TAG_LOCATION, "Drone location", currentLocation);
+        myLocationItems.add(myLocationOverlayItem);
 
         // Generate Hospital nodes Overlay
         hospOverlay = new ItemizedIconOverlay<>(hospItems, this.getDrawable(R.drawable.marker_hospital),
@@ -131,23 +126,23 @@ public class DroneActivity extends CardboardActivity{
         this.mapView.getOverlays().add(this.hospOverlay);
 
 
-        // Generate University nodes Overlay
-//        uniOverlay = new ItemizedIconOverlay<>(uniItems, this.getDrawable(R.drawable.marker_uni),
-//                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
-//                    public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
-//                        Toast.makeText(
-//                                MainActivity.this,
-//                                item.getSnippet(), Toast.LENGTH_LONG).show();
-//                        return true;
-//                    }
-//                    public boolean onItemLongPress(final int index, final OverlayItem item) {
-//                        Toast.makeText(
-//                                MainActivity.this,
-//                                item.getTitle() + ": " + item.getSnippet(), Toast.LENGTH_LONG).show();
-//                        return true;
-//                    }
-//                }, resourceProxy);
-//        this.mapView.getOverlays().add(this.uniOverlay);
+        // Generate myLocation nodes Overlay
+        locationOverlay = new ItemizedIconOverlay<>(myLocationItems, this.getDrawable(R.drawable.person),
+                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+                    public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+                        Toast.makeText(
+                                DroneActivity.this,
+                                item.getSnippet(), Toast.LENGTH_LONG).show();
+                        return true;
+                    }
+                    public boolean onItemLongPress(final int index, final OverlayItem item) {
+                        Toast.makeText(
+                                DroneActivity.this,
+                                item.getTitle() + ": " + item.getSnippet(), Toast.LENGTH_LONG).show();
+                        return true;
+                    }
+                }, resourceProxy);
+        this.mapView.getOverlays().add(this.locationOverlay);
         setupMap2();
 
     }
