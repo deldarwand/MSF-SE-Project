@@ -134,10 +134,10 @@ public enum Renderer implements CardboardView.StereoRenderer{
         if(menu.size() == 0){
             menu.add(new TexturedGUI(11.0f, 0.0f, 0.0f));
 
-            menu.add(new GraphGUI(10, 24.0f, -30.0f, new LineGraph(30)));
-            menu.add(new GraphGUI(10, 24.0f, 30.0f, new LineGraph(30)));
-            menu.add(new GraphGUI(10, -24.0f, -30.0f, new LineGraph(30)));
-            menu.add(new GraphGUI(10, -24.0f, 30.0f, new LineGraph(30)));
+            menu.add(new GraphGUI(10, 14.0f, -20.0f, new LineGraph(30)));
+            menu.add(new GraphGUI(10, 14.0f, 20.0f, new LineGraph(30)));
+            menu.add(new GraphGUI(10, -14.0f, -20.0f, new LineGraph(30)));
+            menu.add(new GraphGUI(10, -14.0f, 20.0f, new LineGraph(30)));
 
             menu.add(new ArrowGUI(1, 0.0f, 0.0f, -0.1390035f, 51.5252657f, 0.0f, 0.0f));
 

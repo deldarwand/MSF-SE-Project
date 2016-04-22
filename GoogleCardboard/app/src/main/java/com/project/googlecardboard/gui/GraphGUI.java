@@ -1,7 +1,6 @@
 package com.project.googlecardboard.gui;
 
 import com.google.vrtoolkit.cardboard.HeadTransform;
-import com.project.googlecardboard.WorldLayoutData;
 import com.project.googlecardboard.graph.Graph;
 import com.project.googlecardboard.matrix.TransformationMatrix;
 import com.project.googlecardboard.render.shader.Shader;
@@ -46,7 +45,7 @@ public class GraphGUI extends GUI{
         Shader shader = getShader();
         shader.start();
         shader.loadTransformationMatrix(getMatrixThis());
-        shader.loadColour(isBeingViewed() ? WorldLayoutData.CUBE_FOUND_COLORS : WorldLayoutData.CUBE_COLORS);
+        shader.loadColour(isBeingViewed() ? Constants.CUBE_FOUND_COLORS : Constants.CUBE_COLORS);
         graph.draw();
     }
 
