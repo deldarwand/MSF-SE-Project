@@ -163,7 +163,7 @@ public class DroneActivity extends CardboardActivity{
 
         final IMapController mapController = mapView2.getController();
         mapController.setZoom(16);
-        this.currentLocation = new GeoPoint(51.524173, -0.131792); //TODO: get GPS location
+        this.currentLocation = new GeoPoint(/*51.524173, -0.131792*/51.5252657f,-0.1390035f); //TODO: get GPS location
 
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override

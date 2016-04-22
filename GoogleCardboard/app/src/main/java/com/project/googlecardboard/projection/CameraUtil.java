@@ -88,7 +88,12 @@ public class CameraUtil extends Object {
         public void onImageAvailable(ImageReader reader){
             Image img = reader.acquireLatestImage();
             processImage(img);
-            img.close();
+            try{
+            img.close();}
+            catch(Exception e)
+            {
+
+            }
         }
     };
 
@@ -138,26 +143,25 @@ public class CameraUtil extends Object {
      */
     private void processImage(Image image){
         //Process image data
-        System.out.print("Camera Image" + image);
+        try {
+            System.out.print("Camera Image" + image);
 
-        Bitmap bitmap = null;
-        DisplayMetrics displayMetrics = activity.getResources().getDisplayMetrics();
-         try {
-             final Image.Plane[] planes = image.getPlanes();
-             final ByteBuffer buffer = planes[0].getBuffer();
-             final byte[] data = new byte[buffer.capacity()];
-             buffer.get(data);
-             bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-        }
-        catch (Exception e)
-        {
-            Log.e(TAG, e.getMessage());
-        }
+            Bitmap bitmap = null;
+            DisplayMetrics displayMetrics = activity.getResources().getDisplayMetrics();
+            try {
+                final Image.Plane[] planes = image.getPlanes();
+                final ByteBuffer buffer = planes[0].getBuffer();
+                final byte[] data = new byte[buffer.capacity()];
+                buffer.get(data);
+                bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+            }
 
-        Matrix matrix = new Matrix();
+            Matrix matrix = new Matrix();
             matrix.preScale(-1.0f, 1.0f);
-        // return transformed image
-        bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            // return transformed image
+            bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 
         /*ByteBuffer buffer = planes[0].getBuffer();
         for (int i = 0; i < imageHeight; ++i) {
@@ -173,6 +177,11 @@ public class CameraUtil extends Object {
             offset += rowPadding;
         }*/
             currentFrame = bitmap;
+        }
+        catch(Exception e)
+        {
+            currentFrame = null;
+        }
     }
 
 
