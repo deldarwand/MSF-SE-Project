@@ -44,6 +44,8 @@ public enum Renderer implements CardboardView.StereoRenderer{
         this.headView = new float[16];
         this.hasShutdown = false;
         GPSLatitude = GPSLongitude = 0.0f;
+        GPSLatitude = 51.524173f;
+        GPSLongitude = -0.131792f;
     }
 
     /* GETTERS */
@@ -66,15 +68,17 @@ public enum Renderer implements CardboardView.StereoRenderer{
         GLES20.glEnable(GLES20.GL_BLEND);
         GLES20.glLineWidth(5.0f);
         headTransform.getHeadView(headView, 0);
-        for(GUI gui : menu){
-            if(gui.isBeingViewed()){
+        for(GUI gui : menu) {
+            if (gui.isBeingViewed()) {
                 //gui.playAnimation();
-            } else{
-               // gui.setAnimatedRadius(10.0f, new PopAnimation(6.0f, 10.0f, 1.0f));
+            } else {
+                // gui.setAnimatedRadius(10.0f, new PopAnimation(6.0f, 10.0f, 1.0f));
             }
-            if (gui.getClass() == TexturedGUI.class)
-            {
-                ((TexturedGUI)gui).headTran = headTransform;
+            if (gui.getClass() == TexturedGUI.class) {
+                ((TexturedGUI) gui).headTran = headTransform;
+            }
+            else if(gui.getClass() == GraphGUI.class) {
+                ((GraphGUI) gui).headTran = headTransform;
             }
         }
         menu.sort();
@@ -135,9 +139,9 @@ public enum Renderer implements CardboardView.StereoRenderer{
             menu.add(new GraphGUI(10, -24.0f, -30.0f, new LineGraph(30)));
             menu.add(new GraphGUI(10, -24.0f, 30.0f, new LineGraph(30)));
 
-            menu.add(new ArrowGUI(1, 0.0f, 0.0f, 0.00000000125f, 0.000000125f, 0.0f, 0.0f));
+            menu.add(new ArrowGUI(1, 0.0f, 0.0f, -0.1390035f, 51.5252657f, 0.0f, 0.0f));
 
-            menu.add(new ArrowGUI(1, 0.0f, 0.0f, 0.00000000f, -0.000000125f, 0.0f, 0.0f));
+           // menu.add(new ArrowGUI(1, 0.0f, 0.0f, 0.00000000f, -0.000000125f, 0.0f, 0.0f));
             //menu.add(new GraphGUI(10, -24.0f, 30.0f, new PieChart()));
         }
     }
@@ -190,7 +194,7 @@ public enum Renderer implements CardboardView.StereoRenderer{
      * @param alpha Transparency component
      */
     public void clearBackgroundTo(float red, float green, float blue, float alpha){
-        GLES20.glClearColor(red / 255.0f, green / 255.0f, blue / 255.0f, alpha);
+        GLES20.glClearColor(0 / 255.0f, 0 / 255.0f, 0 / 255.0f, 1.0f);
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
     }
 
@@ -210,7 +214,7 @@ public enum Renderer implements CardboardView.StereoRenderer{
      * Called when the cardboard rolls to the left or the right
      */
     public void onCardboardRoll(){
-        IO.vibrate(50);
+        //IO.vibrate(50);
     }
 
     /**

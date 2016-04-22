@@ -45,8 +45,10 @@ public class ArrowGUI extends GUI {
     }
 
     public float[] getMatrix(){
-        float x = earthRadius * (landmarkLongitude-currentLongitude) * (float)Math.cos(landmarkLatitude-currentLatitude);
-        float y = earthRadius * (landmarkLatitude-currentLatitude);
+      //  return Math.abs(lat - current.getLatitude()) < radius/ &&
+           //     Math.abs(lon-current.getLongitude()) < radius/( * Math.cos(radius/ 110.574));
+        float x = 110.574f * (landmarkLongitude-currentLongitude) * (float)Math.cos(landmarkLatitude-currentLatitude);
+        float y = 111.320f * (landmarkLatitude-currentLatitude);
         float newRadius = (float)Math.sqrt((x*x)/*squared*/ + (y*y))/*squared*/; //SQRT.
 
 
@@ -77,7 +79,7 @@ public class ArrowGUI extends GUI {
         angle *= 57.0f;
 
 
-
+        newRadius *= -1.0f;
         setRadius(newRadius);
         TransformationMatrix matrix = new TransformationMatrix(getRadius(), 0.0f, getPitch(), 90 - angle + 100);
         Matrix.rotateM(matrix.getMatrix(), 0, rotation, 0.0f, 1.0f, 0.0f);
