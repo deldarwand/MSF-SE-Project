@@ -102,9 +102,115 @@
 				<section class="wrapper style1">
 					<div class="container">
 						<header class="major">
-							<h2>Software</h2>
+							<h2>Design Patterns</h2>
 						</header>
-						<p>.........</p>
+
+						<div class="row">
+							<section class="6u 12u(narrower)">
+								<div class="box post">
+									<a href="#" class="image left"><img src="images/singleton-pattern.png" alt="" /></a>
+									<div class="inner">
+										<h3>Singleton</h3>
+										<p>Several classes are Singletons; for example, the Renderer. This allows us to have a reference to certain important objects, whilst enforcing that these objects are created only once.</p>
+										<p>These Singletons are implemented via the normal Java recommended method; by creating a single instance value in an enumeration. This method creates eager Singletons.</p>
+									</div>
+								</div>
+							</section>
+							<section class="6u 12u(narrower)">
+								<div class="box post">
+									<a href="#" class="image left"><img src="images/factory-pattern.png" alt="" /></a>
+									<div class="inner">
+										<h3>Factory</h3>
+										<p>We use a Factory to create Packet objects. This allows us to create different types of objects based upon a property. The alternative, using a switch-case statement, can be quite tedious and untidy. It also hides any unsightly implementation details.</p>
+									</div>
+								</div>
+							</section>
+						</div>
+
+						<div class="row">
+							<section class="6u 12u(narrower)">
+								<div class="box post">
+									<a href="#" class="image left"><img src="images/null-object-pattern.png" alt="" /></a>
+									<div class="inner">
+										<h3>Null Object</h3>
+										<p>Null Objects are used in our project in order to represent an object with no value. This provides a cleaner way of representing null objects and allows us to add some implementation to these objects, which may be more useful in certain cases.</p>
+									</div>
+								</div>
+							</section>
+							<section class="6u 12u(narrower)">
+								<div class="box post">
+									<a href="#" class="image left"><img src="images/observer-pattern.png" alt="" /></a>
+									<div class="inner">
+										<h3>Observer</h3>
+										<p>We take advantage of the Observer design pattern in order to notify certain objects of an event. GUI objects, for instance, are told whether the Google Cardboard’s trigger is pulled. This allows different actions to occur depending on the event.</p>
+									</div>
+								</div>
+							</section>
+						</div>
+
+						<div class="row">
+							<section class="6u 12u(narrower)">
+								<div class="box post">
+									<a href="#" class="image left"><img src="images/prototype-pattern.png" alt="" /></a>
+									<div class="inner">
+										<h3>Prototype</h3>
+										<p>The Prototype design pattern allows the creation of a new object based upon another prototypical object. In our project, we use this pattern in conjunction with the Factory in order to create Packet objects. Each packet is created by reflectively calling its constructor, based upon its class. Since we define packets without parameters in the constructor, no other information but the class is required.</p>
+									</div>
+								</div>
+							</section>
+							<section class="6u 12u(narrower)">
+								<div class="box post">
+									<a href="#" class="image left"><img src="images/bridge-pattern.png" alt="" /></a>
+									<div class="inner">
+										<h3>Bridge</h3>
+										<p>The Bridge design pattern separates abstractions and implementations from each other, and instead provides a ‘bridge’ between the two. In our application, we make use of a Drawable interfaces, allowing anything that implements to have a draw function. The GUI class provides the basic implementation of this function, and subclasses are free to make use or override this as they wish.</p>
+									</div>
+								</div>
+							</section>
+						</div>
+
+						<div class="row">
+							<section class="6u 12u(narrower)">
+								<div class="box post">
+									<a href="#" class="image left"><img src="images/iterator-pattern.png" alt="" /></a>
+									<div class="inner">
+										<h3>Iterator</h3>
+										<p>The Iterator design pattern allows us to iterate over a collection of objects easily. In our project, the GUICollection represents a collection of GUI objects. This is particularly useful, as the collection provides functions that easily allow addition of objects, removal of objects, and, importantly for our project, sorting of objects in a certain way.</p>
+									</div>
+								</div>
+							</section>
+							<section class="6u 12u(narrower)">
+								<div class="box post">
+									<a href="#" class="image left"><img src="images/command-pattern.png" alt="" /></a>
+									<div class="inner">
+										<h3>Command</h3>
+										<p>In order to better represent the networking system, we encapsulate bytes as a Packet class. This is a simple way of representing the Command design pattern, as each type of packet is a request for its information to be sent.</p>
+									</div>
+								</div>
+							</section>
+						</div>
+
+						<div class="row">
+							<section class="6u 12u(narrower)">
+								<div class="box post">
+									<a href="#" class="image left"><img src="images/chain-of-responsibility-pattern.png" alt="" /></a>
+									<div class="inner">
+										<h3>Chain of Responsibility</h3>
+										<p>The Chain of Responsibility is a sequence of executions which link the call of a function to its eventual implementation. One basic example of this in our project is the drawing sequence; successive Drawable objects are drawn, and progress further into the ‘branches’ of the ‘tree’. This allows us to simplifying the implementations required for drawing, instead of it being more of a mess if it were all in one class.</p>
+									</div>
+								</div>
+							</section>
+							<section class="6u 12u(narrower)">
+								<div class="box post">
+									<a href="#" class="image left"><img src="images/template-method-pattern.png" alt="" /></a>
+									<div class="inner">
+										<h3>Template Method</h3>
+										<p>Several base classes, such as the GUI class, have template methods, and their subclasses implement the feature required. This is especially useful for similar objects, allowing other classes to call the function without need of how it is implemented.</p>
+									</div>
+								</div>
+							</section>
+						</div>
+						<p>Diagrams from <a href="http://www.oodesign.com/">http://www.oodesign.com/</a></p>
 					</div>
 				</section>
 

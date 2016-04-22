@@ -35,10 +35,6 @@
 		list-style: none;
 	}
 
-	ul.show {
-		list-style: circle;
-	}
-
 	blockquote, q {
 		quotes: none;
 	}
