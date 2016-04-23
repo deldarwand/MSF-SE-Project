@@ -46,7 +46,12 @@ public class DroneActivity extends CardboardActivity{
     private static final String TAG_LOCATION = "Your Location";
     private MapView mapView;
     private MapView mapView2;
-    private GeoPoint currentLocation;
+    private GeoPoint currentLocation1;
+    double currentLat1;
+    double currentLon1;
+    private GeoPoint currentLocation2;
+    double currentLat2;
+    double currentLon2;
     private ItemizedOverlay<OverlayItem> hospOverlay;
     private ItemizedOverlay<OverlayItem> locationOverlay;
 
@@ -78,19 +83,47 @@ public class DroneActivity extends CardboardActivity{
         mapView.setMultiTouchControls(true);
         mapView.setX(1050 - mapView.getWidth());
 
+        final ResourceProxy resourceProxy = new DefaultResourceProxyImpl(getApplicationContext());
         final IMapController mapController = mapView.getController();
         mapController.setZoom(15);
-        this.currentLocation = new GeoPoint(51.524173, -0.131792); //TODO: get GPS location
+        currentLat1 = 51.524173;
+        currentLon1 = -0.131792;
+        currentLocation1 = new GeoPoint(currentLat1, currentLon1);
+
+        final ArrayList<OverlayItem> myLocationItems = new ArrayList<>();
 
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 System.out.println("Updating current location");
-                mapController.setCenter(currentLocation);//TODO: update center as drone moves
-            }
-        }, 0, 10000); // Updates center every 10 secs
+                mapController.setCenter(currentLocation1);//TODO: update center as drone moves
+                currentLat1 = currentLat1 + 0.0001;
+                currentLon1 = currentLon1 + 0.0001;
+                currentLocation1 = new GeoPoint(currentLat1, currentLon1);
 
-        ResourceProxy resourceProxy = new DefaultResourceProxyImpl(getApplicationContext());
+                //Add my location markers
+                OverlayItem myLocationOverlayItem = new OverlayItem(TAG_LOCATION, "Drone", currentLocation1);
+                myLocationItems.add(myLocationOverlayItem);
+                // Generate myLocation nodes Overlay
+                locationOverlay = new ItemizedIconOverlay<>(myLocationItems, getDrawable(R.drawable.marker_location),
+                        new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+                            public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+                                Toast.makeText(
+                                        DroneActivity.this,
+                                        item.getSnippet(), Toast.LENGTH_LONG).show();
+                                return true;
+                            }
+                            public boolean onItemLongPress(final int index, final OverlayItem item) {
+                                Toast.makeText(
+                                        DroneActivity.this,
+                                        item.getTitle() + ": " + item.getSnippet(), Toast.LENGTH_LONG).show();
+                                return true;
+                            }
+                        }, resourceProxy);
+                mapView.getOverlays().add(locationOverlay);
+
+            }
+        }, 0, 7000);
 
         // Add scale overlay
         ScaleBarOverlay scaleBarOverlay = new ScaleBarOverlay(mapView);
@@ -102,10 +135,6 @@ public class DroneActivity extends CardboardActivity{
 
         // Add markers
         ArrayList<OverlayItem> hospItems = parseJson();
-        final ArrayList<OverlayItem> myLocationItems = new ArrayList<>();
-
-        OverlayItem myLocationOverlayItem = new OverlayItem(TAG_LOCATION, "Drone location", currentLocation);
-        myLocationItems.add(myLocationOverlayItem);
 
         // Generate Hospital nodes Overlay
         hospOverlay = new ItemizedIconOverlay<>(hospItems, this.getDrawable(R.drawable.marker_hospital),
@@ -124,27 +153,7 @@ public class DroneActivity extends CardboardActivity{
                     }
                 }, resourceProxy);
         this.mapView.getOverlays().add(this.hospOverlay);
-
-
-        // Generate myLocation nodes Overlay
-        locationOverlay = new ItemizedIconOverlay<>(myLocationItems, this.getDrawable(R.drawable.person),
-                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
-                    public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
-                        Toast.makeText(
-                                DroneActivity.this,
-                                item.getSnippet(), Toast.LENGTH_LONG).show();
-                        return true;
-                    }
-                    public boolean onItemLongPress(final int index, final OverlayItem item) {
-                        Toast.makeText(
-                                DroneActivity.this,
-                                item.getTitle() + ": " + item.getSnippet(), Toast.LENGTH_LONG).show();
-                        return true;
-                    }
-                }, resourceProxy);
-        this.mapView.getOverlays().add(this.locationOverlay);
         setupMap2();
-
     }
 
 
@@ -156,19 +165,47 @@ public class DroneActivity extends CardboardActivity{
         mapView2.setMultiTouchControls(true);
         mapView2.setX(50);
 
+        final ResourceProxy resourceProxy = new DefaultResourceProxyImpl(getApplicationContext());
+
         final IMapController mapController = mapView2.getController();
         mapController.setZoom(15);
-        this.currentLocation = new GeoPoint(51.524173, -0.131792); //TODO: get GPS location
+        currentLat2 = 51.524173;
+        currentLon2 = -0.131792;
+        currentLocation2 = new GeoPoint(currentLat2, currentLon2); //TODO: get GPS location
+        final ArrayList<OverlayItem> myLocationItems = new ArrayList<>();
 
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 System.out.println("Updating current location");
-                mapController.setCenter(currentLocation);//TODO: update center as drone moves
-            }
-        }, 0, 10000); // Updates center every 10 secs
+                mapController.setCenter(currentLocation2);//TODO: update center as drone moves
+                currentLat2 = currentLat2 + 0.0001;
+                currentLon2 = currentLon2 + 0.0001;
+                currentLocation2 = new GeoPoint(currentLat2, currentLon2);
 
-        ResourceProxy resourceProxy = new DefaultResourceProxyImpl(getApplicationContext());
+                //Add my location markers
+                OverlayItem myLocationOverlayItem = new OverlayItem(TAG_LOCATION, "Drone", currentLocation2);
+                myLocationItems.add(myLocationOverlayItem);
+                // Generate myLocation nodes Overlay
+                locationOverlay = new ItemizedIconOverlay<>(myLocationItems, getDrawable(R.drawable.marker_location),
+                        new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+                            public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+                                Toast.makeText(
+                                        DroneActivity.this,
+                                        item.getSnippet(), Toast.LENGTH_LONG).show();
+                                return true;
+                            }
+                            public boolean onItemLongPress(final int index, final OverlayItem item) {
+                                Toast.makeText(
+                                        DroneActivity.this,
+                                        item.getTitle() + ": " + item.getSnippet(), Toast.LENGTH_LONG).show();
+                                return true;
+                            }
+                        }, resourceProxy);
+                mapView2.getOverlays().add(locationOverlay);
+
+            }
+        }, 0, 7000);
 
         // Add scale overlay
         ScaleBarOverlay scaleBarOverlay = new ScaleBarOverlay(mapView2);
@@ -178,16 +215,8 @@ public class DroneActivity extends CardboardActivity{
         //             .getDisplayMetrics().xdpi / 2), 10);
         mapView2.getOverlays().add(scaleBarOverlay);
 
-        final ArrayList<OverlayItem> myLocationItems = new ArrayList<>();
-
-        // Add markers
+        // Add database markers
         ArrayList<OverlayItem> hospItems = parseJson();
-
-        OverlayItem myLocationOverlayItem = new OverlayItem(TAG_LOCATION, "Drone location", currentLocation);
-        myLocationItems.add(myLocationOverlayItem);
-
-        //uniItems.add(uniOverlayItem);
-
         // Generate Hospital nodes Overlay
         hospOverlay = new ItemizedIconOverlay<>(hospItems, this.getDrawable(R.drawable.marker_hospital),
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
@@ -205,25 +234,6 @@ public class DroneActivity extends CardboardActivity{
                     }
                 }, resourceProxy);
         this.mapView2.getOverlays().add(this.hospOverlay);
-
-        // Generate myLocation nodes Overlay
-        locationOverlay = new ItemizedIconOverlay<>(myLocationItems, this.getDrawable(R.drawable.person),
-                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
-                    public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
-                        Toast.makeText(
-                                DroneActivity.this,
-                                item.getSnippet(), Toast.LENGTH_LONG).show();
-                        return true;
-                    }
-                    public boolean onItemLongPress(final int index, final OverlayItem item) {
-                        Toast.makeText(
-                                DroneActivity.this,
-                                item.getTitle() + ": " + item.getSnippet(), Toast.LENGTH_LONG).show();
-                        return true;
-                    }
-                }, resourceProxy);
-        this.mapView2.getOverlays().add(this.locationOverlay);
-
     }
 
     /**/
@@ -245,7 +255,7 @@ public class DroneActivity extends CardboardActivity{
                 if (mtype.equals("node")) {
                     double mlat = Double.parseDouble(jsonObject.optString("lat"));
                     double mlon = Double.parseDouble(jsonObject.optString("lon"));
-                    if (isCloseToLocation(mlat, mlon, currentLocation)) {
+                    if (isCloseToLocation(mlat, mlon, currentLocation1)) {
                         hospItemList.add(new OverlayItem(TAG_HOSP, mname, new GeoPoint(mlat, mlon)));
                     }
                 }
@@ -261,7 +271,7 @@ public class DroneActivity extends CardboardActivity{
                     }
                     tlat = tlat/nodes.length();
                     tlon = tlon/nodes.length();
-                    if (isCloseToLocation(tlat, tlon, currentLocation)) {
+                    if (isCloseToLocation(tlat, tlon, currentLocation1)) {
                         OverlayItem centerItem = new OverlayItem(TAG_HOSP, mname, new GeoPoint(tlat, tlon));
                         hospItemList.add(centerItem);
                     }
