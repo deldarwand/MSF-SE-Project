@@ -21,7 +21,7 @@
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
-								<li class="current"><a href="index.html">Home</a>
+								<li><a href="index.html">Home</a>
 									<ul>
 										<li><a href="index.html">Main Features</a></li>
 										<li><a href="index.html">Our Clients</a></li>
@@ -41,7 +41,7 @@
 										<!-- <li><a href="development.html">User Interface</a></li> -->
 									</ul>
 								</li>
-								<li><a href="testing.html">Testing</a>
+								<li class="current"><a href="testing.html">Testing</a>
 									<ul>
 										<li><a href="testing.html">System Prototypes</a></li>
 										<li><a href="testing.html">UI Testing and Trials</a></li>
@@ -80,23 +80,33 @@
 				<section class="wrapper style1">
 					<div class="container">
 						<header class="major">
-							<h2>Pipeline</h2>
+							<h2>The System Framework</h2>
 						</header>
 						<img src="images/pipeline.png" style="max-width:600px;width:100%" class="centerImage">
 					    <br></br>
-					    <p>The application works as such: while the drone is in flight, the sensors and camera record data and footage that are sent to the laptop (back-end) and the phone (front-end).</p>
-					    <p><b>On the phone:</b>
-					      <ul class="default">
-					        <li>Render graphs using incoming sensor data</li>
-					        <li>Display video and photographs from incoming footage</li>
-					      </ul>
-					    </p>
-					    <p><b>On the laptop:</b>
-					      <ul class="default">
-					        <li>Save the sensor data and video footage to a database</li>
-					        <li>Acts as the server for the transfer of data from the drone</li>
-					      </ul>
-					    </p>
+					    <p>This is the structure for our application. While the drone is in flight, the sensors and camera record data and video footage that are sent to the laptop (back-end), which acts as a server hub, and the phone (front-end). The application is running on an Android phone in the Google Cardboard.</p>
+
+					    <div class="row">
+							<section class="6u 12u(narrower)">
+								<p><b>On the phone:</b>
+							      <ul class="default">
+							        <li>Render graphs using incoming sensor data</li>
+							        <li>Display video from incoming camera footage</li>
+							        <li>Display a map of the location of drones</li>
+							        <li>Include the closest points of interest on the map</li>
+							      </ul>
+							    </p>
+							</section>
+							<section class="6u 12u(narrower)">
+								<p><b>On the laptop:</b>
+							      <ul class="default">
+							        <li>Acts as the server for the transfer of data from the drone</li>
+							        <li>Transfer the data to the running application on the phone</li>
+							        <li>Has potential for further video analysis</li>
+							      </ul>
+							    </p>
+							</section>
+						</div>
 					</div>
 				</section>
 			
@@ -219,6 +229,27 @@
 					<header class="major">
 						<h2>Materials and References</h2>
 					</header> 
+
+					<a href="https://developers.google.com/cardboard/overview">Google Cardboard SDK</a>
+						<p>The Google Cardboard SDK for Android allowed us to render an Android application for viewing with the Google Cardboard.</p>
+
+						<a href="https://developers.google.com/cardboard/android/get-started#game_features">Treasure Hunt Demo App</a>
+						<p>The Treasure Hunt demo app for the Google Cardboard. This was used as a starter base and inspiration for creating the app.</p>
+
+						<a href="http://bluecove.org/">BlueCove Library</a>
+						<p>The BlueCove library allowed us to use Bluetooth in Java. This was important as the server was required to connect to the Android application via Bluetooth.</p>
+
+						<a href="http://fazecast.github.io/jSerialComm/">jSerialComm Library</a>
+						<p>The jSerialComm library allowed us to connect to serial ports, such as USB, in Java. This was needed in order to read and write data from and to the JeeLink.</p>
+
+						<a href="http://jeelabs.net/projects/jeelib/wiki">JeeLib Library</a>
+						<p>The JeeLib library is a wrapper library containing several useful smaller libraries. In particular, it contains the RF12 library, which allowed us to send data over a radio frequency.</p>
+
+						<a href="https://www.arduino.cc/en/Reference/Servo">Servo Arduino Library</a>
+						<p>The Servo library is an Ardunio library that allows control over servo motors. This was useful for controlling the Gimbal, which met the requirements.</p>
+
+						<a href="https://github.com/osmdroid/osmdroid">Osm-droid Library</a>
+						<p>The library for OpenStreetMap as an Android map view. It allowed us to render markers and location given OpenStreetMap data.</p>
 
 				</div>
 			</section>
