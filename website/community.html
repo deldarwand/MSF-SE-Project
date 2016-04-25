@@ -21,41 +21,48 @@
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
-								<li><a href="index.html">Home</a>
+								<li class="current"><a href="index.html">Home</a>
 									<ul>
-										<li><a href="index.html">Intro</a></li>
-										<li><a href="index.html">Features</a></li>
-										<li><a href="index.html">Team</a></li>
+										<li><a href="index.html">Main Features</a></li>
+										<li><a href="index.html">Our Clients</a></li>
 									</ul>
 								</li>
 								<li><a href="about.html">About Us</a>
 									<ul>
-										<li><a href="about.html">Overview</a></li>
+										<li><a href="about.html">Our Mission</a></li>
 										<li><a href="about.html">Requirements</a></li>
 									</ul>
 								</li>
 								<li><a href="development.html">Development</a>
 									<ul>
-										<li><a href="development.html">Research</a></li>
-										<li><a href="development.html">Hardware</a></li>
-										<li><a href="development.html">Software</a></li>
-										<li><a href="development.html">User Interaction</a></li>
+										<li><a href="development.html">System Implementation</a></li>
+										<li><a href="development.html">Architecture</a></li>
+										<li><a href="development.html">Design Patterns</a></li>
+										<!-- <li><a href="development.html">User Interface</a></li> -->
 									</ul>
 								</li>
 								<li><a href="testing.html">Testing</a>
 									<ul>
-										<li><a href="testing.html">Prototypes</a></li>
-										<li><a href="testing.html">Strategies</a></li>
+										<li><a href="testing.html">System Prototypes</a></li>
+										<li><a href="testing.html">UI Testing and Trials</a></li>
+										<li><a href="testing.html">Materials and References</a></li>
+										<li><a href="testing.html">Glossary</a></li>
 									</ul>
 								</li>
-								<li><a href="progress.html">Progress</a>
+								<li><a href="progress.html">Project Management</a>
 									<ul>
+										<li><a href="progress.html">Work Packages</a></li>
+										<li><a href="progress.html">Development Plan</a></li>
+										<li><a href="progress.html">Project Reports</a></li>
 										<li><a href="progress.html">Meetings</a></li>
-										<li><a href="progress.html">Reports</a></li>
-										<li><a href="progress.html">Planning</a></li>
 									</ul>
 								</li>
-								<li class="current"><a href="community.html">Community</a>
+								<li><a href="community.html">Community</a>
+									<ul>
+										<li><a href="progress.html">Future Opportunities</a></li>
+										<li><a href="progress.html">Collaboration</a></li>
+										<li><a href="progress.html">Forum and SDK</a></li>
+									</ul>
 								</li>
 							</ul>
 						</nav>
@@ -77,15 +84,21 @@
 						</header>
 						<p>In the future, we hope several features can be added to the app to further enhance its utility and experience:</p>
 						<ul class="default">
-							<li>Include the possibility to create or edit current POI markers. If a current marker points to a broken bridge on the map, and the user can clearly see the bridge has been fixed, he has the option to edit it. Or, if a broken bridge is discovered, he has the option to create a marker that will be added to the database.</li>
-							<li>The drone can be equipped with a GPS whose coordinates can be sent through the server and used in the application. This could be useful for updating the location on the map relative to the drone’s horizontal movement, and also trace its path.</li>
-							<li>The drone can be equipped with further sensors for different uses: attaching a thermal camera could be used to get an estimate of population. If we can get the area of the field, and the area from the thermal camera that corresponds to a temperature of 37 degrees Celsius (average body temperature), and estimate the area of a single person; then with a mathematical equation we can give an approximation of head counts.</li>
-							
-							<li>To do: video analysis pics</li>
+							<li>We would also like for the user of the Cardboard to have the ability to edit or add markers within the application. Currently, this can be done by noticing a change in a point of interest on the video, and after the flight editing or adding an entry to the database. But with the ability to do this directly from the Cardboard, it can provide exact coordinates and avoid additional steps.</li>
+							<li>First, the video footage from the drone offers many possibilities in terms of computer vision. One of our ideas is to implement motion detection and tracking, which we tested in our different prototypes (see below). The Cardboard view is too narrow to render any more information in the form of a video or image, but the data collected can be analysed on the backend and displayed as a graph in the interface.</li>
+							<li>The drone can be equipped with further sensors for different uses: attaching a thermal camera could be used to get an estimate of population; also, a gas sensor can be used to analyse pollution or gas leaks.</li>
 						</ul>
+						<img src="images/motion_detection.png" width="500px" class="centerImage">
+						<br/><br/>
+					</div>
+				</section>
 
-						<h3>Want to discuss or collaborate on the project? Talk to us on <a href="https://github.com/deldarwand/MSF-SE-Project">GitHub</a>!</h3>
-
+				<section class="wrapper style2">
+					<div class="container">
+						<header class="major">
+							<h2>Collaboration</h2>
+						</header>
+						<h3 class="centerText">Want to discuss or collaborate on the project? Talk to us on <a href="http://medidroid.proboards.com/">our forum</a>!</h3>
 					</div>
 				</section>
 

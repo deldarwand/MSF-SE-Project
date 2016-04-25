@@ -21,41 +21,48 @@
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
-								<li><a href="index.html">Home</a>
+								<li class="current"><a href="index.html">Home</a>
 									<ul>
-										<li><a href="index.html">Intro</a></li>
-										<li><a href="index.html">Features</a></li>
-										<li><a href="index.html">Team</a></li>
+										<li><a href="index.html">Main Features</a></li>
+										<li><a href="index.html">Our Clients</a></li>
 									</ul>
 								</li>
 								<li><a href="about.html">About Us</a>
 									<ul>
-										<li><a href="about.html">Overview</a></li>
+										<li><a href="about.html">Our Mission</a></li>
 										<li><a href="about.html">Requirements</a></li>
 									</ul>
 								</li>
-								<li class="current"><a href="development.html">Development</a>
+								<li><a href="development.html">Development</a>
 									<ul>
-										<li><a href="development.html">Research</a></li>
-										<li><a href="development.html">Hardware</a></li>
-										<li><a href="development.html">Software</a></li>
-										<li><a href="development.html">User Interaction</a></li>
+										<li><a href="development.html">System Implementation</a></li>
+										<li><a href="development.html">Architecture</a></li>
+										<li><a href="development.html">Design Patterns</a></li>
+										<!-- <li><a href="development.html">User Interface</a></li> -->
 									</ul>
 								</li>
 								<li><a href="testing.html">Testing</a>
 									<ul>
-										<li><a href="testing.html">Prototypes</a></li>
-										<li><a href="testing.html">Strategies</a></li>
+										<li><a href="testing.html">System Prototypes</a></li>
+										<li><a href="testing.html">UI Testing and Trials</a></li>
+										<li><a href="testing.html">Materials and References</a></li>
+										<li><a href="testing.html">Glossary</a></li>
 									</ul>
 								</li>
-								<li><a href="progress.html">Progress</a>
+								<li><a href="progress.html">Project Management</a>
 									<ul>
+										<li><a href="progress.html">Work Packages</a></li>
+										<li><a href="progress.html">Development Plan</a></li>
+										<li><a href="progress.html">Project Reports</a></li>
 										<li><a href="progress.html">Meetings</a></li>
-										<li><a href="progress.html">Reports</a></li>
-										<li><a href="progress.html">Planning</a></li>
 									</ul>
 								</li>
 								<li><a href="community.html">Community</a>
+									<ul>
+										<li><a href="progress.html">Future Opportunities</a></li>
+										<li><a href="progress.html">Collaboration</a></li>
+										<li><a href="progress.html">Forum and SDK</a></li>
+									</ul>
 								</li>
 							</ul>
 						</nav>
@@ -69,33 +76,65 @@
 					</header>
 				</section>
 
-			<!-- Research -->
+			<!-- System Implementation -->
 				<section class="wrapper style1">
 					<div class="container">
 						<header class="major">
-							<h2>Research and Tools</h2>
+							<h2>System Implementation</h2>
 						</header>
-						<h2>Java</h2>
-					    <img src="images/Java_logo.png" style="width:200px">
-					    <p>The potential programming languages that we could have used for the project were C or Java. Both have strong libraries relating to OpenGL, but the choice was made to use Java. This was due to the fact that, as our primary OS would be Android, we would need to program the application in Android, a language based upon Java. Thus, it would be easier to code using the same language, rather than having to write in another, and then translate this code.</p>
+						<h2>Hardware</h2>
 
-					    <h2>OpenGL ES</h2>
-					    <img src="images/OpenGL_ES_logo.png" style="width:150px">
-					    <br></br>
-					    <p>We chose OpenGL in general as it is well-known to be an efficient graphics library that works at a low level with the hardware. Using OpenGL also gives us great freedom and control over how we create our application, allowing us to be agile if additions or changes needed to make. Since OpenGL is mainly used on mainstream computers, we opted to go for OpenGL ES 2.0, the second main version of OpenGL for Embedded Systems.</p>
+						<h3>Drone</h3>
+						</p>The DJI Phantom 3 is the drone we are using for our project. The motivation for this choice was its size: while still being easy to carry, it is robust and large enough to attach the sensors, gimbal, camera, and server system.
+						We initially intended to build our own drone, as the DJI Phantom is not open source, to be able to make use of the drone’s existing data processor and communication devices for the sensors; however the Phantom turned out to be suitable for our needs and provided all the features we required.<p>
+
+						<h3>Sensors</h3>
+    					<p>For data gathering in the drone’s surroundings whilst in flight, we have a temperature and a humidity sensor (Arduino Compatible Digital Temperature Humidity Sensor Module). To be able to stream the data from the drone to the ground, the drone and the back-end (portable computer) are linked with a Jeelink (v3c) and Jeenode USB system. It is a telemetry to send sensor data to the server, which is sent via bluetooth to the phone.</p>
+
+    					<h3>Camera and Gimbal</h3>
+
+    					<p>For capturing video we are making use of a ____ camera and _____ as a video transmitter and receiver.
+    					</p>
+
+    					<h2>Connectivity</h2>
+    					<p>As we needed to connect three devices together, connectivity was a key part of the project. After revising the connections between the drone, laptop and cardboard device, we decided the best way we can connect the devices will be through a device called a telemetry which uses high range radio waves to transmit the data from the drone to a laptop and then using bluetooth to transmit the data from the laptop to the cardboard device. These decisions came through as the Wi-Fi range was too short to connect the drone and laptop and Android does not support ad-hoc Wi-Fi networks. Therefore we came up with the setup that was described.</p>
+    					<h3>Telemetry</h3>
+
+    					<h3>Bluetooth</h3>
+
+    					
 					</div>
 				</section>
 
+				<section class="wrapper style1">
+					<div class="container">
+						<h2>User Interface Implementation</h2>
+					    <p>Having received both Google’s specification and the requirements of MSF, we concluded that we would need to have a User Interface (UI) which is easy to use with the Google Cardboard and makes use of its potential 3D virtual reality creation, whilst, at the same time, is able to display video content.</p>
+
+					    <h3>Google Cardboard</h3>
+					    <p>The Google Cardboard is a practical, hand-held device that creates an augmented reality environment for the user. Because of it’s compact size and light weight, the Cardboard is a better alternative to a laptop or a tablet as it allows the medics to set up faster with less equipment.</p>
+					
+						<h3>Map</h3>
+						<p>A map was implemented with OSM-droid, which is an Android library for rendering OpenStreetMap (OSM) style map views. The reason for using this instead of the traditional Android map view is that our client uses an OSM formatted database. 
+						The map renders the current location of the drone by providing GPS coordinates. The map is designed to recenter on the drone at a 10 second interval, and at each interval a new marker is rendered. This is done so that throughout the flight a path will be traced on the map, and after the operation the users have this information and can reflect back on it if they need.
+						There are also markers rendering points of interest from the database, it is displaying all the landmarks located within a 3 kilometer radius of the drone. With the Cardboard, the user can click on a marker to see its tag and description.</p>
+
+						<h3>Video Markers</h3>
+						<p></p>
+
+					    <h3>Graphs</h3>
+					    <p>The software we used for representing graphs is OpenGL ES. Using the data collected from the sensors, the coordinates are plotted on a 2D graph that can be extended to a 3D model. After research into HTML and JavaScript rendering in an OpenGL ES environment, we concluded that creating the graphs with OpenGL ES itself was the most effective method. Components that are included are a constant graph update, so as new data is incoming the new points are represented on the graph.</p>
+					</div>
+				</section>
+
+				<!-- System Architecture -->
 				<section class="wrapper style2">
 					<div class="container">
 						<header class="major">
-							<h2>Hardware</h2>
+							<h2>System Architecture</h2>
 						</header>
-						<p>For the project we were allocated a Google Cardboard, an Android phone and a DJI Phantom 3 drone. We initially intended to build our own drone, as the DJI Phantom is not open source, to be able to make use of the drone’s existing data processor and communication devices for the sensors. We looked at buying a Pixhawk flight controller, as that is one of the most commonly used ones by drone enthusiasts, and has a wide range of documentation. However, after prioritising the build of the mobile application, and making use of the sensors on ground, we decided to make rather use of an Arduino board, which could then later on be connected to an open source drone, or could work as an independent system, which we could strap on an existing drone.</p>
-    					<p>For data gathering in the drone’s surroundings whilst in flight, we ordered a light intensity sensor (Digital Light Intensity Sensor Module for AVR Arduino 3V - 5V), a gas sensor (MQ-7 Carbon Monoxide CO Gas Sensor Module) and a temperature and humidity sensor (Arduino Compatible Digital Temperature Humidity Sensor Module). To be able to stream the data from the drone to the ground we have ordered a Jeelink (v3c) and Jeenode USB which will work as a telemetry to send sensor data, which will be sent to a laptop that will be the server, and then send information wirelessly to the Android phone.</p>
-    					<p>For capturing video we will be making use of a GoProHero3 camera and a video transmitter and receiver. We have also done research on compatible infrared camera to use on the drone, a lower resolution camera that better suits live streaming and a gimbal to move the camera, which we will be ordering for the second half of the project.</p>
-    					<h2>Connectivity</h2>
-    					<p>As we needed to connect three devices together, connectivity was a key part of the project. After revising the connections between the drone, laptop and cardboard device, we decided the best way we can connect the devices will be through a device called a telemetry which uses high range radio waves to transmit the data from the drone to a laptop and then using bluetooth to transmit the data from the laptop to the cardboard device. These decisions came through as the Wi-Fi range was too short to connect the drone and laptop and Android does not support ad-hoc Wi-Fi networks. Therefore we came up with the setup that was described.</p>
+						<p>The Android Cardboard Application Architecture</p>
+						<img src="images/architecture_diagram.png" width="100%">
 					</div>
 				</section>
 
@@ -108,7 +147,7 @@
 						<div class="row">
 							<section class="6u 12u(narrower)">
 								<div class="box post">
-									<a href="#" class="image left"><img src="images/singleton-pattern.png" alt="" /></a>
+									<a href="images/singleton-pattern.png" class="image left"><img src="images/singleton-pattern.png" alt="" /></a>
 									<div class="inner">
 										<h3>Singleton</h3>
 										<p>Several classes are Singletons; for example, the Renderer. This allows us to have a reference to certain important objects, whilst enforcing that these objects are created only once.</p>
@@ -118,7 +157,7 @@
 							</section>
 							<section class="6u 12u(narrower)">
 								<div class="box post">
-									<a href="#" class="image left"><img src="images/factory-pattern.png" alt="" /></a>
+									<a href="images/factory-pattern.png" class="image left"><img src="images/factory-pattern.png" alt="" /></a>
 									<div class="inner">
 										<h3>Factory</h3>
 										<p>We use a Factory to create Packet objects. This allows us to create different types of objects based upon a property. The alternative, using a switch-case statement, can be quite tedious and untidy. It also hides any unsightly implementation details.</p>
@@ -130,7 +169,7 @@
 						<div class="row">
 							<section class="6u 12u(narrower)">
 								<div class="box post">
-									<a href="#" class="image left"><img src="images/null-object-pattern.png" alt="" /></a>
+									<a href="images/null-object-pattern.png" class="image left"><img src="images/null-object-pattern.png" alt="" /></a>
 									<div class="inner">
 										<h3>Null Object</h3>
 										<p>Null Objects are used in our project in order to represent an object with no value. This provides a cleaner way of representing null objects and allows us to add some implementation to these objects, which may be more useful in certain cases.</p>
@@ -139,7 +178,7 @@
 							</section>
 							<section class="6u 12u(narrower)">
 								<div class="box post">
-									<a href="#" class="image left"><img src="images/observer-pattern.png" alt="" /></a>
+									<a href="images/observer-pattern.png" class="image left"><img src="images/observer-pattern.png" alt="" /></a>
 									<div class="inner">
 										<h3>Observer</h3>
 										<p>We take advantage of the Observer design pattern in order to notify certain objects of an event. GUI objects, for instance, are told whether the Google Cardboard’s trigger is pulled. This allows different actions to occur depending on the event.</p>
@@ -151,7 +190,7 @@
 						<div class="row">
 							<section class="6u 12u(narrower)">
 								<div class="box post">
-									<a href="#" class="image left"><img src="images/prototype-pattern.png" alt="" /></a>
+									<a href="images/prototype-pattern.png" class="image left"><img src="images/prototype-pattern.png" alt="" /></a>
 									<div class="inner">
 										<h3>Prototype</h3>
 										<p>The Prototype design pattern allows the creation of a new object based upon another prototypical object. In our project, we use this pattern in conjunction with the Factory in order to create Packet objects. Each packet is created by reflectively calling its constructor, based upon its class. Since we define packets without parameters in the constructor, no other information but the class is required.</p>
@@ -160,7 +199,7 @@
 							</section>
 							<section class="6u 12u(narrower)">
 								<div class="box post">
-									<a href="#" class="image left"><img src="images/bridge-pattern.png" alt="" /></a>
+									<a href="images/bridge-pattern.png" class="image left"><img src="images/bridge-pattern.png" alt="" /></a>
 									<div class="inner">
 										<h3>Bridge</h3>
 										<p>The Bridge design pattern separates abstractions and implementations from each other, and instead provides a ‘bridge’ between the two. In our application, we make use of a Drawable interfaces, allowing anything that implements to have a draw function. The GUI class provides the basic implementation of this function, and subclasses are free to make use or override this as they wish.</p>
@@ -172,7 +211,7 @@
 						<div class="row">
 							<section class="6u 12u(narrower)">
 								<div class="box post">
-									<a href="#" class="image left"><img src="images/iterator-pattern.png" alt="" /></a>
+									<a href="images/iterator-pattern.png" class="image left"><img src="images/iterator-pattern.png" alt="" /></a>
 									<div class="inner">
 										<h3>Iterator</h3>
 										<p>The Iterator design pattern allows us to iterate over a collection of objects easily. In our project, the GUICollection represents a collection of GUI objects. This is particularly useful, as the collection provides functions that easily allow addition of objects, removal of objects, and, importantly for our project, sorting of objects in a certain way.</p>
@@ -181,7 +220,7 @@
 							</section>
 							<section class="6u 12u(narrower)">
 								<div class="box post">
-									<a href="#" class="image left"><img src="images/command-pattern.png" alt="" /></a>
+									<a href="images/command-pattern.png" class="image left"><img src="images/command-pattern.png" alt="" /></a>
 									<div class="inner">
 										<h3>Command</h3>
 										<p>In order to better represent the networking system, we encapsulate bytes as a Packet class. This is a simple way of representing the Command design pattern, as each type of packet is a request for its information to be sent.</p>
@@ -193,7 +232,7 @@
 						<div class="row">
 							<section class="6u 12u(narrower)">
 								<div class="box post">
-									<a href="#" class="image left"><img src="images/chain-of-responsibility-pattern.png" alt="" /></a>
+									<a href="images/chain-of-responsibility-pattern.png" class="image left"><img src="images/chain-of-responsibility-pattern.png" alt=""/></a>
 									<div class="inner">
 										<h3>Chain of Responsibility</h3>
 										<p>The Chain of Responsibility is a sequence of executions which link the call of a function to its eventual implementation. One basic example of this in our project is the drawing sequence; successive Drawable objects are drawn, and progress further into the ‘branches’ of the ‘tree’. This allows us to simplifying the implementations required for drawing, instead of it being more of a mess if it were all in one class.</p>
@@ -202,7 +241,7 @@
 							</section>
 							<section class="6u 12u(narrower)">
 								<div class="box post">
-									<a href="#" class="image left"><img src="images/template-method-pattern.png" alt="" /></a>
+									<a href="images/template-method-pattern.png" class="image left"><img src="images/template-method-pattern.png" alt="" /></a>
 									<div class="inner">
 										<h3>Template Method</h3>
 										<p>Several base classes, such as the GUI class, have template methods, and their subclasses implement the feature required. This is especially useful for similar objects, allowing other classes to call the function without need of how it is implemented.</p>
@@ -211,30 +250,6 @@
 							</section>
 						</div>
 						<p>Diagrams from <a href="http://www.oodesign.com/">http://www.oodesign.com/</a></p>
-					</div>
-				</section>
-
-				<section class="wrapper style2">
-					<div class="container">
-						<header class="major">
-							<h2>User Interface</h2>
-						</header>
-					    <p>Having received both Google’s specification and the requirements of MSF, we concluded that we would need to have a User Interface (UI) which is easy to use with the Google Cardboard and makes use of its potential 3D virtual reality creation, whilst, at the same time, is able to display video content. Our UI is as follows:</p>
-					    <img src="images/UI_diagram.png" style="max-width:350px;width:100%;" class="centerImage">
-					    <br></br>
-					    <p>The UI is formed of several ‘boxes’ or ‘GUIs’ (Graphics User Interfaces) which hover in front of the user in 3D polar space. On each of these GUIs there will be a graph, video, or any other methods for displaying data in a visual manner. The spherical placement of the GUIs means that, whenever one is looked at directly, it will not be distorted, and instead will appear almost 2D to the user. This allows the user to fully focus on the data represented. If need be, the user may pull the trigger, which will magnify the GUI.</p>
-
-					    <h2>Graphs</h2>
-					    <p>The software we used for representing graphs is OpenGL ES. Using the data collected from the sensors, the coordinates are plotted on a 2D graph that can be extended to a 3D model. After research into HTML and JavaScript rendering in an OpenGL ES environment, we concluded that creating the graphs with OpenGL ES itself was the most effective method. Further components will be included such as a constant graph update, so as new data is incoming the new points will be represented on the graph.</p>
-					</div>
-				</section>
-
-				<section class="wrapper style1">
-					<div class="container">
-						<header class="major">
-							<h2>UML Diagram</h2>
-						</header>
-   						<a href="images/Google_Cardboard_Application_UML.jpg"><img src="images/Google_Cardboard_Application_UML.jpg" style="max-width:1000px; width:100%"></a>
 					</div>
 				</section>
 
@@ -266,6 +281,5 @@
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
-
 	</body>
 </html>

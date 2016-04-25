@@ -21,41 +21,48 @@
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
-								<li><a href="index.html">Home</a>
+								<li class="current"><a href="index.html">Home</a>
 									<ul>
-										<li><a href="index.html">Intro</a></li>
-										<li><a href="index.html">Features</a></li>
-										<li><a href="index.html">Team</a></li>
+										<li><a href="index.html">Main Features</a></li>
+										<li><a href="index.html">Our Clients</a></li>
 									</ul>
 								</li>
 								<li><a href="about.html">About Us</a>
 									<ul>
-										<li><a href="about.html">Overview</a></li>
+										<li><a href="about.html">Our Mission</a></li>
 										<li><a href="about.html">Requirements</a></li>
 									</ul>
 								</li>
 								<li><a href="development.html">Development</a>
 									<ul>
-										<li><a href="development.html">Research</a></li>
-										<li><a href="development.html">Hardware</a></li>
-										<li><a href="development.html">Software</a></li>
-										<li><a href="development.html">User Interaction</a></li>
+										<li><a href="development.html">System Implementation</a></li>
+										<li><a href="development.html">Architecture</a></li>
+										<li><a href="development.html">Design Patterns</a></li>
+										<!-- <li><a href="development.html">User Interface</a></li> -->
 									</ul>
 								</li>
-								<li class="current"><a href="testing.html">Testing</a>
+								<li><a href="testing.html">Testing</a>
 									<ul>
-										<li><a href="testing.html">Prototypes</a></li>
-										<li><a href="testing.html">Strategies</a></li>
+										<li><a href="testing.html">System Prototypes</a></li>
+										<li><a href="testing.html">UI Testing and Trials</a></li>
+										<li><a href="testing.html">Materials and References</a></li>
+										<li><a href="testing.html">Glossary</a></li>
 									</ul>
 								</li>
-								<li><a href="progress.html">Progress</a>
+								<li><a href="progress.html">Project Management</a>
 									<ul>
+										<li><a href="progress.html">Work Packages</a></li>
+										<li><a href="progress.html">Development Plan</a></li>
+										<li><a href="progress.html">Project Reports</a></li>
 										<li><a href="progress.html">Meetings</a></li>
-										<li><a href="progress.html">Reports</a></li>
-										<li><a href="progress.html">Planning</a></li>
 									</ul>
 								</li>
 								<li><a href="community.html">Community</a>
+									<ul>
+										<li><a href="progress.html">Future Opportunities</a></li>
+										<li><a href="progress.html">Collaboration</a></li>
+										<li><a href="progress.html">Forum and SDK</a></li>
+									</ul>
 								</li>
 							</ul>
 						</nav>
@@ -97,62 +104,163 @@
 				<section class="wrapper style2">
 					<div class="container">
 						<header class="major">
-							<h2>Prototypes</h2>
+							<h2>System Prototypes</h2>
 						</header>
-						<h3>Mock-up #1</h3>
-					    <img src="images/mockup_1.png" style="max-width:600px;width:100%" class="centerImage">
-					    <br></br>
-					    <p><b>Advantages</b> of this prototype:
-					    <ul class="default">
-					        <li>The Hubsan x4 is small, extremely light-weight, therefore very easy to carry</li>
-					        <li>It is equipped with an HD Camera</li>
-					        <li>Can be sent out fast, no prior set up needed</li>
-					        <li>Useful when a fast analysis of the area is needed</li>
-					      </ul></p>
-					    <p><b>Disadvantages:</b>
-					    <ul class="default">
-					        <li>Sensors cannot be attached</li>
-					        <li>Video quality will be affected if live streaming directly from drone</li>
-					      </ul></p>
+						<h3>Architecture Protoypes</h3>
+						<p>We explored multiple options for drones, notably the Hubsan drone.</p>
+
+						<div class="row">
+							<section class="6u 12u(narrower)">
+								<div class="box post inner">
+									<img src="images/mockup_1.png" width="450px" alt=""/>
+								</div>
+							</section>
+							<section class="6u 12u(narrower)">
+								<div class="box post inner">
+									<p><b>Advantages</b> of this prototype:
+								    <ul class="default">
+								        <li>The Hubsan x4 is small, extremely light-weight, therefore very easy to carry</li>
+								        <li>It is equipped with an HD Camera</li>
+								        <li>Can be sent out fast, no prior set up needed</li>
+								        <li>Useful when a fast analysis of the area is needed</li>
+								      </ul></p>
+								    <p><b>Disadvantages:</b>
+								    <ul class="default">
+								        <li>Sensors cannot be attached</li>
+								        <li>Video quality will be affected if live streaming directly from drone</li>
+								     </ul></p>
+								</div>
+							</section>
+						</div>
+
+						<div class="row">
+							<section class="6u 12u(narrower)">
+								<div class="box post inner">
+									<img src="images/mockup_2.png" width="450px" alt=""/>
+								</div>
+							</section>
+							<section class="6u 12u(narrower)">
+								<div class="box post inner">
+									<p><b>Advantages:</b>
+								    <ul class="default">
+								        <li>The Phantom is a robust drone</li>
+								        <li>It can be equipped with sensors and a camera</li>
+								        <li>It can be equipped with a system to transfer data to a back-end</li>
+								    </ul></p>
+								    <p><b>Disadvantages:</b>
+								    <ul class="default">
+								      <li>Inconvenient to carry due to it's bulkier size and weight</li>
+								      <li>Video quality will be affected if live streaming directly from drone</li>
+								    </ul></p>
+								</div>
+							</section>
+						</div>
+
 					      <p><b>Video footage from the drone:</b></p>
 					      <div class="embed-responsive embed-responsive-16by9">
 					          <iframe width="600" height="375" src="https://www.youtube.com/embed/HYIgQGTMR1U"></iframe><br></br>
 					        </div>
-
-					    <h3>Mock-up #2</h3>
-					    <img src="images/mockup_2.png" style="max-width:600px;width:100%" class="centerImage">
-					    <br></br>
-					    <p><b>Advantages:</b>
-					    <ul class="default">
-					        <li>The Phantom is a robust drone</li>
-					        <li>It can be equipped with sensors</li>
-					        <li>Provides useful data collected from sensors</li>
-					      </ul></p>
-					    <p><b>Disadvantages:</b>
-					    <ul class="default">
-					        <li>Inconvenient to carry due to it's bulkier size and weight</li>
-					        <li>Video quality will be affected if live streaming directly from drone</li>
-					      </ul></p>
 					</div>
 				</section>
 			
 			<!-- UI -->
 				<section class="wrapper style1">
 					<div class="container">
-						<header class="major">
-							<h2>UI: Cardboard View</h2>
-						</header>
+						<h3>User Interface Testing and Trials</h3>
+						<p>Throughout the project, we have updated the UI following our user testing. Previously, the UI was formed of several ‘boxes’ or ‘GUIs’ (Graphics User Interfaces) which hover in front of the user in 3D polar space. Each of these GUIs rendered a graph, video, or any other methods for displaying data in a visual manner. The spherical placement of the GUIs meant that, whenever one is looked at directly, it will not be distorted, and instead will appear almost 2D to the user. This allowed the user to fully focus on the data represented. If need be, the user may pull the trigger, which will magnify the GUI.</p>
+					    <p>This was uncomfortable for the user to use over a long period of time, so we updated it to display the video footage in the background, with the graphs overlayed on top. We have also added a map of the area, and overlayed the video footage with a marker to indicate the nearest landmark.</p>
+
 						<h3>User Testing</h3>
 						<p>Below are the initial diagram prototypes of UI designs. After conduting multiple user tests we concluded that graphs 1 and 3 were best.</p>
-						<img src="images/UserTesting1.png" style="max-width:550px; width:100%" class="centerImage">
-						<p>Results:</p>
-						<img src="images/UserTesting2.png" style="max-width:550px; width:100%" class="centerImage">
-						<h3>Our UI design in the Google Cardboard</h3>
-						<div class="embed-responsive embed-responsive-16by9">
-						  <iframe width="600" height="375" src="https://www.youtube.com/embed/MeBXXm1GZv4"></iframe><br></br>
+
+						<div class="row">
+							<section class="6u 12u(narrower)">
+								<div class="box post inner">
+									<u><p>Prototypes</p></u>
+									<img src="images/UserTesting1.png" width="450px" style="max-width:550px; width:100%"/>
+								</div>
+							</section>
+							<section class="6u 12u(narrower)">
+								<div class="box post inner">
+									<u><p>Results</p></u>
+									<img src="images/UserTesting2.png" width="450px" style="max-width:550px; width:100%"/>
+								</div>
+							</section>
 						</div>
+
+						<div class="row">
+							<section class="6u 12u(narrower)">
+								<div class="box post inner">
+									<h3>UI Design Prototype 1</h3>
+									<p>For our first prototype, we implemented design 1. The components, ie the graphs and the video, are elements that can be zoomed in and out off. Head rotation allows the user to view different content.</p>
+									<div class="embed-responsive embed-responsive-16by9">
+									  <iframe width="450" height="375" src="https://www.youtube.com/embed/MeBXXm1GZv4"></iframe><br></br>
+									</div>
+								</div>
+							</section>
+							<section class="6u 12u(narrower)">
+								<div class="box post inner">
+									<h3>UI Final Design</h3>
+									<p>After testing and feedback, we came up with this final interface. It has the video running in the background, with a map view on the lower left handside and the graphs overlayed on the video. With head movements, the user rotates the camera on the drone. </p>
+									<div class="embed-responsive embed-responsive-16by9">
+									  <iframe width="450" height="375" src="https://www.youtube.com/embed/MeBXXm1GZv4"></iframe><br></br>
+									</div>
+								</div>
+							</section>
+						</div>
+
+						
 					</div>
 				</section>
+
+			<!-- Materials and References -->
+			<section class="wrapper style2">
+				<div class="container">
+					<header class="major">
+						<h2>Materials and References</h2>
+					</header> 
+
+				</div>
+			</section>
+
+			<!-- Glossary -->
+			<section class="wrapper style1">
+				<div class="container">
+					<header class="major">
+						<h2>Glossary</h2>
+					</header> 
+					<b>Application</b>
+					<p>An application (app) is a program that is running on the mobile phone. It is 
+					programmed in Android.</p>
+					<b>Android </b>
+					<p>This is the operating system the mobile phone uses. It is also the name of the
+					programming language used for our mobile phone application. The language is based on Java.</p>
+					<b>DHT Sensor</b>
+					<p>The Digital Humidity Temperature (DHT) sensor is a sensor which can read
+					humidity and temperature. In our project, we use the Keyes DHT sensor, which uses an analog output, and +3v and GND.</p>
+					<b>JeeLink</b>
+					<p>The JeeLink is an Arduino-based circuit board. It has a radio antenna, and a 
+					male USB port. This allows it to communicate with the JeeNode and a computer, respectively. Programs written for this are in the Arduino C/C++ language.</p>
+					<b>JeeNode</b>
+					<p>The JeeNode is an Ardunio-based circuit board. It has a radio antenna, a female
+					Micro USB port, and four ports, each having a selection of analog pins, digital pins, power, etc. The JeeNode is able to communicate with the JeeLink via a radio frequency. Sensors and the gimbal are attached to the JeeNode via the ports provided. Programs written for this are in the Arduino C/C++ language.</p>
+					<b>Gimbal</b>
+					<p>The Gimbal is a device which is able to rotate through several degrees of 
+					freedom. The FatShark Gimbal, which is used in our project, is able to rotate in both the pitch and yaw directions.</p>
+					<b>Server</b>
+					<p>In our project, the server is a program which runs on a computer. It connects to 
+					the JeeNode and the mobile phone via USB and Bluetooth, respectively. The server reads and writes data from and to both connections in order to transmit data. It is written in Java.</p>
+					<b>Cardboard</b>
+					<p>A low cost Virtual Reality headset developed by Google for use with Android 
+					phones.</p>
+					<b>Virtual Reality</b>
+					<p>A way for a computer to generate a virtual environment for a user to interact with, 
+					usually by the production of an image per eye which is mounted on the user’s head to give full immersion to the user.</p>
+					<b>OpenGL</b>
+					<p>The Open Graphics Library provides a cross platform way to create graphics in
+					an application.</p>
+				</div>
+			</section>
 
 
 			<!-- CTA -->
