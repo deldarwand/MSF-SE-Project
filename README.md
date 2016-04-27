@@ -7,7 +7,7 @@ MediDroid is an application that makes use of drones, enhanced with sensors and 
 
 To successfully set up and use the system you will need:
  - a drone
- - an android phone
+ - an Android phone
  - a Google Cardboard
  - a camera on a 2-rotor gimbal
  - a video transmitter and receiver
