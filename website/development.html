@@ -21,7 +21,7 @@
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
-								<li class="current"><a href="index.html">Home</a>
+								<li><a href="index.html">Home</a>
 									<ul>
 										<li><a href="index.html#main-features">Main Features</a></li>
 										<li><a href="index.html#our-clients">Our Clients</a></li>
@@ -33,7 +33,7 @@
 										<li><a href="about.html#requirements">Requirements</a></li>
 									</ul>
 								</li>
-								<li><a href="development.html">Development</a>
+								<li class="current"><a href="development.html">Development</a>
 									<ul>
 										<li><a href="development.html#system-implementation">System Implementation</a></li>
 										<li><a href="development.html#architecture">Architecture</a></li>
@@ -60,7 +60,7 @@
 								<li><a href="community.html">Community</a>
 									<ul>
 										<li><a href="community.html#future-opportunities">Future Opportunities</a></li>
-										<li><a href="community.html#collaboration">Collaboration</a></li>
+										<li><a href="community.html#conferences">Conferences</a></li>
 										<li><a href="community.html#forum-and-sdk">Forum and SDK</a></li>
 									</ul>
 								</li>
@@ -84,11 +84,13 @@
 						</header>
 
 						<img src="images/system_diagram.png" class="centerImage" width="800px">
+						<a href="assets/files/user_manual.pdf"><p class="centerText">See here for a user set-up manual</p></a>
 
 						<h2>Java</h2>
 						<p>Our system is developed in Java because it is the native programming language for Android, our primary Operating System. It includes strong libraries relating to OpenGL, the Open Graphics Library used for the design of the user interface.</p>
 
 						<h2>Hardware</h2>
+						<p>The list of hardware components for MediDroid can be accessed <a href="assets/files/hardware_components.pdf">here</a>.</p>
 
 						<div class="row box post">
 							<div class="box post">
@@ -106,18 +108,17 @@
 
     					<h3>Camera and Gimbal</h3>
 
-    					<p>For capturing video we are making use of a ____ camera and _____ as a video transmitter and receiver.
-    					</p>
+    					<p>For capturing video we are using a camera situated on a 2-rotor gimbal attached to the drone. The user can control the movement of the camera by head movements whilst using the Google Cardboard. The camera is connected to a video transmitter situated on the drone, which sends an analog signal to the video receiver on the ground. The video receiver is connected directly to the phone through an ADC (analog digital converter), which converts the analog signal to digital. A battery on the drone powers the camera and video transmitter, and the video receiver powered by a battery attached to the cardboard.</p>
     					<img src="images/gimbal_gif/gimbal_gif.gif"><br></br>
 
     					<h2>Connectivity</h2>
     					<p>As we needed to connect three devices together, connectivity was a key part of the project. After revising the connections between the drone, laptop and cardboard device, we decided the best way we can connect the devices will be through a device called a telemetry which uses high range radio waves to transmit the data from the drone to a laptop and then using bluetooth to transmit the data from the laptop to the cardboard device. These decisions came through as the Wi-Fi range was too short to connect the drone and laptop and Android does not support ad-hoc Wi-Fi networks.</p>
 
     					<h3>Telemetry</h3>
+    					<p>The telemetry used in the project allows us to send data from the JeeNode to the JeeLink. A library called JeeLib allows us to use a radio frequency in order to send and receive data, in the form of bytes, between two transceivers.<br></br>To initialise the telemetry, we give each Arduino-based circuit board a channel, a bandwidth, and a group. The channel needs to be a unique integer (between 0-31), and the group needs to be the same integer (between 0-255). This allows the telemetry to understand which transceivers should communicate with each other, and which transceiver is currently sending/receiving. The bandwidth should also be the same between the two components, so that they know which frequency to send the data over. In our project, the antennae are of a certain length, and have been colour-coded so; green here means that it should travel over a 433 MHz frequency.<br></br>To handle the data, we have created a library which wraps the data into the form of packets. This allows us to more easily understand how the data is being sent, and gives us greater control over the system. The library is programmed in C/C++ Arduino.</p>
 
     					<h3>Bluetooth</h3>
-
-    					
+    					<p>Bluetooth allows us to send data between the server and the mobile phone. It is implemented by using a Bluetooth library, BlueCove, to first pair the two devices together. To pair, a Universally Unique Identifier (UUID) is known by both the phone and the server, and the phone attempts to connect to the server as a client. The server acts as host and can be ‘seen’ by all nearby Bluetooth devices, and once the phone connects to the server, it creates a new session. This allows us to make a connection so that data can be sent.<br></br>Like with the telemetry, in order to handle the data, we created a packet library for the Bluetooth system. The packet library wraps up data so that sending bytes via Bluetooth is cleaner. Due to the fact that the server is specifically programmed in Java, and the app in Android, the library is written in Java, and is compatible with both programs.</p>
 					</div>
 				</section>
 
