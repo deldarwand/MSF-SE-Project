@@ -1,0 +1,7 @@
+1458042513853	Delete element
+1458051660740	Delete element
+1458056408238	Rename package 'bpl.exception'
+1458056419196	Rename package 'bpl.packet'
+1458056426152	Rename package 'bpl.googlecardboard'
+1458056452526	Rename type 'BPLWriteException'
+1458056457922	Rename type 'BPLReadException'
