@@ -21,19 +21,19 @@
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
-								<li class="current"><a href="index.html">Home</a>
+								<li><a href="index.html">Home</a>
 									<ul>
 										<li><a href="index.html">Main Features</a></li>
 										<li><a href="index.html">Our Clients</a></li>
 									</ul>
 								</li>
-								<li><a href="about.html">About Us</a>
+								<li><a href="about.html">Our Mission</a>
 									<ul>
 										<li><a href="about.html">Our Mission</a></li>
 										<li><a href="about.html">Requirements</a></li>
 									</ul>
 								</li>
-								<li><a href="development.html">Development</a>
+								<li class="current"><a href="development.html">Development</a>
 									<ul>
 										<li><a href="development.html">System Implementation</a></li>
 										<li><a href="development.html">Architecture</a></li>
@@ -59,9 +59,9 @@
 								</li>
 								<li><a href="community.html">Community</a>
 									<ul>
-										<li><a href="progress.html">Future Opportunities</a></li>
-										<li><a href="progress.html">Collaboration</a></li>
-										<li><a href="progress.html">Forum and SDK</a></li>
+										<li><a href="community.html">Future Opportunities</a></li>
+										<li><a href="community.html">Collaboration</a></li>
+										<li><a href="community.html">Forum and SDK</a></li>
 									</ul>
 								</li>
 							</ul>
@@ -82,22 +82,37 @@
 						<header class="major">
 							<h2>System Implementation</h2>
 						</header>
+
+						<img src="images/system_diagram.png" class="centerImage" width="800px">
+
+						<h2>Java</h2>
+						<p>Our system is developed in Java because it is the native programming language for Android, our primary Operating System. It includes strong libraries relating to OpenGL, the Open Graphics Library used for the design of the user interface.</p>
+
 						<h2>Hardware</h2>
 
-						<h3>Drone</h3>
-						</p>The DJI Phantom 3 is the drone we are using for our project. The motivation for this choice was its size: while still being easy to carry, it is robust and large enough to attach the sensors, gimbal, camera, and server system.
-						We initially intended to build our own drone, as the DJI Phantom is not open source, to be able to make use of the drone’s existing data processor and communication devices for the sensors; however the Phantom turned out to be suitable for our needs and provided all the features we required.<p>
+						<div class="row box post">
+							<div class="box post">
+								<a href="#" class="image left"><img src="images/drone.png" alt=""/></a>
+								<div class="inner">
+									<h3>Drone</h3>
+									</p>The DJI Phantom 3 is the drone we are using for our project. The motivation for this choice was its size: while still being easy to carry, it is robust and large enough to attach the sensors, gimbal, camera, and server system.
+									We initially intended to build our own drone, as the DJI Phantom is not open source, to be able to make use of the drone’s existing data processor and communication devices for the sensors; however the Phantom turned out to be suitable for our needs and provided all the features we required.<p>
+								</div>
+							</div>
+						</div>
 
 						<h3>Sensors</h3>
-    					<p>For data gathering in the drone’s surroundings whilst in flight, we have a temperature and a humidity sensor (Arduino Compatible Digital Temperature Humidity Sensor Module). To be able to stream the data from the drone to the ground, the drone and the back-end (portable computer) are linked with a Jeelink (v3c) and Jeenode USB system. It is a telemetry to send sensor data to the server, which is sent via bluetooth to the phone.</p>
+    					<p>For data gathering in the drone’s surroundings whilst in flight, we have a temperature and a humidity sensor (Arduino Compatible Digital Temperature Humidity Sensor Module). To be able to stream the data from the drone to the ground, the drone and the back-end (portable computer) are linked with a Jeelink (v3c) and Jeenode USB system. This telemetry installation sends sensor data to the server, which is transfered to the phone via bluetooth.</p>
 
     					<h3>Camera and Gimbal</h3>
 
     					<p>For capturing video we are making use of a ____ camera and _____ as a video transmitter and receiver.
     					</p>
+    					<img src="images/gimbal_gif/gimbal_gif.gif"><br></br>
 
     					<h2>Connectivity</h2>
-    					<p>As we needed to connect three devices together, connectivity was a key part of the project. After revising the connections between the drone, laptop and cardboard device, we decided the best way we can connect the devices will be through a device called a telemetry which uses high range radio waves to transmit the data from the drone to a laptop and then using bluetooth to transmit the data from the laptop to the cardboard device. These decisions came through as the Wi-Fi range was too short to connect the drone and laptop and Android does not support ad-hoc Wi-Fi networks. Therefore we came up with the setup that was described.</p>
+    					<p>As we needed to connect three devices together, connectivity was a key part of the project. After revising the connections between the drone, laptop and cardboard device, we decided the best way we can connect the devices will be through a device called a telemetry which uses high range radio waves to transmit the data from the drone to a laptop and then using bluetooth to transmit the data from the laptop to the cardboard device. These decisions came through as the Wi-Fi range was too short to connect the drone and laptop and Android does not support ad-hoc Wi-Fi networks.</p>
+
     					<h3>Telemetry</h3>
 
     					<h3>Bluetooth</h3>
@@ -111,19 +126,29 @@
 						<h2>User Interface Implementation</h2>
 					    <p>Having received both Google’s specification and the requirements of MSF, we concluded that we would need to have a User Interface (UI) which is easy to use with the Google Cardboard and makes use of its potential 3D virtual reality creation, whilst, at the same time, is able to display video content.</p>
 
-					    <h3>Google Cardboard</h3>
-					    <p>The Google Cardboard is a practical, hand-held device that creates an augmented reality environment for the user. Because of it’s compact size and light weight, the Cardboard is a better alternative to a laptop or a tablet as it allows the medics to set up faster with less equipment.</p>
+					    <div class="row box post">
+							<div class="box post">
+								<a href="#" class="image left"><img src="images/googlecardboard.jpg" alt="" /></a>
+								<div class="inner">
+									<h3>Google Cardboard</h3>
+									<p>The Google Cardboard is a practical, hand-held device that creates an augmented reality environment for the user. Because of it’s compact size and light weight, the Cardboard is a better alternative to a laptop or a tablet as it allows the medics to set up faster with less equipment.</p>
+								</div>
+							</div>
+						</div>
 					
 						<h3>Map</h3>
 						<p>A map was implemented with OSM-droid, which is an Android library for rendering OpenStreetMap (OSM) style map views. The reason for using this instead of the traditional Android map view is that our client uses an OSM formatted database. 
 						The map renders the current location of the drone by providing GPS coordinates. The map is designed to recenter on the drone at a 10 second interval, and at each interval a new marker is rendered. This is done so that throughout the flight a path will be traced on the map, and after the operation the users have this information and can reflect back on it if they need.
 						There are also markers rendering points of interest from the database, it is displaying all the landmarks located within a 3 kilometer radius of the drone. With the Cardboard, the user can click on a marker to see its tag and description.</p>
 
-						<h3>Video Markers</h3>
-						<p></p>
+						<img src="images/UI_annotated.png" width="500px" class="centerImage"/><br></br>
+
+						<h3>Landmark Waypoints</h3>
+						<p>The video markers in the application were implemented by firstly creating an OBJ file parser which allows for the loading of 3D model which have been created in external applications such as Blender or Maya. By creating this parser we can easily load any new model to other parts of the system. Once the model for the marker is loaded its position is calculated based on the GPS coordinates of both the drone and the landmark and then displayed in the Cardboard allowing the user to see where the landmark is. The last aspect of developing the landmark feature is to light the arrows so that it is easier for the user to see where they are pointing at. This was done using simple dot product lighting.</p>
 
 					    <h3>Graphs</h3>
 					    <p>The software we used for representing graphs is OpenGL ES. Using the data collected from the sensors, the coordinates are plotted on a 2D graph that can be extended to a 3D model. After research into HTML and JavaScript rendering in an OpenGL ES environment, we concluded that creating the graphs with OpenGL ES itself was the most effective method. Components that are included are a constant graph update, so as new data is incoming the new points are represented on the graph.</p>
+
 					</div>
 				</section>
 
